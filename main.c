@@ -48,7 +48,7 @@ FileInfo loadFile(char *inFile)
 
 	fp = fopen(inFile, "r");
 	if (fp == NULL) {
-		printf("Could not load the specified input file: \"%s\"", inFile);
+		printf("Could not load the specified input file: \"%s\"\r\n", inFile);
 		fi.buf = NULL;
 	} else {
 		fi.buf  = ((char *)(malloc(BUFFER_MAX_SIZE)));
@@ -111,7 +111,7 @@ PToken parse(FileInfo *pFi)
 			APPEND_TOKEN;
 			break;
 		default:
-			printf("Failed: detected the syntax error.");
+			printf("Failed: detected the syntax error.\r\n");
 			return NULL;
 		}
 	}
@@ -128,7 +128,7 @@ int saveFile(char *outFile, FileInfo *pFi, PToken root)
 
 	fp = fopen(outFile, "w");
 	if (fp == NULL) {
-		printf("Could not load the specified output file: \"%s\"", outFile);
+		printf("Could not load the specified output file: \"%s\"\r\n", outFile);
 		return EXIT_CODE_OUTPUT;
 	} else {
 		// Write the file header.
@@ -140,7 +140,7 @@ int saveFile(char *outFile, FileInfo *pFi, PToken root)
 		while (token != NULL) {
 			switch (token->type) {
 			case String:
-				str = pFi->buf[token->start];
+				str = &pFi->buf[token->start];
 				if (token->len == 6) {
 					if (strncmp("window", str, 6) == 0) {
 						fprintf(fp, "AWindow *w = aOpenWin(256, 256, \"The Window\", 1);\r\n\r\n");
@@ -153,7 +153,7 @@ int saveFile(char *outFile, FileInfo *pFi, PToken root)
 				break;
 			case EndBlock:
 				if (braces == 0) {
-					printf("Warning: detected an invalid token (end block).");
+					printf("Warning: detected an invalid token (end block).\r\n");
 					ret = EXIT_CODE_SYNTAX;
 					break;
 				}
@@ -161,7 +161,7 @@ int saveFile(char *outFile, FileInfo *pFi, PToken root)
 				fprintf(fp, "}\r\n\r\n");
 				break;
 			default:
-				printf("Warning: detected an invalid token.");
+				printf("Warning: detected an invalid token.\r\n");
 				ret = EXIT_CODE_SYNTAX;
 				break;
 			}
@@ -169,7 +169,7 @@ int saveFile(char *outFile, FileInfo *pFi, PToken root)
 		}
 
 		if (braces != 0) {
-			printf("Warning: end blocks are missing.");
+			printf("Warning: end blocks are missing.\r\n");
 			ret = EXIT_CODE_SYNTAX;
 		}
 
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
 	FileInfo src;
 	PToken root;
 
-	if (argc == 2) {
+	if (argc == 3) {
 		src = loadFile(argv[1]);
 		if (src.buf == NULL) {
 			return EXIT_CODE_INPUT;
@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
 		}
 		return saveFile(argv[2], &src, root);
 	} else {
-		printf("usage> ./AclibMarkup.elf <input-file.am> <output-file.c>");
+		printf("usage> ./AclibMarkup.elf <input-file.am> <output-file.c>\r\n");
 		return EXIT_CODE_CMDLINE;
 	}
 }
