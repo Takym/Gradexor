@@ -30,7 +30,9 @@ Copyright (C) 2020-2021 Takym.
 ## 問題点
 * 現在はマクロを利用してプログラムを切り替えている。
 	* 今後はマクロを使わない形でプログラムの切り替えられる様にする。
+	* [議論](https://github.com/Takym/Gradexor/issues/1)
 * プログラムを整理・最適化する。
+	* [議論](https://github.com/Takym/Gradexor/issues/2)
 
 ## 謝辞
 このプログラムでは [aclib](http://essen.osask.jp/?aclib05) を利用しています。
