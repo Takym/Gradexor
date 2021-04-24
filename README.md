@@ -9,7 +9,8 @@ Copyright (C) 2020-2021 Takym.
 
 ### TYPES
 **TYPES** を [VcXsrv](https://sourceforge.net/projects/vcxsrv/) 経由で WSL から起動した例です。
-![Types.png](./Screenshots/Types.png)
+
+[<img src="./Screenshots/Types.png" width="384" />](./Screenshots/Types.png)
 
 ### SANKO 「三湖」
 三角形の模様が変化していくのが特徴です。
