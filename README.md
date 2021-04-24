@@ -41,3 +41,6 @@ Copyright (C) 2020-2021 Takym.
 
 ## 利用規約
 このプログラムは[MITライセンス](./LICENSE.md)に基づいて配布されています。
+
+## 関連リポジトリ
+* [AclibMarkup](https://github.com/Takym/AclibMarkup)
