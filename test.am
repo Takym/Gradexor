@@ -5,7 +5,9 @@
 
 {
 	{
-		"window"
-		"window"
+		"window";
+		"window";
 	}
 }
+
+;{;};

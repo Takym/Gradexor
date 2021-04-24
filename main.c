@@ -31,7 +31,8 @@ typedef enum _TOKEN_TYPE_ {
 	Root,
 	String,
 	BeginBlock,
-	EndBlock
+	EndBlock,
+	Semicolon
 } TokenType;
 
 typedef struct _TOKEN_ {
@@ -111,6 +112,12 @@ PToken parse(FileInfo *pFi)
 			t->type = EndBlock;
 			APPEND_TOKEN;
 			break;
+		case ';':
+			SKIP;
+			CREATE_TOKEN;
+			t->type = Semicolon;
+			APPEND_TOKEN;
+			break;
 		default:
 			printf("Failed: detected the syntax error.\r\n");
 			return NULL;
@@ -160,6 +167,9 @@ int saveFile(char *outFile, FileInfo *pFi, PToken root)
 				}
 				--braces;
 				fprintf(fp, "}\r\n\r\n");
+				break;
+			case Semicolon:
+				// ignore
 				break;
 			default:
 				printf("Warning: detected an invalid token.\r\n");
