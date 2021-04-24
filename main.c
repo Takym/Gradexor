@@ -94,9 +94,10 @@ PToken parse(FileInfo *pFi)
 			while (i < pFi->size && pFi->buf[i] != '\"') {
 				SKIP;
 			}
-			t->len  = t->start - i;
+			t->len  = i - t->start;
 			t->type = String;
 			APPEND_TOKEN;
+			SKIP;
 			break;
 		case '{':
 			SKIP;
@@ -107,7 +108,7 @@ PToken parse(FileInfo *pFi)
 		case '}':
 			SKIP;
 			CREATE_TOKEN;
-			t->type = BeginBlock;
+			t->type = EndBlock;
 			APPEND_TOKEN;
 			break;
 		default:
