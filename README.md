@@ -3,6 +3,7 @@ Copyright (C) 2020-2021 Takym.
 
 ## 概要
 [aclib](http://essen.osask.jp/?aclib05) を用いたコードを生成するマークアップ言語です。
+現在開発中です。
 
 ## 謝辞
 このプログラムでは [aclib](http://essen.osask.jp/?aclib05) を利用しています。
@@ -11,3 +12,6 @@ Copyright (C) 2020-2021 Takym.
 
 ## 利用規約
 このプログラムは[MITライセンス](./LICENSE.md)に基づいて配布されています。
+
+## 関連リポジトリ
+* [Gradexor](https://github.com/Takym/Gradexor)
