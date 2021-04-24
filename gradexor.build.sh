@@ -1,0 +1,9 @@
+gcc gradexor.c -lSDL2 -o gradexor.sanko.elf -DSANKO
+gcc gradexor.c -lSDL2 -o gradexor.hello.elf -DHELLO
+gcc gradexor.c -lSDL2 -o gradexor.waves.elf -DWAVES
+gcc gradexor.c -lSDL2 -o gradexor.boxes.elf -DBOXES
+gcc gradexor.c -lSDL2 -o gradexor.lines.elf -DLINES
+gcc gradexor.c -lSDL2 -o gradexor.scale.elf -DSCALE
+gcc gradexor.c -lSDL2 -o gradexor.types.elf -DTYPES
+gcc gradexor.c -lSDL2 -o gradexor.typed.elf -DTYPED
+gcc gradexor.c -lSDL2 -o gradexor.typer.elf -DTYPER
