@@ -13,10 +13,7 @@ Copyright (C) 2020-2021 Takym.
 
 ### SANKO 「三湖」
 三角形の模様が変化していくのが特徴です。
-
-<video controls="controls">
-	<source src="./Screenshots/Sanko.mp4" type="video/mp4" />
-</video>
+* [動画をダウンロードする](./Screenshots/Sanko.mp4?raw=true)
 
 ## 起動方法
 0. `bash` を開きます。
