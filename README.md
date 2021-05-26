@@ -26,6 +26,11 @@ Copyright (C) 2020-2021 Takym.
 三角形の模様が変化していくのが特徴です。
 * [動画をダウンロードする](./Screenshots/Sanko.mp4?raw=true)。
 
+### C#静的版
+C# で実装した Gradexor を使うと、以下の様な画像が出力されます。
+
+[<img src="./Screenshots/gradexor_static_output.png" width="384" />](./Screenshots/gradexor_static_output.png)
+
 ## 起動方法
 0. `bash` を開きます。
 	* **Windows** を利用している場合は WSL を開いてください。
