@@ -32,7 +32,7 @@ Copyright (C) 2020-2021 Takym.
 1. このリポジトリをクローンします。
 	* `git clone https://github.com/Takym/Gradexor.git`
 	* `cd Gradexor/src`
-2. <http://essen.osask.jp/?aclib05> から最新の **aclib** をダウンロードして `Gradexor` ディレクトリにコピーします。
+2. <http://essen.osask.jp/?aclib05> から最新の **aclib** をダウンロードして `Gradexor/lib` ディレクトリにコピーします。
 3. `./gradexor.build.sh` を実行してビルドします。
 4. `./gradexor.run_all.sh` を実行します。
 	* このコマンドを実行すると、全種類のグラデーションプログラムが順番に起動します。
