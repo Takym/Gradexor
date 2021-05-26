@@ -1,6 +1,8 @@
 # AclibMarkup
 Copyright (C) 2020-2021 Takym.
 
+最新版は[こちら](https://github.com/Takym/Gradexor)をご確認ください。
+
 ## 概要
 [aclib](http://essen.osask.jp/?aclib05) を用いたコードを生成するマークアップ言語です。
 現在開発中です。
