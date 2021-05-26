@@ -5,14 +5,26 @@
  * distributed under the MIT License.
 ****/
 
-/****
- * THIRD PARTY NOTICE
- * This program uses aclib. (http://essen.osask.jp/?aclib05)
- * License: KL-01 (http://web.archive.org/web/20040402101233/http://www.imasy.org/~mone/kawaido/license01-1.0.html)
-****/
+#include <string.h>
 
+//================================
+// THIRD PARTY NOTICE
+// This program uses aclib. (http://essen.osask.jp/?aclib05)
+// License: KL-01 (http://web.archive.org/web/20040402101233/http://www.imasy.org/~mone/kawaido/license01-1.0.html)
 #define AARCH_X64
 #include "acl.c"
+//================================
+
+#define IsEqual(a, b)	strcmp(a, b) == 0
+#define SANKO			"sanko"
+#define HELLO			"hello"
+#define WAVES			"waves"
+#define BOXES			"boxes"
+#define LINES			"lines"
+#define SCALE			"scale"
+#define TYPES			"types"
+#define TYPED			"typed"
+#define TYPER			"typer"
 
 void drawGradexor_sanko(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
@@ -165,46 +177,39 @@ void drawGradexor_typer(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 	}
 }
 
-void drawGradexor(AWindow *w, AInt16 width, AInt16 height)
+void drawGradexor(AWindow *w, AInt16 width, AInt16 height, const char *mode)
 {
 	AInt16 i;
 	while (1) {
-#ifdef SANKO
-		drawGradexor_sanko(w, width, height, i); // 推奨待機時間は1ミリ秒
-		aWait(1);
-#endif
-#ifdef HELLO
-		drawGradexor_hello(w, width, height, i); // 推奨待機時間は1ミリ秒
-		aWait(1);
-#endif
-#ifdef WAVES
-		drawGradexor_waves(w, width, height, i); // 推奨待機時間は1ミリ秒
-		aWait(1);
-#endif
-#ifdef BOXES
-		drawGradexor_boxes(w, width, height, i); // 推奨待機時間は1ミリ秒
-		aWait(1);
-#endif
-#ifdef LINES
-		drawGradexor_lines(w, width, height, i); // 推奨待機時間は1ミリ秒
-		aWait(1);
-#endif
-#ifdef SCALE
-		drawGradexor_scale(w, width, height, i); // 推奨待機時間は75ミリ秒
-		aWait(75);
-#endif
-#ifdef TYPES
-		drawGradexor_types(w, width, height, i); // 推奨待機時間は1000ミリ秒
-		aWait(1000);
-#endif
-#ifdef TYPED
-		drawGradexor_typed(w, width, height, i); // 推奨待機時間は1000ミリ秒
-		aWait(1000);
-#endif
-#ifdef TYPER
-		drawGradexor_typer(w, width, height, i); // 推奨待機時間は1000ミリ秒
-		aWait(1000);
-#endif
+		if (IsEqual(SANKO, mode) {
+			drawGradexor_sanko(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
+		} else if (IsEqual(HELLO, mode) {
+			drawGradexor_hello(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
+		} else if (IsEqual(WAVES, mode) {
+			drawGradexor_waves(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
+		} else if (IsEqual(BOXES, mode) {
+			drawGradexor_boxes(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
+		} else if (IsEqual(LINES, mode) {
+			drawGradexor_lines(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
+		} else if (IsEqual(SCALE, mode) {
+			drawGradexor_scale(w, width, height, i); // 推奨待機時間は75ミリ秒
+			aWait(75);
+		} else if (IsEqual(TYPES, mode) {
+			drawGradexor_types(w, width, height, i); // 推奨待機時間は1000ミリ秒
+			aWait(1000);
+		} else if (IsEqual(TYPED, mode) {
+			drawGradexor_typed(w, width, height, i); // 推奨待機時間は1000ミリ秒
+			aWait(1000);
+		} else /* if (IsEqual(TYPER, mode) */ {
+			// 未知のモードが指定された場合は TYPER として解釈する。
+			drawGradexor_typer(w, width, height, i); // 推奨待機時間は1000ミリ秒
+			aWait(1000);
+		}
 		++i;
 	}
 }
@@ -214,6 +219,11 @@ void aMain()
 	const AInt16 width  = 1024;
 	const AInt16 height = 1024;
 	AWindow *w = aOpenWin(width, height, "Gradexor - 排他的論理和色彩変化画像", 1);
-	drawGradexor(w, width, height);
+	if (aArgc <= 1) {
+		// 既定のモードは SANKO
+		drawGradexor(w, width, height, 0, SANKO);
+	} else {
+		drawGradexor(w, width, height, 0, aArgv[1]);
+	}
 	aWait(-1);
 }

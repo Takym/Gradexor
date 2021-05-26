@@ -35,14 +35,10 @@ Copyright (C) 2020-2021 Takym.
 2. <http://essen.osask.jp/?aclib05> から最新の **aclib** をダウンロードして `Gradexor` ディレクトリにコピーします。
 3. `./gradexor.build.sh` を実行してビルドします。
 4. `./gradexor.run_all.sh` を実行します。
-	* このコマンドを実行すると、全種類のグラデーションプログラムが起動します。
+	* このコマンドを実行すると、全種類のグラデーションプログラムが順番に起動します。
 
-## 問題点
-* 現在はマクロを利用してプログラムを切り替えている。
-	* 今後はマクロを使わない形でプログラムの切り替えられる様にする。
-	* [議論](https://github.com/Takym/Gradexor/issues/1)
-* プログラムを整理・最適化する。
-	* [議論](https://github.com/Takym/Gradexor/issues/2)
+## 主な問題点
+* [#2: プログラムを整理・最適化する。](https://github.com/Takym/Gradexor/issues/2)
 
 ## 謝辞
 このプログラムでは [aclib](http://essen.osask.jp/?aclib05) を利用しています。

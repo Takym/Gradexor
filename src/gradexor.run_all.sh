@@ -1,9 +1,9 @@
-./gradexor.sanko.elf
-./gradexor.hello.elf
-./gradexor.waves.elf
-./gradexor.boxes.elf
-./gradexor.lines.elf
-./gradexor.scale.elf
-./gradexor.types.elf
-./gradexor.typed.elf
-./gradexor.typer.elf
+./gradexor.elf sanko
+./gradexor.elf hello
+./gradexor.elf waves
+./gradexor.elf boxes
+./gradexor.elf lines
+./gradexor.elf scale
+./gradexor.elf types
+./gradexor.elf typed
+./gradexor.elf typer
