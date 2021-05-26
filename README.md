@@ -2,10 +2,10 @@
 Copyright (C) 2020-2021 Takym.
 
 ## 概要
-[aclib](http://essen.osask.jp/?aclib05)を利用したグラデーションを描画するプログラムです。
+[aclib](http://essen.osask.jp/?aclib05) を利用したグラデーションを描画するプログラムです。
 
 ## [AclibMarkup](./AclibMarkup) とは
-[aclib](http://essen.osask.jp/?aclib05)を用いたコードを生成するマークアップ言語です。
+[aclib](http://essen.osask.jp/?aclib05) を用いたコードを生成するマークアップ言語です。
 現在開発中です。
 元々は独立した[別のリポジトリ](https://github.com/Takym/AclibMarkup)で保管していましたが、現在は本リポジトリに統合されています。
 
@@ -24,7 +24,7 @@ Copyright (C) 2020-2021 Takym.
 
 ### SANKO 「三湖」
 三角形の模様が変化していくのが特徴です。
-* [動画をダウンロードする](./Screenshots/Sanko.mp4?raw=true)
+* [動画をダウンロードする](./Screenshots/Sanko.mp4?raw=true)。
 
 ## 起動方法
 0. `bash` を開きます。
