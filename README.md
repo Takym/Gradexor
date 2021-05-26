@@ -1,6 +1,8 @@
 # Gradexor - 排他的論理和色彩変化画像
 Copyright (C) 2020-2021 Takym.
 
+最新版は[こちら](https://github.com/Takym/Gradexor)をご確認ください。
+
 ## 概要
 [aclib](http://essen.osask.jp/?aclib05) を利用したグラデーションを描画するプログラムです。
 
