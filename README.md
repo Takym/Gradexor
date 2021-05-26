@@ -2,7 +2,17 @@
 Copyright (C) 2020-2021 Takym.
 
 ## 概要
-[aclib](http://essen.osask.jp/?aclib05) を利用したグラデーションを描画するプログラムです。
+[aclib](http://essen.osask.jp/?aclib05)を利用したグラデーションを描画するプログラムです。
+
+## [AclibMarkup](./AclibMarkup) とは
+[aclib](http://essen.osask.jp/?aclib05)を用いたコードを生成するマークアップ言語です。
+現在開発中です。
+元々は独立した[別のリポジトリ](https://github.com/Takym/AclibMarkup)で保管していましたが、現在は本リポジトリに統合されています。
+
+## ブランチ一覧
+* [master](https://github.com/Takym/Gradexor/tree/master) - 最新の **Gradexor** と **AclibMarkup** を保管しています。
+* [Legacy/Gradexor](https://github.com/Takym/Gradexor/tree/Legacy/Gradexor) - 古い **Gradexor** を保管しています。
+* [Legacy/AclibMarkup](https://github.com/Takym/Gradexor/tree/Legacy/AclibMarkup) - 古い **AclibMarkup** を保管しています。
 
 ## 画面
 ここではグラデーションのスクリーンショットを紹介します。
@@ -21,7 +31,7 @@ Copyright (C) 2020-2021 Takym.
 	* **Windows** を利用している場合は WSL を開いてください。
 1. このリポジトリをクローンします。
 	* `git clone https://github.com/Takym/Gradexor.git`
-	* `cd Gradexor`
+	* `cd Gradexor/src`
 2. <http://essen.osask.jp/?aclib05> から最新の **aclib** をダウンロードして `Gradexor` ディレクトリにコピーします。
 3. `./gradexor.build.sh` を実行してビルドします。
 4. `./gradexor.run_all.sh` を実行します。
@@ -41,6 +51,3 @@ Copyright (C) 2020-2021 Takym.
 
 ## 利用規約
 このプログラムは[MITライセンス](./LICENSE.md)に基づいて配布されています。
-
-## 関連リポジトリ
-* [AclibMarkup](https://github.com/Takym/AclibMarkup)
