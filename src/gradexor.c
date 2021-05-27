@@ -29,8 +29,8 @@
 void drawGradexor_sanko(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			aSetPix0(w, x, y, ((x ^ y) | (x & y)) * mode);
 		}
 	}
@@ -39,8 +39,8 @@ void drawGradexor_sanko(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 void drawGradexor_hello(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			aSetPix0(w, x, y, (x & mode) ^ (y | mode));
 		}
 	}
@@ -49,8 +49,8 @@ void drawGradexor_hello(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 void drawGradexor_waves(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			aSetPix0(w, x, y, (x ^ y) * mode);
 		}
 	}
@@ -59,8 +59,8 @@ void drawGradexor_waves(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 void drawGradexor_boxes(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			aSetPix0(w, x, y, aRgb8(
 				( x      ^ mode) & 0xFF,
 				((x ^ y) ^ mode) & 0xFF,
@@ -73,8 +73,8 @@ void drawGradexor_boxes(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 void drawGradexor_lines(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			aSetPix0(w, x, y, aRgb8(
 				( x      + mode) & 0xFF,
 				((x ^ y) + mode) & 0xFF,
@@ -87,8 +87,8 @@ void drawGradexor_lines(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 void drawGradexor_scale(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			aSetPix0(w, x, y, aRgb8(
 				( x      * mode) & 0xFF,
 				((x ^ y) * mode) & 0xFF,
@@ -102,8 +102,8 @@ void drawGradexor_types(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
 	AInt16 col[4];
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			col[0] =  x      & 0xFF;
 			col[1] =      y  & 0xFF;
 			col[2] = (x ^ y) & 0xFF;
@@ -121,8 +121,8 @@ void drawGradexor_typed(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y, c;
 	AInt16 col[4];
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			col[0] =  x      & 0xFF;
 			col[1] = (x ^ y) & 0xFF;
 			col[2] =      y  & 0xFF;
@@ -141,8 +141,8 @@ void drawGradexor_typer(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 {
 	AInt16 x, y;
 	AInt16 col[3];
-	for (y = 0; y < width; y++) {
-		for (x = 0; x < height; x++) {
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
 			col[0] =  x      & 0xFF;
 			col[1] = (x ^ y) & 0xFF;
 			col[2] =      y  & 0xFF;
