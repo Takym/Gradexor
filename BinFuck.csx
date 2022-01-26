@@ -263,6 +263,7 @@ public class Runner
 					}
 				}
 				break;
+			// default: /* ignore */ break;
 			}
 		}
 	}
