@@ -56,9 +56,9 @@ hello
 
 ### 説明書を表示する（英語のみ）
 * 下記のコマンドからコマンド行引数説明書を表示できます。
-```cmd
-> bfk help
-```
+	```cmd
+	> bfk help
+	```
 * `csi.exe BinFuck.csx` は `bfk` に省略できます。
 
 ## 規約
