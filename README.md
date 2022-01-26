@@ -25,9 +25,9 @@ hello
 
 ### Show manuals
 * Please type the below command to refer to the command-line manual:
-```cmd
-> bfk help
-```
+	```cmd
+	> bfk help
+	```
 * You can just use the short command `bfk` instead of the long command `csi.exe BinFuck.csx`.
 
 ## Terms
