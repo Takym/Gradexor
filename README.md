@@ -2,7 +2,9 @@
 Copyright (C) 2020-2021 Takym.
 
 ## 概要
-[aclib](http://essen.osask.jp/?aclib05) を利用したグラデーションを描画するプログラムです。
+本リポジトリで配布しているプログラムは XOR 演算等を用いたグラデーションを描画します。
+[aclib](http://essen.osask.jp/?aclib05) 版と C# 静的版の二つのバージョンがあります。
+前者は出力できる画像の種類が多いです。
 
 ## [AclibMarkup](./AclibMarkup) とは
 [aclib](http://essen.osask.jp/?aclib05) を用いたコードを生成するマークアップ言語です。
