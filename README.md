@@ -33,10 +33,9 @@ C# で実装した Gradexor を使うと、以下の様な画像が出力され�
 
 ## 起動方法
 0. `bash` を開きます。
-	* **Windows** を利用している場合は WSL を開いてください。
+	* **Windows** を使用している場合は WSL を開いてください。
 1. このリポジトリをクローンします。
-	* `git clone https://github.com/Takym/Gradexor.git`
-	* `cd Gradexor/src`
+	* `git clone https://github.com/Takym/Gradexor.git & cd Gradexor/src`
 2. <http://essen.osask.jp/?aclib05> から最新の **aclib** をダウンロードして `Gradexor/lib` ディレクトリにコピーします。
 3. `./gradexor.build.sh` を実行してビルドします。
 4. `./gradexor.run_all.sh` を実行します。
