@@ -3,4 +3,4 @@
 @REM distributed under the MIT License.
 @echo off
 
-call csi.exe BinFuck.csx %*
+call csi.exe %~dp0\BinFuck.csx %*

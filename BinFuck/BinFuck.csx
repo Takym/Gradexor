@@ -90,8 +90,8 @@ void ShowVersion()
 	WriteLine("BinFuck is an esoteric programming language.");
 	WriteLine("Try \'1[>rw<]\' in REPL mode!");
 	WriteLine();
-	WriteLine("Current Version: 0.0.0.0");
-	WriteLine("The Repo: https://github.com/Takym/BinFuck.git");
+	WriteLine("Current Version: 0.0.0.1");
+	WriteLine("The Repo: https://github.com/Takym/Gradexor/tree/master/BinFuck/");
 	WriteLine();
 }
 
