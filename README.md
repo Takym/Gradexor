@@ -51,5 +51,22 @@ C# で実装した Gradexor を使うと、以下の様な画像が出力され�
 製作者の川合秀実さんにこの場を借りてお礼申し上げます。ありがとうございます。
 **aclib** は[KL-01ライセンス](http://web.archive.org/web/20040402101233/http://www.imasy.org/~mone/kawaido/license01-1.0.html)に基づいて配布されています。
 
+## 利用ライブラリ
+* [aclib](http://essen.osask.jp/?aclib05)
+	* 著作者：川合秀実
+	* 使用許諾：[KL-01ライセンス](http://web.archive.org/web/20040402101233/http://www.imasy.org/~mone/kawaido/license01-1.0.html)
+* [SDL 2.0](https://www.libsdl.org/download-2.0.php)
+	* 著作権表記：Copyright (C) 1997-2022 Sam Lantinga <slouken@libsdl.org>
+	* 使用許諾：[zlib License](https://github.com/libsdl-org/SDL/blob/main/LICENSE.txt)
+	* リポジトリ：<https://github.com/libsdl-org/SDL>
+* **System.Drawing**
+	* .NET 5 以上
+		* 著作権表記：Copyright (c) .NET Foundation and Contributors
+		* 使用許諾：[The MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT)
+		* リポジトリ：<https://github.com/dotnet/runtime>
+		* パッケージ：<https://www.nuget.org/packages/System.Drawing.Common/>
+	* .NET Framework 4.5 以上
+		* 情報収集中
+
 ## 利用規約
 このプログラムは[MITライセンス](./LICENSE.md)に基づいて配布されています。
