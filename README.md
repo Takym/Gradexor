@@ -18,9 +18,10 @@ Copyright (C) 2020-2022 Takym.
 	<!-- 次の文章は追加すべきか？「Brainfuck から ra の文字が消えているので Brainfuck Nora ともいう」 -->
 
 ## ブランチ一覧
-* [master](https://github.com/Takym/Gradexor/tree/master) - 最新の **Gradexor** と **AclibMarkup** を保管しています。
+* [master](https://github.com/Takym/Gradexor/tree/master) - 最新のソースを保管しています。
 * [Legacy/Gradexor](https://github.com/Takym/Gradexor/tree/Legacy/Gradexor) - 古い **Gradexor** を保管しています。
 * [Legacy/AclibMarkup](https://github.com/Takym/Gradexor/tree/Legacy/AclibMarkup) - 古い **AclibMarkup** を保管しています。
+* [Legacy/BinFuck](https://github.com/Takym/Gradexor/tree/Legacy/BinFuck) - 古い **BinFuck** を保管しています。
 
 ## 画面
 ここではグラデーションのスクリーンショットを紹介します。
