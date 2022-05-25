@@ -87,11 +87,11 @@
 #define Line(beginX, beginY, endX, endY) \
 	aDrawLine(Window, beginX, beginY, endX, endY, Pen);
 
-#define Rectangle(x, y, width, height)                  \
+#define Rectangle(x, y, width, height)             \
 	aFillRect(Window, width, height, x, y, Brush); \
 	aDrawRect(Window, width, height, x, y, Pen);
 
-#define Ellipse(x, y, width, height)                  \
+#define Ellipse(x, y, width, height)               \
 	aFillOval(Window, width, height, x, y, Brush); \
 	aDrawOval(Window, width, height, x, y, Pen);
 
