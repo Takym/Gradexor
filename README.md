@@ -6,10 +6,16 @@ Copyright (C) 2020-2022 Takym.
 [aclib](http://essen.osask.jp/?aclib05) 版と C# 静的版の二つのバージョンがあります。
 前者は出力できる画像の種類が多いです。
 
-## [AclibMarkup](./AclibMarkup) とは
-[aclib](http://essen.osask.jp/?aclib05) を用いたコードを生成するマークアップ言語です。
-現在開発中です。
-元々は独立した[別のリポジトリ](https://github.com/Takym/AclibMarkup)で保管していましたが、現在は本リポジトリに統合されています。
+## 別プロジェクト
+下記のプロジェクトは、元々、独立した別のリポジトリで管理していましたが、本リポジトリに統合しました。
+
+* **[AclibMarkup](./AclibMarkup)**
+	* [aclib](http://essen.osask.jp/?aclib05) を用いたコードを生成するマークアップ言語です。
+	* [元のリポジトリ](https://github.com/Takym/AclibMarkup)
+* **[BinFuck](./BinFuck)**
+	* [Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck) を参考に開発した難解プログラミング言語です。
+	* [元のリポジトリ](https://github.com/Takym/BinFuck)
+	<!-- 次の文章は追加すべきか？「Brainfuck から ra の文字が消えているので Brainfuck Nora ともいう」 -->
 
 ## ブランチ一覧
 * [master](https://github.com/Takym/Gradexor/tree/master) - 最新の **Gradexor** と **AclibMarkup** を保管しています。
