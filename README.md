@@ -7,15 +7,20 @@ Copyright (C) 2020-2022 Takym.
 前者は出力できる画像の種類が多いです。
 
 ## 別プロジェクト
-下記のプロジェクトは、元々、独立した別のリポジトリで管理していましたが、本リポジトリに統合しました。
+本リポジトリに格納している別のプロジェクトの一覧です。
+「(@)」が付いているプロジェクトは、元々、独立した別のリポジトリで管理していましたが、本リポジトリに統合しました。
 
-* **[AclibMarkup](./AclibMarkup)**
+* **[AclibMarkup](./AclibMarkup)** (@)
 	* [aclib](http://essen.osask.jp/?aclib05) を用いたコードを生成するマークアップ言語です。
 	* [元のリポジトリ](https://github.com/Takym/AclibMarkup)
-* **[BinFuck](./BinFuck)**
+* **[BinFuck](./BinFuck)** (@)
 	* [Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck) を参考に開発した難解プログラミング言語です。
 	* [元のリポジトリ](https://github.com/Takym/BinFuck)
 	<!-- 次の文章は追加すべきか？「Brainfuck から ra の文字が消えているので Brainfuck Nora ともいう」 -->
+* **[MBRInfo](./MBRInfo/)**
+	* MBR の情報を表示するプログラムです。
+	* BPB と FAT 12/16/32 のヘッダーとパーティションテーブルの情報を表示します。
+	* 現在のバージョンでは IPL は表示できません。
 
 ## ブランチ一覧
 * [master](https://github.com/Takym/Gradexor/tree/master) - 最新のソースを保管しています。
