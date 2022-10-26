@@ -1,5 +1,5 @@
 # The BinFuck Interpreter
-Copyright (C) 2020-2022 Takym.
+Copyright (C) 2020-2023 Takym.
 
 [日本語](#概要)
 

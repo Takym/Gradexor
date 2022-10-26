@@ -1,11 +1,15 @@
 ///////                                         //
 //////  The BinFuck Interpreter                ///
-/////   Copyright (C) 2020-2022 Takym.        ////
+/////   Copyright (C) 2020-2023 Takym.        ////
 ////                                         /////
 ///     distributed under the MIT License.  //////
 //                                         ///////
 
 #nullable enable
+#r "System.Console"
+using static System.Console;
+
+string version = "0.0.0.2";
 
 if (Args.Count == 0) {
 	ShowUsage();
@@ -31,8 +35,11 @@ case "repl":
 	var runner = new Runner(new());
 	while (true) {
 		Write("> ");
-		runner.Run(ReadLine());
-		WriteLine();
+		string? cmd = ReadLine();
+		if (!string.IsNullOrEmpty(cmd)) {
+			runner.Run(cmd);
+			WriteLine();
+		}
 	}
 case "r":
 case "run":
@@ -85,12 +92,12 @@ void ShowVersion()
 	WriteLine("The BinFuck Interpreter");
 	WriteLine("=======================");
 	WriteLine();
-	WriteLine("Copyright (C) 2020-2022 Takym.");
+	WriteLine("Copyright (C) 2020-2023 Takym.");
 	WriteLine();
 	WriteLine("BinFuck is an esoteric programming language.");
 	WriteLine("Try \'1[>rw<]\' in REPL mode!");
 	WriteLine();
-	WriteLine("Current Version: 0.0.0.1");
+	WriteLine("Current Version: {0}", version);
 	WriteLine("The Repo: https://github.com/Takym/Gradexor/tree/master/BinFuck/");
 	WriteLine();
 }
@@ -192,7 +199,7 @@ public class Runner
 				_memory[_stack_point] = Read();
 				break;
 			case 'R': // Read a string
-				byte[] input1 = _enc.GetBytes(ReadLine());
+				byte[] input1 = _enc.GetBytes(ReadLine() ?? string.Empty);
 				byte[] input2 = new byte[input1.Length + 8 - (input1.Length & 0b111)];
 				Array.Copy(input1, input2, input1.Length);
 				for (int j = 0; j < input2.Length; j += 8) {
@@ -201,6 +208,25 @@ public class Runner
 						break;
 					}
 					_memory[sp] = BitConverter.ToInt64(input2, j);
+				}
+				break;
+			case 'D': // Dump the runner information
+				WriteLine("Functions:");
+				for (int j = 0; j < _funcs.Count; ++j) {
+					WriteLine("#{0}#", j);
+					WriteLine(_funcs[j]);
+					WriteLine();
+				}
+				WriteLine("Stack Point: {0}", _stack_point);
+				WriteLine("Do Subtract: {0}", _do_subtract);
+				goto case 'd';
+			case 'd': // Dump the memory
+				Write("Memory:");
+				for (int j = 0; j < _memory.Length; ++j) {
+					if ((j & 0b11) == 0) {
+						WriteLine();
+					}
+					Write("{0:X16} ", _memory[j]);
 				}
 				break;
 			case '+': // Increment
