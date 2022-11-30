@@ -17,6 +17,7 @@
 
 #define IsEqual(a, b)	strcmp(a, b) == 0
 #define SANKO			"sanko"
+#define SANKO_V2		"sanko_v2"
 #define HELLO			"hello"
 #define WAVES			"waves"
 #define BOXES			"boxes"
@@ -32,6 +33,19 @@ void drawGradexor_sanko(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
 	for (x = 0; x < width; ++x) {
 		for (y = 0; y < height; ++y) {
 			aSetPix0(w, x, y, ((x ^ y) | (x & y)) * mode);
+		}
+	}
+}
+
+void drawGradexor_sanko_v2(AWindow *w, AInt16 width, AInt16 height, AInt16 mode)
+{
+	AInt16 x, y;
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
+			for (int i = 0; i < 16; ++i) {
+				aSetPix0(w, x, y, ((x ^ y) | (x & y)) * mode);
+				++mode;
+			}
 		}
 	}
 }
@@ -184,6 +198,9 @@ void drawGradexor(AWindow *w, AInt16 width, AInt16 height, const char *mode)
 		if (IsEqual(SANKO, mode)) {
 			drawGradexor_sanko(w, width, height, i); // 推奨待機時間は1ミリ秒
 			aWait(1);
+		} else if (IsEqual(SANKO_V2, mode)) {
+			drawGradexor_sanko_v2(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
 		} else if (IsEqual(HELLO, mode)) {
 			drawGradexor_hello(w, width, height, i); // 推奨待機時間は1ミリ秒
 			aWait(1);
@@ -220,8 +237,8 @@ void aMain()
 	const AInt16 height = 1024;
 	AWindow *w = aOpenWin(width, height, "Gradexor - 排他的論理和色彩変化画像", 1);
 	if (aArgc <= 1) {
-		// 既定のモードは SANKO
-		drawGradexor(w, width, height, SANKO);
+		// 既定のモードは SANKO_V2
+		drawGradexor(w, width, height, SANKO_V2);
 	} else {
 		drawGradexor(w, width, height, aArgv[1]);
 	}
