@@ -11,6 +11,8 @@
 // http://elm-chan.org/docs/fat.html
 // https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%96%E3%83%BC%E3%83%88%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89
 // https://en.wikipedia.org/wiki/Master_boot_record
+// https://uefi.org/specifications
+// https://uefi.org/sites/default/files/resources/UEFI_Spec_2_9_2021_03_18.pdf
 
 #ifdef __GNUC__
 #define PACKED __attribute__((packed))
@@ -64,17 +66,17 @@ typedef struct _FAT_HEADER_32_ {
 	int8_t  BS_FilSysType[8];
 } PACKED FATHeader32;
 
-typedef struct _PARTITION_ENTRY_ {
-	int8_t  Bootable;
-	int8_t  FirstSectorCHS[3];
-	int8_t  PartitionType;
-	int8_t  LastSectorCHS[3];
-	int32_t FirstSectorLBA;
-	int32_t NumberOfSectors;
-} PACKED PartitionEntry;
+typedef struct _PARTITION_RECORD_ {
+	int8_t  BootIndicator;
+	int8_t  StartingCHS[3];
+	int8_t  OSType;
+	int8_t  EndingCHS[3];
+	int32_t StartingLBA;
+	int32_t SizeInLBA;
+} PACKED PartitionRecord;
 
 typedef struct _PARTITION_TABLE_ {
-	PartitionEntry PartitionEntries[4];
+	PartitionRecord PartitionRecords[4];
 } PACKED PartitionTable;
 
 typedef struct _CHS_ {
@@ -100,18 +102,18 @@ CHS decodeCHS(int8_t chsData[3])
 
 int main(int argc, char *argv[])
 {
-	FILE           *fp;
-	size_t          sz;
-	char            buf[MBR_SIZE];
-	char            tmp[12];
-	int             i;
-	FATHeader      *fh;
-	FATHeader1216  *fh1216;
-	FATHeader32    *fh32;
-	PartitionTable *pt;
-	PartitionEntry *pe;
-	int8_t         *bootSig;
-	CHS             chs;
+	FILE            *fp;
+	size_t           sz;
+	char             buf[MBR_SIZE];
+	char             tmp[12];
+	int              i;
+	FATHeader       *fh;
+	FATHeader1216   *fh1216;
+	FATHeader32     *fh32;
+	PartitionTable  *pt;
+	PartitionRecord *pr;
+	int8_t          *bootSig;
+	CHS              chs;
 
 	if (argc != 2) {
 		printf("Usage> %s <disk image file>\r\n", argv[0]);
@@ -202,18 +204,18 @@ int main(int argc, char *argv[])
 	printf("BS_FilSysType  : %s\r\n", tmp);
 
 	for (i = 0; i < 4; ++i) {
-		pe = &pt->PartitionEntries[i];
+		pr = &pt->PartitionRecords[i];
 		printf("\r\n\r\n");
 		printf("PartitionEntry #%d\r\n", i);
 		printf("------------------\r\n");
-		printf("Bootable       : 0x%02X\r\n", ((int32_t)(pe->Bootable)));
-		chs = decodeCHS(pe->FirstSectorCHS);
-		printf("FirstSectorCHS : C = %d; H = %d; S = %d\r\n", chs.Cylinder, chs.Head, chs.Sector);
-		printf("PartitionType  : 0x%02X\r\n", pe->PartitionType);
-		chs = decodeCHS(pe->LastSectorCHS);
-		printf("LastSectorCHS  : C = %d; H = %d; S = %d\r\n", chs.Cylinder, chs.Head, chs.Sector);
-		printf("FirstSectorLBA : 0x%08X\r\n", ((int32_t)(pe->FirstSectorLBA)));
-		printf("NumberOfSectors: %d\r\n",     ((int32_t)(pe->NumberOfSectors)));
+		printf("BootIndicator  : 0x%02X\r\n", ((int32_t)(pr->BootIndicator)));
+		chs = decodeCHS(pr->StartingCHS);
+		printf("StartingCHS    : C = %d; H = %d; S = %d\r\n", chs.Cylinder, chs.Head, chs.Sector);
+		printf("OSType         : 0x%02X\r\n", pr->OSType);
+		chs = decodeCHS(pr->EndingCHS);
+		printf("EndingCHS      : C = %d; H = %d; S = %d\r\n", chs.Cylinder, chs.Head, chs.Sector);
+		printf("StartingLBA    : 0x%08X\r\n", ((int32_t)(pr->StartingLBA)));
+		printf("SizeInLBA      : %d\r\n",     ((int32_t)(pr->SizeInLBA)));
 	}
 
 	printf("\r\n\r\n");

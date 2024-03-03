@@ -1,3 +1,4 @@
+#!/bin/bash
 ../bin/gradexor.elf sanko
 ../bin/gradexor.elf hello
 ../bin/gradexor.elf waves

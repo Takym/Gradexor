@@ -1,5 +1,5 @@
 # The BinFuck Interpreter            #
-# Copyright (C) 2020-2022 Takym.     #
+# Copyright (C) 2020-2023 Takym.     #
 # distributed under the MIT License. #
 
-(.a999999999992=3>=>7=>=>3>9+<<<<<W)@
+(.a999999999992=3>=>7=>=>3>.9+<<<<<W)@
