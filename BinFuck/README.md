@@ -1,5 +1,5 @@
 # The BinFuck Interpreter
-Copyright (C) 2020-2023 Takym.
+Copyright (C) 2020-2024 Takym.
 
 [日本語](#概要)
 
@@ -8,6 +8,7 @@ BinFuck is an esoteric programming language.
 I developed by drawing on [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck).
 The naming origin is a programming language like machine language (binary).
 Try `1[>rw<]` in REPL mode!
+Use `Dd_` to dump data.
 
 ## How to use
 
@@ -39,6 +40,7 @@ BinFuck は難解プログラミング言語です。
 [Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck) を参考に開発しました。
 機械語（binary）の様なプログラミング言語であるというのが名称の由来です。
 REPL モードで `1[>rw<]` を試してみてください。
+内部データを表示するには `Dd_` と入力してください。
 
 ## 使い方
 
