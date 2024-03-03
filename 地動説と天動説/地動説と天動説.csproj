@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ApplicationDefaultFont>IPAゴシック, 16pt</ApplicationDefaultFont>
+		<NoWarn>IDE0290;$(NoWarn)</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>地動説と天動説</Product>
+		<Description>地動説で見た時の星々の動きと天動説で見た時の星々の動きをシミュレーションします。</Description>
+		<Authors>Takym</Authors>
+		<Version>0.0.0.0</Version>
+		<Copyright>Copyright (C) 2024 Takym.</Copyright>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<Optimize>false</Optimize>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<StartupObject>地動説と天動説.メインウィンドウ.デバッグ環境</StartupObject>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<Optimize>true</Optimize>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+		<StartupObject>地動説と天動説.メインウィンドウ</StartupObject>
+	</PropertyGroup>
+</Project>
