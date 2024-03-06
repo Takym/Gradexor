@@ -1,5 +1,5 @@
 # Gradexor - 排他的論理和色彩変化画像
-Copyright (C) 2020-2022 Takym.
+Copyright (C) 2020-2024 Takym.
 
 ## 概要
 本リポジトリで配布しているプログラムは XOR 演算等を用いたグラデーションを描画します。
@@ -21,12 +21,16 @@ Copyright (C) 2020-2022 Takym.
 	* MBR の情報を表示するプログラムです。
 	* BPB と FAT 12/16/32 のヘッダーとパーティションテーブルの情報を表示します。
 	* 現在のバージョンでは IPL は表示できません。
+* **[HeliocentrismAndGeocentrism](./HeliocentrismAndGeocentrism/)** (@)
+	* 地動説で見た時の星々の動きと天動説で見た時の星々の動きをシミュレーションします。
+	* [元のリポジトリ](https://github.com/Takym/HeliocentrismAndGeocentrism)
 
 ## ブランチ一覧
 * [master](https://github.com/Takym/Gradexor/tree/master) - 最新のソースを保管しています。
 * [Legacy/Gradexor](https://github.com/Takym/Gradexor/tree/Legacy/Gradexor) - 古い **Gradexor** を保管しています。
 * [Legacy/AclibMarkup](https://github.com/Takym/Gradexor/tree/Legacy/AclibMarkup) - 古い **AclibMarkup** を保管しています。
 * [Legacy/BinFuck](https://github.com/Takym/Gradexor/tree/Legacy/BinFuck) - 古い **BinFuck** を保管しています。
+* [Legacy/HeliocentrismAndGeocentrism](https://github.com/Takym/Gradexor/tree/Legacy/HeliocentrismAndGeocentrism) - 古い **HeliocentrismAndGeocentrism** を保管しています。
 
 ## 画面
 ここではグラデーションのスクリーンショットを紹介します。
@@ -82,3 +86,7 @@ C# で実装した Gradexor を使うと、以下の様な画像が出力され�
 
 ## 利用規約
 このプログラムは[MITライセンス](./LICENSE.md)に基づいて配布されています。
+
+このリポジトリには複数のライセンスファイルが添付されていますが、全て**MITライセンス**になっています。
+複数のリポジトリを統合したためこの様になっています。
+<!--（将来、再び別のリポジトリを統合した場合、もしかしたら、異なるライセンスのファイルが混入するかもしれません。）-->

@@ -1,6 +1,6 @@
 ///////                                         //
 //////  The BinFuck Interpreter                ///
-/////   Copyright (C) 2020-2023 Takym.        ////
+/////   Copyright (C) 2020-2024 Takym.        ////
 ////                                         /////
 ///     distributed under the MIT License.  //////
 //                                         ///////
@@ -9,7 +9,7 @@
 #r "System.Console"
 using static System.Console;
 
-string version = "0.0.0.2";
+string version = "0.0.0.3";
 
 if (Args.Count == 0) {
 	ShowUsage();
@@ -171,7 +171,13 @@ public class Runner
 				_memory[_stack_point] = funcid;
 				break;
 			case '@': // Call a function
-				this.Run(_funcs[unchecked((int)(_memory[_stack_point] / _funcs.Count))]);
+				int funcCount = _funcs.Count;
+				if (funcCount > 0) {
+					int funcIdx = unchecked((int)(_memory[_stack_point]));
+					if (funcIdx < funcCount) {
+						this.Run(_funcs[funcIdx]);
+					}
+				}
 				break;
 			case '.': // Clear memory
 				_memory[_stack_point] = 0;
@@ -211,15 +217,14 @@ public class Runner
 				}
 				break;
 			case 'D': // Dump the runner information
-				WriteLine("Functions:");
-				for (int j = 0; j < _funcs.Count; ++j) {
-					WriteLine("#{0}#", j);
-					WriteLine(_funcs[j]);
-					WriteLine();
-				}
+				WriteLine("Encoding: {0}", _enc.EncodingName);
+				WriteLine("Memory Size: {0}", _memory.Length);
+				WriteLine("Memory Type: {0}", _memory[0].GetType());
 				WriteLine("Stack Point: {0}", _stack_point);
 				WriteLine("Do Subtract: {0}", _do_subtract);
-				goto case 'd';
+				WriteLine("Use the \'d\' instruction to dump the memory.");
+				WriteLine("Use the \'_\' instruction to dump the list of functions.");
+				break;
 			case 'd': // Dump the memory
 				Write("Memory:");
 				for (int j = 0; j < _memory.Length; ++j) {
@@ -227,6 +232,15 @@ public class Runner
 						WriteLine();
 					}
 					Write("{0:X16} ", _memory[j]);
+				}
+				WriteLine();
+				break;
+			case '_': // Dump the list of functions
+				WriteLine("Functions:");
+				for (int j = 0; j < _funcs.Count; ++j) {
+					WriteLine("#{0}#", j);
+					WriteLine(_funcs[j]);
+					WriteLine();
 				}
 				break;
 			case '+': // Increment
