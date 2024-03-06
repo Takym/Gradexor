@@ -83,6 +83,11 @@ C# で実装した Gradexor を使うと、以下の様な画像が出力され�
 		* パッケージ：<https://www.nuget.org/packages/System.Drawing.Common/>
 	* .NET Framework 4.5 以上
 		* 情報収集中
+* **Microsoft.NET.Sdk**
+	* [.NET プロジェクト SDK](https://docs.microsoft.com/ja-jp/dotnet/core/project-sdk/overview)
+	* 著作権表記：Copyright (c) .NET Foundation and Contributors
+	* リポジトリ：<https://github.com/dotnet/sdk>
+	* 使用許諾：[MITライセンス](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT)
 
 ## 利用規約
 このプログラムは[MITライセンス](./LICENSE.md)に基づいて配布されています。

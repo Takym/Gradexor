@@ -13,5 +13,13 @@ Copyright (C) 2024 Takym.
 * **OS**: Microsoft Windows 10 またはそれ以降
 * **ランタイム**: .NET 8.0 またはそれ以降
 
+## 利用SDK
+* **Microsoft.NET.Sdk**
+	* [.NET プロジェクト SDK](https://docs.microsoft.com/ja-jp/dotnet/core/project-sdk/overview)
+	* 著作権表記：Copyright (c) .NET Foundation and Contributors
+	* リポジトリ：<https://github.com/dotnet/sdk>
+	* 使用許諾：[MITライセンス](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT)
+* `UseWindowsForms` を指定している。
+
 ## 利用規約
 [MITライセンス](./LICENSE.md)で配布しています。
