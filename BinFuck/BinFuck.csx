@@ -9,7 +9,7 @@
 #r "System.Console"
 using static System.Console;
 
-string version = "0.0.0.4";
+string version = "0.0.0.5";
 
 if (Args.Count == 0) {
 	ShowUsage();
@@ -95,7 +95,7 @@ void ShowVersion()
 	WriteLine("Copyright (C) 2020-2023 Takym.");
 	WriteLine();
 	WriteLine("BinFuck is an esoteric programming language.");
-	WriteLine("Try \'1[>rw<]\' in REPL mode!");
+	WriteLine("Try \'1[>rw<]\' or \'irw>.99998cw<iw\' in REPL mode!");
 	WriteLine();
 	WriteLine("Current Version: {0}", version);
 	WriteLine("The Repo: https://github.com/Takym/Gradexor/tree/master/BinFuck/");
@@ -113,6 +113,7 @@ public class Runner
 	private                 int           _stack_point;
 	private                 bool          _do_subtract;
 	private                 bool          _rw_int;
+	private                 bool          _cond_jump;
 
 	public Runner(List<string> sources, Encoding? enc = null, int memorySize = 2048)
 	{
@@ -123,6 +124,7 @@ public class Runner
 		_stack_point = 0;
 		_do_subtract = false;
 		_rw_int      = false;
+		_cond_jump   = false;
 	}
 
 	public void RunAll()
@@ -142,7 +144,7 @@ public class Runner
 
 	public void Run(string s)
 	{
-		for (int i = 0; i < s.Length; ++i) {
+		for (int i = 0; 0 <= i && i < s.Length; ++i) {
 			char ch = s[i];
 			switch (ch) {
 			case '#': // Comment
@@ -203,6 +205,21 @@ public class Runner
 			case 'c': // Set read/write integer flag to false
 				_rw_int = false;
 				break;
+			case ':': // Invert conditional jump flag
+				_cond_jump = !_cond_jump;
+				break;
+			case 'f': // Store flag data
+				_memory[_stack_point] =
+					(_do_subtract ? 0b001 : 0b000) |
+					(_rw_int      ? 0b010 : 0b000) |
+					(_cond_jump   ? 0b100 : 0b000);
+				break;
+			case 'F': // Load flag data
+				long flagData = _memory[_stack_point];
+				_do_subtract = (flagData & 0b001) == 0b001;
+				_rw_int      = (flagData & 0b010) == 0b010;
+				_cond_jump   = (flagData & 0b100) == 0b100;
+				break;
 			case 'w': // Write a character or an integer
 				if (_rw_int) {
 					Write("{0:D}", _memory[_stack_point]);
@@ -239,6 +256,7 @@ public class Runner
 				WriteLine("Stack Point: {0}", _stack_point);
 				WriteLine("Do Subtract: {0}", _do_subtract);
 				WriteLine("R/W Integer: {0}", _rw_int);
+				WriteLine("Cond Jump  : {0}", _cond_jump);
 				WriteLine("Use the \'d\' instruction to dump the memory.");
 				WriteLine("Use the \'_\' instruction to dump the list of functions.");
 				break;
@@ -281,21 +299,21 @@ public class Runner
 				break;
 			case '>': // Go next stack point
 				++_stack_point;
-				if (i >= _memory.Length) {
+				if (_stack_point >= _memory.Length) {
 					_stack_point = 0;
 				}
 				break;
 			case '<': // Go previous stack point
 				--_stack_point;
-				if (i < 0) {
+				if (_stack_point < 0) {
 					_stack_point = _memory.Length - 1;
 				}
 				break;
-			case '!': // Jump
+			case '!': // Jump relatively
 				i += unchecked((int)(_memory[_stack_point]));
 				--i;
 				break;
-			case '?': // Jump if not zero
+			case '?': // Jump relatively if not zero
 				if (_memory[_stack_point] != 0) {
 					int j = _stack_point + 1;
 					if (j >= _memory.Length) {
@@ -303,6 +321,14 @@ public class Runner
 					}
 					i += unchecked((int)(_memory[j]));
 					--i;
+				}
+				break;
+			case 'j': // Jump absolutely (Goto)
+				i = unchecked((int)(_memory[_stack_point])) - 1;
+				break;
+			case 'J': // Jump absolutely if conditional jump flag is true (Conditional Goto)
+				if (_cond_jump) {
+					i = unchecked((int)(_memory[_stack_point])) - 1;
 				}
 				break;
 			case '[': // Loop start
