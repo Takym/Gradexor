@@ -7,7 +7,7 @@ Copyright (C) 2020-2024 Takym.
 BinFuck is an esoteric programming language.
 I developed by drawing on [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck).
 The naming origin is a programming language like machine language (binary).
-Try `1[>rw<]` in REPL mode!
+Try `1[>rw<]` or `irw>.99998cw<iw` in REPL mode!
 Use `Dd_` to dump data.
 
 ## How to use
@@ -17,6 +17,10 @@ Use `Dd_` to dump data.
 > bfk repl
 > 999999999992=3>=>7=>=>3<<<<W
 hello
+> ir>r[-<+>]<w
+1
+2
+3
 ```
 
 ### Run a script file
@@ -39,7 +43,7 @@ This interpreter is distributed under the [MIT License](LICENSE.md).
 BinFuck は難解プログラミング言語です。
 [Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck) を参考に開発しました。
 機械語（binary）の様なプログラミング言語であるというのが名称の由来です。
-REPL モードで `1[>rw<]` を試してみてください。
+REPL モードで `1[>rw<]` または `irw>.99998cw<iw` を試してみてください。
 内部データを表示するには `Dd_` と入力してください。
 
 ## 使い方
@@ -49,6 +53,10 @@ REPL モードで `1[>rw<]` を試してみてください。
 > bfk repl
 > 999999999992=3>=>7=>=>3<<<<W
 hello
+> ir>r[-<+>]<w
+1
+2
+3
 ```
 
 ### スクリプトファイルを実行する

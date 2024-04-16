@@ -9,7 +9,7 @@
 #r "System.Console"
 using static System.Console;
 
-string version = "0.0.0.3";
+string version = "0.0.0.4";
 
 if (Args.Count == 0) {
 	ShowUsage();
@@ -112,6 +112,7 @@ public class Runner
 	private                 int           _index;
 	private                 int           _stack_point;
 	private                 bool          _do_subtract;
+	private                 bool          _rw_int;
 
 	public Runner(List<string> sources, Encoding? enc = null, int memorySize = 2048)
 	{
@@ -121,6 +122,7 @@ public class Runner
 		_memory      = new long[memorySize];
 		_stack_point = 0;
 		_do_subtract = false;
+		_rw_int      = false;
 	}
 
 	public void RunAll()
@@ -195,14 +197,28 @@ public class Runner
 			case 'a': // Set do subtract flag to false
 				_do_subtract = false;
 				break;
-			case 'w': // Write a character
-				this.TryWriteChar(0);
+			case 'i': // Set read/write integer flag to true
+				_rw_int = true;
+				break;
+			case 'c': // Set read/write integer flag to false
+				_rw_int = false;
+				break;
+			case 'w': // Write a character or an integer
+				if (_rw_int) {
+					Write("{0:D}", _memory[_stack_point]);
+				} else {
+					this.TryWriteChar(0);
+				}
 				break;
 			case 'W': // Write a string
 				for (int j = 0; this.TryWriteChar(j); ++j) ;
 				break;
 			case 'r': // Read a character
-				_memory[_stack_point] = Read();
+				if (_rw_int) {
+					_memory[_stack_point] = long.TryParse(ReadLine(), out long result) ? result : 0;
+				} else {
+					_memory[_stack_point] = Read();
+				}
 				break;
 			case 'R': // Read a string
 				byte[] input1 = _enc.GetBytes(ReadLine() ?? string.Empty);
@@ -217,11 +233,12 @@ public class Runner
 				}
 				break;
 			case 'D': // Dump the runner information
-				WriteLine("Encoding: {0}", _enc.EncodingName);
+				WriteLine("Encoding   : {0}", _enc.EncodingName);
 				WriteLine("Memory Size: {0}", _memory.Length);
 				WriteLine("Memory Type: {0}", _memory[0].GetType());
 				WriteLine("Stack Point: {0}", _stack_point);
 				WriteLine("Do Subtract: {0}", _do_subtract);
+				WriteLine("R/W Integer: {0}", _rw_int);
 				WriteLine("Use the \'d\' instruction to dump the memory.");
 				WriteLine("Use the \'_\' instruction to dump the list of functions.");
 				break;
@@ -290,18 +307,16 @@ public class Runner
 				break;
 			case '[': // Loop start
 				if (_memory[_stack_point] == 0) {
-					++i;
-					while (i < s.Length && s[i] != ']') {
+					do {
 						++i;
-					}
+					} while (i < s.Length && s[i] != ']');
 				}
 				break;
 			case ']': // Loop end
 				if (_memory[_stack_point] != 0) {
-					--i;
-					while (i >= 0 && s[i] != '[') {
+					do {
 						--i;
-					}
+					} while (i >= 0 && s[i] != '[');
 				}
 				break;
 			// default: /* ignore */ break;
