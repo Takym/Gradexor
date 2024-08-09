@@ -1,123 +1,123 @@
 # JsonUrlSaver
 Copyright (C) 2024 Takym.
 
-## ŠT—v
-JSON ƒtƒ@ƒCƒ‹“à‚Ì URL ‚©‚ç‘Œ¹‚ğƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä•Û‘¶‚·‚éƒc[ƒ‹‚Å‚·B
-ÅV”Å‹y‚Ñƒ\[ƒXƒR[ƒh‚Íu<https://github.com/Takym/Gradexor/tree/master/JsonUrlSaver/>v‚©‚çƒ_ƒEƒ“ƒ[ƒh‚Å‚«‚Ü‚·B
+## æ¦‚è¦
+JSON ãƒ•ã‚¡ã‚¤ãƒ«å†…ã® URL ã‹ã‚‰è³‡æºã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ä¿å­˜ã™ã‚‹ãƒ„ãƒ¼ãƒ«ã§ã™ã€‚
+æœ€æ–°ç‰ˆåŠã³ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã¯ã€Œ<https://github.com/Takym/Gradexor/tree/master/JsonUrlSaver/>ã€ã‹ã‚‰ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã§ãã¾ã™ã€‚
 
-## g—p–@
+## ä½¿ç”¨æ³•
 
-### ƒ_ƒEƒ“ƒ[ƒh
-‰º‹L‚ÌƒRƒ}ƒ“ƒh‚ğÀs‚·‚é–‚ÅAƒtƒ@ƒCƒ‹‚ğƒ_ƒEƒ“ƒ[ƒh‚Å‚«‚Ü‚·B
-‘Š‘ÎƒpƒX‚Å‚à“®ì‚µ‚Ü‚·‚ªAâ‘ÎƒpƒXiŠ®‘SƒpƒXj‚ğw’è‚·‚é–‚ğ„§‚µ‚Ü‚·B
+### ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
+ä¸‹è¨˜ã®ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œã™ã‚‹äº‹ã§ã€ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã§ãã¾ã™ã€‚
+ç›¸å¯¾ãƒ‘ã‚¹ã§ã‚‚å‹•ä½œã—ã¾ã™ãŒã€çµ¶å¯¾ãƒ‘ã‚¹ï¼ˆå®Œå…¨ãƒ‘ã‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹äº‹ã‚’æ¨å¥¨ã—ã¾ã™ã€‚
 ```cmd
-> JsonUrlSaver.exe dir=<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚ŞƒfƒBƒŒƒNƒgƒŠ‚Ö‚ÌƒpƒX>
+> JsonUrlSaver.exe dir=<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¸ã®ãƒ‘ã‚¹>
 ```
 
-ƒ_ƒEƒ“ƒ[ƒh’†‚ÉƒGƒ‰[‚ª”­¶‚·‚é–‚ª‚ ‚è‚Ü‚·‚ªA©“®“I‚ÉŸ‚Ìƒtƒ@ƒCƒ‹‚É‘±s‚³‚ê‚Ü‚·B
-‚Ü‚½A”ñ JSON ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚¾‚ÌƒGƒ‰[‚Í–³‹‚µ‚Ä\‚¢‚Ü‚¹‚ñB
+ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã™ã‚‹äº‹ãŒã‚ã‚Šã¾ã™ãŒã€è‡ªå‹•çš„ã«æ¬¡ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ç¶šè¡Œã•ã‚Œã¾ã™ã€‚
+ã¾ãŸã€é JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã æ™‚ã®ã‚¨ãƒ©ãƒ¼ã¯ç„¡è¦–ã—ã¦æ§‹ã„ã¾ã›ã‚“ã€‚
 
-### ZIP ƒtƒ@ƒCƒ‹‚Ì“WŠJ
-ƒfƒBƒŒƒNƒgƒŠ‚Ì‘ã‚í‚è‚ÉA‰º‹L‚Ì—l‚É ZIP ƒtƒ@ƒCƒ‹‚ğw’è‚·‚é–‚à‚Å‚«‚Ü‚·B
-ZIP ƒtƒ@ƒCƒ‹‚Í©“®“I‚É“WŠJ‚³‚ê‚Ü‚·B
+### ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã®å±•é–‹
+ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ä»£ã‚ã‚Šã«ã€ä¸‹è¨˜ã®æ§˜ã« ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã™ã‚‹äº‹ã‚‚ã§ãã¾ã™ã€‚
+ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã¯è‡ªå‹•çš„ã«å±•é–‹ã•ã‚Œã¾ã™ã€‚
 ```cmd
-> JsonUrlSaver.exe zip=<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚Ş ZIP ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX>
+> JsonUrlSaver.exe zip=<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹>
 ```
 
-ZIP ƒtƒ@ƒCƒ‹‚Ì“WŠJæ‚Í `dir=...` ‚Åw’è‚Å‚«‚Ü‚·B
+ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã®å±•é–‹å…ˆã¯ `dir=...` ã§æŒ‡å®šã§ãã¾ã™ã€‚
 ```cmd
-> JsonUrlSaver.exe zip=<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚Ş ZIP ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX> dir=<ZIP ƒtƒ@ƒCƒ‹‚Ì“WŠJæ‚ÌƒpƒX>
+> JsonUrlSaver.exe zip=<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹> dir=<ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã®å±•é–‹å…ˆã®ãƒ‘ã‚¹>
 ```
 
-“WŠJæ‚ª‘¶İ‚·‚éê‡Aã‘‚«ƒGƒ‰[‚ª”­¶‚µ‚Ü‚·B‰ñ”ğ‚·‚é‚É‚ÍA`zipOverwrite=true` ‚ğw’è‚µ‚Ü‚·B
-‚½‚¾‚µA‚±‚ÌƒGƒ‰[‚ğ—}§‚·‚é‚ÆAd—v‚Èƒf[ƒ^‚ªÁ‚¦‚Ä‚µ‚Ü‚¤‹°‚ê‚ª‚ ‚è‚Ü‚·‚Ì‚ÅA’ˆÓ‚µ‚Ä‚²g—p‚­‚¾‚³‚¢B
+å±•é–‹å…ˆãŒå­˜åœ¨ã™ã‚‹å ´åˆã€ä¸Šæ›¸ãã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã™ã€‚å›é¿ã™ã‚‹ã«ã¯ã€`zipOverwrite=true` ã‚’æŒ‡å®šã—ã¾ã™ã€‚
+ãŸã ã—ã€ã“ã®ã‚¨ãƒ©ãƒ¼ã‚’æŠ‘åˆ¶ã™ã‚‹ã¨ã€é‡è¦ãªãƒ‡ãƒ¼ã‚¿ãŒæ¶ˆãˆã¦ã—ã¾ã†æã‚ŒãŒã‚ã‚Šã¾ã™ã®ã§ã€æ³¨æ„ã—ã¦ã”ä½¿ç”¨ãã ã•ã„ã€‚
 
-* “WŠJæ‚ğŠù’è’l‚É‚·‚éê‡
+* å±•é–‹å…ˆã‚’æ—¢å®šå€¤ã«ã™ã‚‹å ´åˆ
 	```cmd
-	> JsonUrlSaver.exe zip=<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚Ş ZIP ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX> zipOverwrite=true
+	> JsonUrlSaver.exe zip=<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹> zipOverwrite=true
 	```
-* “WŠJæ‚ğw’è‚·‚éê‡
+* å±•é–‹å…ˆã‚’æŒ‡å®šã™ã‚‹å ´åˆ
 	```cmd
-	> JsonUrlSaver.exe zip=<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚Ş ZIP ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX> dir=<ZIP ƒtƒ@ƒCƒ‹‚Ì“WŠJæ‚ÌƒpƒX> zipOverwrite=true
+	> JsonUrlSaver.exe zip=<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹> dir=<ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã®å±•é–‹å…ˆã®ãƒ‘ã‚¹> zipOverwrite=true
 	```
 
-### Slack ‚©‚çƒf[ƒ^‚ğƒ_ƒEƒ“ƒ[ƒh‚·‚é
-Slack ‚©‚çƒGƒNƒXƒ|[ƒg‚µ‚Ä“¾‚ç‚ê‚éƒA[ƒJƒCƒu‚Ì JSON ƒtƒ@ƒCƒ‹‚©‚çƒtƒ@ƒCƒ‹‚ğƒ_ƒEƒ“ƒ[ƒh‚·‚é‚ÍA
-`token=...` ‚Å User OAuth Token ‚ğw’è‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
-‚Ü‚½A`filters=slack` ‚ğw’è‚µAƒ_ƒEƒ“ƒ[ƒh‚·‚é URL ‚ği‚è‚İ‚Ü‚·B
+### Slack ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
+Slack ã‹ã‚‰ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã—ã¦å¾—ã‚‰ã‚Œã‚‹ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–ã® JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹æ™‚ã¯ã€
+`token=...` ã§ User OAuth Token ã‚’æŒ‡å®šã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+ã¾ãŸã€`filters=slack` ã‚’æŒ‡å®šã—ã€ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ URL ã‚’çµã‚Šè¾¼ã¿ã¾ã™ã€‚
 ```cmd
-> JsonUrlSaver.exe zip=<Slack ‚ÌƒA[ƒJƒCƒu‚Ö‚ÌƒpƒX> token=<User OAuth Token> filters=slack
+> JsonUrlSaver.exe zip=<Slack ã®ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–ã¸ã®ãƒ‘ã‚¹> token=<User OAuth Token> filters=slack
 ```
 
-ƒ[ƒNƒXƒy[ƒX‚ÌƒZƒLƒ…ƒŠƒeƒB‚ğ•Û‚Âˆ×‚É‚ÍAUser OAuth Token ‚Íg—pŒã‚É’¼‚¿‚É”jŠü‚·‚é—l‚É‚µ‚Ä‚­‚¾‚³‚¢B
+ãƒ¯ãƒ¼ã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã®ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ã‚’ä¿ã¤ç‚ºã«ã¯ã€User OAuth Token ã¯ä½¿ç”¨å¾Œã«ç›´ã¡ã«ç ´æ£„ã™ã‚‹æ§˜ã«ã—ã¦ãã ã•ã„ã€‚
 
-#### User OAuth Token ‚Ì”­s•û–@
-1. <https://api.slack.com/apps/> ‚ÉƒAƒNƒZƒX‚µ‚Ü‚·B
-2. uCreate New Appv‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B
-3. uFrom scratchv‚ğ‘I‘ğ‚µ‚Ü‚·B
-4. •K—v–€‚ğ“ü—Í‚µ‚ÄƒAƒvƒŠ‚ğì¬‚µ‚Ü‚·B
-5. ¶‚Ìƒƒjƒ…[‚ÌuOAuth & Permissionsv‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B
-6. uScopesv‚ÌuBot Token Scopesv‚ÆuUser Token Scopesv‚Ì—¼•û‚Éufiles:readv‚ğ’Ç‰Á‚µ‚Ü‚·B
-7. ƒy[ƒWã•”‚ÌuOAuth Tokens for Your WorkspacevƒZƒNƒVƒ‡ƒ“‚©‚çƒ[ƒNƒXƒy[ƒX‚ÖƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B
-8. g‚¢I‚í‚Á‚½‚çAuRevoke Tokensvƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B
+#### User OAuth Token ã®ç™ºè¡Œæ–¹æ³•
+1. <https://api.slack.com/apps/> ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¾ã™ã€‚
+2. ã€ŒCreate New Appã€ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¾ã™ã€‚
+3. ã€ŒFrom scratchã€ã‚’é¸æŠã—ã¾ã™ã€‚
+4. å¿…è¦äº‹é …ã‚’å…¥åŠ›ã—ã¦ã‚¢ãƒ—ãƒªã‚’ä½œæˆã—ã¾ã™ã€‚
+5. å·¦ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ã€ŒOAuth & Permissionsã€ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¾ã™ã€‚
+6. ã€ŒScopesã€ã®ã€ŒBot Token Scopesã€ã¨ã€ŒUser Token Scopesã€ã®ä¸¡æ–¹ã«ã€Œfiles:readã€ã‚’è¿½åŠ ã—ã¾ã™ã€‚
+7. ãƒšãƒ¼ã‚¸ä¸Šéƒ¨ã®ã€ŒOAuth Tokens for Your Workspaceã€ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã‹ã‚‰ãƒ¯ãƒ¼ã‚¯ã‚¹ãƒšãƒ¼ã‚¹ã¸ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚
+8. ä½¿ã„çµ‚ã‚ã£ãŸã‚‰ã€ã€ŒRevoke Tokensã€ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¾ã™ã€‚
 
-#### Ql•¶Œ£
-* [https://api.slack.com/web](Using the Slack Web API | Slack)
-* [https://api.slack.com/concepts/token-types](Token types | Slack)
+#### å‚è€ƒæ–‡çŒ®
+* [Using the Slack Web API | Slack](https://api.slack.com/web)
+* [Token types | Slack](https://api.slack.com/concepts/token-types)
 
-### •\¦
-ƒ_ƒEƒ“ƒ[ƒh‚µ‚½ƒtƒ@ƒCƒ‹‚Í‰º‹L‚Ìè‡‚Å•\¦‚Å‚«‚Ü‚·B
-`mode=openOnly` ‚ğ•t‚¯‚éê‡A–‘O‚Éƒ_ƒEƒ“ƒ[ƒh‚ª•K—v‚É‚È‚è‚Ü‚·B
+### è¡¨ç¤º
+ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã¯ä¸‹è¨˜ã®æ‰‹é †ã§è¡¨ç¤ºã§ãã¾ã™ã€‚
+`mode=openOnly` ã‚’ä»˜ã‘ã‚‹å ´åˆã€äº‹å‰ã«ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãŒå¿…è¦ã«ãªã‚Šã¾ã™ã€‚
 
-1. ‰º‹L‚ÌƒRƒ}ƒ“ƒh‚Åƒc[ƒ‹‚ğ‹N“®‚µ‚Ü‚·B
+1. ä¸‹è¨˜ã®ã‚³ãƒãƒ³ãƒ‰ã§ãƒ„ãƒ¼ãƒ«ã‚’èµ·å‹•ã—ã¾ã™ã€‚
 	```cmd
 	> JsonUrlSaver.exe /I
 	```
-2. ƒc[ƒ‹‚É“ü—Í‚ª‹‚ß‚ç‚ê‚é‚Ì‚ÅA‰º‹L‚Ìˆø”‚ğ“n‚µ‚Ü‚·B‹ós‚ğ“ü—Í‚·‚é‚ÆAˆø”‚Ìó‚¯•t‚¯‚ğ’â~‚µ‚Ü‚·B
+2. ãƒ„ãƒ¼ãƒ«ã«å…¥åŠ›ãŒæ±‚ã‚ã‚‰ã‚Œã‚‹ã®ã§ã€ä¸‹è¨˜ã®å¼•æ•°ã‚’æ¸¡ã—ã¾ã™ã€‚ç©ºè¡Œã‚’å…¥åŠ›ã™ã‚‹ã¨ã€å¼•æ•°ã®å—ã‘ä»˜ã‘ã‚’åœæ­¢ã—ã¾ã™ã€‚
 	```
-	dir=<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚ŞƒfƒBƒŒƒNƒgƒŠ‚Ö‚ÌƒpƒX>
-	json=<‚±‚±‚É URL ‚ğŠÜ‚Ş JSON •¶š—ñ‚ğˆø—p•„•t‚«‚Å“\‚è•t‚¯‚é>
+	dir=<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¸ã®ãƒ‘ã‚¹>
+	json=<ã“ã“ã« URL ã‚’å«ã‚€ JSON æ–‡å­—åˆ—ã‚’å¼•ç”¨ç¬¦ä»˜ãã§è²¼ã‚Šä»˜ã‘ã‚‹>
 	mode=openOnly
 
 	```
-3. ‰º‹L‚Ì—l‚ÉAJSON •¶š—ñ‚Å‚Í‚È‚­ URL ‚ğ’¼Ú“ü—Í‚·‚é–‚à‚Å‚«‚Ü‚·B
+3. ä¸‹è¨˜ã®æ§˜ã«ã€JSON æ–‡å­—åˆ—ã§ã¯ãªã URL ã‚’ç›´æ¥å…¥åŠ›ã™ã‚‹äº‹ã‚‚ã§ãã¾ã™ã€‚
 	```
-	dir=<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚ŞƒfƒBƒŒƒNƒgƒŠ‚Ö‚ÌƒpƒX>
-	url=<•\¦‚·‚éƒtƒ@ƒCƒ‹‚Ì URL>
+	dir=<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¸ã®ãƒ‘ã‚¹>
+	url=<è¡¨ç¤ºã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã® URL>
 	mode=openOnly
 
 	```
 
-### İ’èƒtƒ@ƒCƒ‹
-`appSettings.json` ‚ğ‰º‹L‚Ì—l‚É‘‚«Š·‚¦‚é–‚ÅAˆø”‚É `dir=...` ‚ğw’è‚·‚é•K—v‚ª–³‚­‚È‚è‚Ü‚·B
+### è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«
+`appSettings.json` ã‚’ä¸‹è¨˜ã®æ§˜ã«æ›¸ãæ›ãˆã‚‹äº‹ã§ã€å¼•æ•°ã« `dir=...` ã‚’æŒ‡å®šã™ã‚‹å¿…è¦ãŒç„¡ããªã‚Šã¾ã™ã€‚
 ```json
 {
-	"dir": "<JSON ƒtƒ@ƒCƒ‹‚ğŠÜ‚ŞƒfƒBƒŒƒNƒgƒŠ‚Ö‚ÌƒpƒX>"
+	"dir": "<JSON ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å«ã‚€ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¸ã®ãƒ‘ã‚¹>"
 }
 ```
 
-ZIP ƒtƒ@ƒCƒ‹‚Ì“WŠJ‚Ìã‘‚«ƒGƒ‰[‚ğí‚É—}§‚·‚éê‡A‰º‹L‚Ìİ’è‚ğ’Ç‰Á‚µ‚Ü‚·B
+ZIP ãƒ•ã‚¡ã‚¤ãƒ«ã®å±•é–‹æ™‚ã®ä¸Šæ›¸ãã‚¨ãƒ©ãƒ¼ã‚’å¸¸ã«æŠ‘åˆ¶ã™ã‚‹å ´åˆã€ä¸‹è¨˜ã®è¨­å®šã‚’è¿½åŠ ã—ã¾ã™ã€‚
 ```json
 {
 	"zipOverwrite": true
 }
 ```
 
-## ÀsŠÂ‹«
-* **OS**: Microsoft Windows 10 ‚Ü‚½‚Í‚»‚êˆÈ~
-* **ƒ‰ƒ“ƒ^ƒCƒ€**: .NET 8.0 ‚Ü‚½‚Í‚»‚êˆÈ~
+## å®Ÿè¡Œç’°å¢ƒ
+* **OS**: Microsoft Windows 10 ã¾ãŸã¯ãã‚Œä»¥é™
+* **ãƒ©ãƒ³ã‚¿ã‚¤ãƒ **: .NET 8.0 ã¾ãŸã¯ãã‚Œä»¥é™
 
-## —˜—pSDK
+## åˆ©ç”¨SDK
 * **Microsoft.NET.Sdk**
-	* [.NET ƒvƒƒWƒFƒNƒg SDK](https://docs.microsoft.com/ja-jp/dotnet/core/project-sdk/overview)
-	* ’˜ìŒ •\‹LFCopyright (c) .NET Foundation and Contributors
-	* ƒŠƒ|ƒWƒgƒŠF<https://github.com/dotnet/sdk>
-	* g—p‹–‘øF[MITƒ‰ƒCƒZƒ“ƒX](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT)
+	* [.NET ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ SDK](https://docs.microsoft.com/ja-jp/dotnet/core/project-sdk/overview)
+	* è‘—ä½œæ¨©è¡¨è¨˜ï¼šCopyright (c) .NET Foundation and Contributors
+	* ãƒªãƒã‚¸ãƒˆãƒªï¼š<https://github.com/dotnet/sdk>
+	* ä½¿ç”¨è¨±è«¾ï¼š[MITãƒ©ã‚¤ã‚»ãƒ³ã‚¹](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT)
 * **Microsoft.Extensions.Hosting**
-	* ’˜ìŒ •\‹LFCopyright (c) .NET Foundation and Contributors
-	* g—p‹–‘øF[The MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT)
-	* ƒŠƒ|ƒWƒgƒŠF<https://github.com/dotnet/runtime>
-	* ƒpƒbƒP[ƒWF<https://www.nuget.org/packages/Microsoft.Extensions.Hosting/>
+	* è‘—ä½œæ¨©è¡¨è¨˜ï¼šCopyright (c) .NET Foundation and Contributors
+	* ä½¿ç”¨è¨±è«¾ï¼š[The MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT)
+	* ãƒªãƒã‚¸ãƒˆãƒªï¼š<https://github.com/dotnet/runtime>
+	* ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ï¼š<https://www.nuget.org/packages/Microsoft.Extensions.Hosting/>
 
-## —˜—p‹K–ñ
-‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í[MITƒ‰ƒCƒZƒ“ƒX](https://github.com/Takym/Gradexor/blob/master/LICENSE.md)‚ÉŠî‚Ã‚¢‚Ä”z•z‚³‚ê‚Ä‚¢‚Ü‚·B
+## åˆ©ç”¨è¦ç´„
+ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯[MITãƒ©ã‚¤ã‚»ãƒ³ã‚¹](https://github.com/Takym/Gradexor/blob/master/LICENSE.md)ã«åŸºã¥ã„ã¦é…å¸ƒã•ã‚Œã¦ã„ã¾ã™ã€‚
