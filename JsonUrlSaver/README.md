@@ -41,12 +41,29 @@ ZIP ファイルの展開先は `dir=...` で指定できます。
 	> JsonUrlSaver.exe zip=<JSON ファイルを含む ZIP ファイルへのパス> dir=<ZIP ファイルの展開先のパス> zipOverwrite=true
 	```
 
-### Slack 向けフィルタ
+### Slack からデータをダウンロードする
 Slack からエクスポートして得られるアーカイブの JSON ファイルからファイルをダウンロードする時は、
-`filters=slack` を指定して Slack に保管したファイルのみを抽出する事もできます。
+`token=...` で User OAuth Token を指定する必要があります。
+また、`filters=slack` を指定し、ダウンロードする URL を絞り込みます。
 ```cmd
-> JsonUrlSaver.exe zip=<Slack のアーカイブへのパス> filters=slack
+> JsonUrlSaver.exe zip=<Slack のアーカイブへのパス> token=<User OAuth Token> filters=slack
 ```
+
+ワークスペースのセキュリティを保つ為には、User OAuth Token は使用後に直ちに破棄する様にしてください。
+
+#### User OAuth Token の発行方法
+1. <https://api.slack.com/apps/> にアクセスします。
+2. 「Create New App」をクリックします。
+3. 「From scratch」を選択します。
+4. 必要事項を入力してアプリを作成します。
+5. 左のメニューの「OAuth & Permissions」をクリックします。
+6. 「Scopes」の「Bot Token Scopes」と「User Token Scopes」の両方に「files:read」を追加します。
+7. ページ上部の「OAuth Tokens for Your Workspace」セクションからワークスペースへインストールします。
+8. 使い終わったら、「Revoke Tokens」ボタンをクリックします。
+
+#### 参考文献
+* [https://api.slack.com/web](Using the Slack Web API | Slack)
+* [https://api.slack.com/concepts/token-types](Token types | Slack)
 
 ### 表示
 ダウンロードしたファイルは下記の手順で表示できます。

@@ -23,6 +23,7 @@ namespace JsonUrlSaver
 		private readonly IServiceProvider      _services;
 		private readonly IUrlFileNameConverter _ufn_conv;
 		private readonly IUrlFilter?           _url_filter;
+		private readonly string?               _token;
 
 		public DefaultDownloader(ILogger<DefaultDownloader> logger, IServiceProvider services, IConfiguration config, IUrlFileNameConverter ufnConv)
 		{
@@ -39,6 +40,8 @@ namespace JsonUrlSaver
 			if (!string.IsNullOrEmpty(filters)) {
 				_url_filter = services.GetUrlFilter(filters);
 			}
+
+			_token = config["token"];
 		}
 
 		public void Download(string cacheDir, IUrlSource source)
@@ -58,6 +61,10 @@ namespace JsonUrlSaver
 		{
 			using (var scope = _services.CreateScope())
 			using (var hc    = scope.ServiceProvider.GetRequiredService<HttpClient>()) {
+				if (_token is not null) {
+					hc.DefaultRequestHeaders.Add("Authorization", "Bearer " + _token);
+				}
+
 				foreach (var url in source) {
 					if (_url_filter?.ShouldDownload(url) ?? true) {
 						Stream src;
