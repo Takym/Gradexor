@@ -62,8 +62,8 @@ Slack からエクスポートして得られるアーカイブの JSON ファ�
 8. 使い終わったら、「Revoke Tokens」ボタンをクリックします。
 
 #### 参考文献
-* [https://api.slack.com/web](Using the Slack Web API | Slack)
-* [https://api.slack.com/concepts/token-types](Token types | Slack)
+* [Using the Slack Web API | Slack](https://api.slack.com/web)
+* [Token types | Slack](https://api.slack.com/concepts/token-types)
 
 ### 表示
 ダウンロードしたファイルは下記の手順で表示できます。
