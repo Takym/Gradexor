@@ -41,6 +41,13 @@ ZIP ファイルの展開先は `dir=...` で指定できます。
 	> JsonUrlSaver.exe zip=<JSON ファイルを含む ZIP ファイルへのパス> dir=<ZIP ファイルの展開先のパス> zipOverwrite=true
 	```
 
+### Slack 向けフィルタ
+Slack からエクスポートして得られるアーカイブの JSON ファイルからファイルをダウンロードする時は、
+`filters=slack` を指定して Slack に保管したファイルのみを抽出する事もできます。
+```cmd
+> JsonUrlSaver.exe zip=<Slack のアーカイブへのパス> filters=slack
+```
+
 ### 表示
 ダウンロードしたファイルは下記の手順で表示できます。
 `mode=openOnly` を付ける場合、事前にダウンロードが必要になります。
