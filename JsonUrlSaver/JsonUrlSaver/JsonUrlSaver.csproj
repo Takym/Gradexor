@@ -1,0 +1,48 @@
+﻿<!--
+ - JsonUrlSaver
+ - Copyright (C) 2024 Takym.
+ -
+ - distributed under the MIT License.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<NoWarn>$(NoWarn);IDE0290</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Label="Version">
+		<Product>JsonUrlSaver</Product>
+		<Description>The tool preserves web resources from URLs inside JSON files.</Description>
+		<Authors>Takym</Authors>
+		<Version>0.0.0.0</Version>
+		<Copyright>Copyright (C) 2024 Takym.</Copyright>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<Optimize>false</Optimize>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<StartupObject>JsonUrlSaver.Program.DebugEnvironment</StartupObject>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<Optimize>true</Optimize>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+		<StartupObject>JsonUrlSaver.Program</StartupObject>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="**/*.old.cs" />
+		<None Include="**/*.old.cs" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+		<None Include="appSettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="appSettings.*.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<DependentUpon>appSettings.json</DependentUpon>
+		</None>
+	</ItemGroup>
+</Project>

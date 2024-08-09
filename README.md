@@ -6,8 +6,8 @@ Copyright (C) 2020-2024 Takym.
 [aclib](http://essen.osask.jp/?aclib05) 版と C# 静的版の二つのバージョンがあります。
 前者は出力できる画像の種類が多いです。
 
-## 別プロジェクト
-本リポジトリに格納している別のプロジェクトの一覧です。
+## 別プロジェクトの一覧
+本リポジトリは、新しいリポジトリを作るまでもない別のプロジェクトを格納しています。
 「(@)」が付いているプロジェクトは、元々、独立した別のリポジトリで管理していましたが、本リポジトリに統合しました。
 
 * **[AclibMarkup](./AclibMarkup)** (@)
@@ -24,6 +24,8 @@ Copyright (C) 2020-2024 Takym.
 * **[HeliocentrismAndGeocentrism](./HeliocentrismAndGeocentrism/)** (@)
 	* 地動説で見た時の星々の動きと天動説で見た時の星々の動きをシミュレーションします。
 	* [元のリポジトリ](https://github.com/Takym/HeliocentrismAndGeocentrism)
+* **[JsonUrlSaver](./JsonUrlSaver/)**
+	* JSON ファイル内の URL から資源をダウンロードして保存するツールです。
 
 ## ブランチ一覧
 * [master](https://github.com/Takym/Gradexor/tree/master) - 最新のソースを保管しています。
