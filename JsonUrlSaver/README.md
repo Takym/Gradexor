@@ -3,6 +3,7 @@ Copyright (C) 2024 Takym.
 
 ## 概要
 JSON ファイル内の URL から資源をダウンロードして保存するツールです。
+最新版及びソースコードは「<https://github.com/Takym/Gradexor/tree/master/JsonUrlSaver/>」からダウンロードできます。
 
 ## 使用法
 
@@ -62,4 +63,4 @@ JSON ファイル内の URL から資源をダウンロードして保存するツールです。
 	* パッケージ：<https://www.nuget.org/packages/Microsoft.Extensions.Hosting/>
 
 ## 利用規約
-このプログラムは[MITライセンス](../LICENSE.md)に基づいて配布されています。
+このプログラムは[MITライセンス](https://github.com/Takym/Gradexor/blob/master/LICENSE.md)に基づいて配布されています。

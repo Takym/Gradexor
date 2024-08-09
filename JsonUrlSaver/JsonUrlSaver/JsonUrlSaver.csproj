@@ -44,5 +44,11 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<DependentUpon>appSettings.json</DependentUpon>
 		</None>
+		<None Include="../README.md">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="../../LICENSE.md">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>
