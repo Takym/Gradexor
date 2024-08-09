@@ -73,7 +73,8 @@ namespace JsonUrlSaver
 		{
 			ArgumentNullException.ThrowIfNull(services);
 
-			services.AddSingleton<ICoreWorker, CoreWorker>();
+			services.AddSingleton<CoreWorker>();
+			services.AddSingleton<ICoreWorker, ZipUnpacker>();
 			return services;
 		}
 

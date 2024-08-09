@@ -18,7 +18,7 @@
 		<Product>JsonUrlSaver</Product>
 		<Description>The tool preserves web resources from URLs inside JSON files.</Description>
 		<Authors>Takym</Authors>
-		<Version>0.0.0.0</Version>
+		<Version>0.1.0.0</Version>
 		<Copyright>Copyright (C) 2024 Takym.</Copyright>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">

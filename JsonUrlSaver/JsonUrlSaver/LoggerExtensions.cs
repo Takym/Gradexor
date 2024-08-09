@@ -20,5 +20,8 @@ namespace JsonUrlSaver
 
 		[LoggerMessage(LogLevel.Error, "{msg}")]
 		internal static partial void LogException(this ILogger logger, string msg, Exception e);
+
+		[LoggerMessage(LogLevel.Warning, "{msg}")]
+		internal static partial void LogExceptionAsWarning(this ILogger logger, string msg, Exception e);
 	}
 }

@@ -44,6 +44,10 @@ namespace JsonUrlSaver
 			bool doOpen     = _config.GetValue(nameof(doOpen),     false);
 
 			switch (_config["mode"]) {
+			case "downloadOnly":
+				doDownload = true;
+				doOpen     = false;
+				break;
 			case "openOnly":
 				doDownload = false;
 				doOpen     = true;

@@ -68,7 +68,7 @@ namespace JsonUrlSaver.UrlSources
 					return [];
 				}
 			} catch (Exception e) {
-				logger.LogException(e.Message, e);
+				logger.LogExceptionAsWarning(e.Message, e);
 				return [];
 			}
 		}
