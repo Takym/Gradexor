@@ -15,6 +15,11 @@ namespace JsonUrlSaver.UrlSources
 {
 	public sealed class JsonUrlSource : IUrlSource
 	{
+		internal static readonly JsonReaderOptions _jro = new() {
+			AllowTrailingCommas = true,
+			CommentHandling     = JsonCommentHandling.Skip
+		};
+
 		private readonly ILogger _logger;
 
 		public string TextData { get; }
@@ -30,7 +35,7 @@ namespace JsonUrlSaver.UrlSources
 
 		public IEnumerator<Uri> GetEnumerator()
 		{
-			var jr = new Utf8JsonReader(Encoding.UTF8.GetBytes(this.TextData));
+			var jr = new Utf8JsonReader(Encoding.UTF8.GetBytes(this.TextData), _jro);
 			return CreateEnumerable(ref jr, _logger).GetEnumerator();
 		}
 

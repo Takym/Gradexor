@@ -41,7 +41,7 @@ namespace JsonUrlSaver.UrlSources
 					fs.ReadExactly(buf);
 				}
 
-				var jr = new Utf8JsonReader(buf);
+				var jr = new Utf8JsonReader(buf, JsonUrlSource._jro);
 				return JsonUrlSource.CreateEnumerable(ref jr, logger);
 			} catch (Exception e) {
 				logger.LogException(e.Message, e);

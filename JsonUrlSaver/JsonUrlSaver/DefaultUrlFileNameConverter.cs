@@ -35,20 +35,24 @@ namespace JsonUrlSaver
 		}
 
 		private static string GetCacheDirectoryPathCore(string baseDir, Uri uri)
-			=> Path.Combine(
+		{
+			string scheme_and_host = $"{uri.Scheme}--{GetSafePath(uri.Host)}";
+
+			return Path.Combine(
 				baseDir,
 				uri.IsDefaultPort
-					? $"{uri.Scheme}--{uri.Host}"
-					: $"{uri.Scheme}--{uri.Host}--{uri.Port}",
-				GetSafePath(uri.LocalPath)
+					? $"{scheme_and_host}"
+					: $"{scheme_and_host}--{uri.Port}",
+				GetSafePath(uri.LocalPath[1..])
 			);
+		}
 
 		private static string GetSafePath(string unsafePath)
 		{
 			var sb         = new StringBuilder();
 			int sectionLen = 0;
 
-			for (int i = 1; i < unsafePath.Length; ++i) {
+			for (int i = 0; i < unsafePath.Length; ++i) {
 				char ch = unsafePath[i];
 
 				string? escaped = ch switch {

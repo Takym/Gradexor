@@ -7,6 +7,7 @@
 
 using System;
 using System.Net.Http;
+using JsonUrlSaver.UrlFilters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -19,6 +20,7 @@ namespace JsonUrlSaver
 			.AddCoreWorker()
 			.AddDownloader()
 			.AddHttpClient()
+			.AddUrlFilters()
 			.AddUrlFileNameConverter()
 			.AddProcessStarter()
 			.AddProcessCreator();
@@ -91,6 +93,16 @@ namespace JsonUrlSaver
 			ArgumentNullException.ThrowIfNull(services);
 
 			services.AddTransient<HttpClient>(_ => new());
+			return services;
+		}
+
+		public static IServiceCollection AddUrlFilters(this IServiceCollection services)
+		{
+			ArgumentNullException.ThrowIfNull(services);
+
+			services.AddKeyedSingleton<IUrlFilter, AllUrlFilter      >("all"      );
+			services.AddKeyedSingleton<IUrlFilter, LocalhostUrlFilter>("localhost");
+			services.AddKeyedSingleton<IUrlFilter, SlackUrlFilter    >("slack"    );
 			return services;
 		}
 
