@@ -66,8 +66,9 @@ Slack からエクスポートして得られるアーカイブの JSON ファ�
 * [Token types | Slack](https://api.slack.com/concepts/token-types)
 
 ### 表示
-ダウンロードしたファイルは下記の手順で表示できます。
+ダウンロードしたファイル（「キャッシュファイル」とも呼ばれます）は下記の手順で表示できます。
 `mode=openOnly` を付ける場合、事前にダウンロードが必要になります。
+同時にダウンロードも行う場合は `mode=openOnly` の代わりに `doDownload=true doOpen=true` を指定してください。
 
 1. 下記のコマンドでツールを起動します。
 	```cmd
