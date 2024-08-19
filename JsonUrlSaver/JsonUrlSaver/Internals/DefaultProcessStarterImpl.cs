@@ -14,18 +14,25 @@ namespace JsonUrlSaver.Internals
 {
 	internal sealed class DefaultProcessStarterImpl : IProcessStarter
 	{
-		private readonly ILogger               _logger;
-		private readonly IUrlFileNameConverter _ufn_conv;
-		private readonly IProcessCreator       _proc_creator;
+		private readonly ILogger                 _logger;
+		private readonly IUrlFileNameConverter   _ufn_conv;
+		private readonly ICacheFileIndexSelector _idx_sel;
+		private readonly IProcessCreator         _proc_creator;
 
-		public DefaultProcessStarterImpl(ILogger<DefaultProcessStarterImpl> logger, IUrlFileNameConverter ufnConv, IProcessCreator processCreator)
+		public DefaultProcessStarterImpl(
+			ILogger<DefaultProcessStarterImpl> logger,
+			IUrlFileNameConverter              ufnConv,
+			ICacheFileIndexSelector            idxSel,
+			IProcessCreator                    processCreator)
 		{
 			ArgumentNullException.ThrowIfNull(logger        );
 			ArgumentNullException.ThrowIfNull(ufnConv       );
+			ArgumentNullException.ThrowIfNull(idxSel        );
 			ArgumentNullException.ThrowIfNull(processCreator);
 
 			_logger       = logger;
 			_ufn_conv     = ufnConv;
+			_idx_sel      = idxSel;
 			_proc_creator = processCreator;
 		}
 
@@ -45,21 +52,12 @@ namespace JsonUrlSaver.Internals
 					}
 				}
 
-				while (true) {
-					Console.Write(LoggerExtensions.CacheFileIndexPrompt);
-					string? line = Console.ReadLine();
-
-					_logger.LogCacheFileIndexPrompt(line);
-
-					if (ulong.TryParse(line, out ulong index)) {
-						_proc_creator.CreateProcess(
-							_ufn_conv.GetCacheFilePath(cacheDir, url, index)
-						);
-						break;
-					} else {
-						_logger.LogInvalidCacheFileIndex(line);
-						continue;
-					}
+				if (_idx_sel.TrySelectIndex(0, unchecked((uint)(files.Length)), out uint index)) {
+					_proc_creator.CreateProcess(
+						_ufn_conv.GetCacheFilePath(cacheDir, url, index)
+					);
+				} else {
+					_logger.LogCanceledToOpenCacheFile(url);
 				}
 			}
 
@@ -69,8 +67,6 @@ namespace JsonUrlSaver.Internals
 
 	partial class LoggerExtensions
 	{
-		internal const string CacheFileIndexPrompt = "Type a cache file index here: ";
-
 		[LoggerMessage(LogLevel.Information, "Opening for caches...")]
 		internal static partial void LogOpening(this ILogger logger);
 
@@ -83,10 +79,7 @@ namespace JsonUrlSaver.Internals
 		[LoggerMessage(LogLevel.Trace, "The full path of a cache file is: {path}")]
 		internal static partial void LogCacheFileFullPath(this ILogger logger, string path);
 
-		[LoggerMessage(LogLevel.Trace, $"{CacheFileIndexPrompt} {{userInput}}")]
-		internal static partial void LogCacheFileIndexPrompt(this ILogger logger, string? userInput);
-
-		[LoggerMessage(LogLevel.Warning, "The specified index (\"{userInput}\") is not a valid positive integer.")]
-		internal static partial void LogInvalidCacheFileIndex(this ILogger logger, string? userInput);
+		[LoggerMessage(LogLevel.Warning, "Canceled to open the cache file for \"{url}\".")]
+		internal static partial void LogCanceledToOpenCacheFile(this ILogger logger, Uri url);
 	}
 }

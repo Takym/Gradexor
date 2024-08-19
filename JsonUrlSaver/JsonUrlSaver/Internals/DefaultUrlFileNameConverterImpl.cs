@@ -98,7 +98,7 @@ namespace JsonUrlSaver.Internals
 				.Replace("|",  "--vertical-bar--")
 				.Replace("-",  "--hyphen--"); //*/
 
-		public string GetCacheFilePath(string baseDir, Uri uri, ulong index)
+		public string GetCacheFilePath(string baseDir, Uri uri, uint index)
 		{
 			ArgumentNullException.ThrowIfNull(baseDir);
 			ArgumentNullException.ThrowIfNull(uri    );
@@ -131,6 +131,6 @@ namespace JsonUrlSaver.Internals
 		internal static partial void LogGetCacheDirectoryPathResult(this ILogger logger, string baseDir, Uri uri, string path);
 
 		[LoggerMessage(LogLevel.Trace, "GetCacheFilePath(\"{baseDir}\", \"{uri}\", {index}) => {path}")]
-		internal static partial void LogGetCacheFilePathResult(this ILogger logger, string baseDir, Uri uri, ulong index, string path);
+		internal static partial void LogGetCacheFilePathResult(this ILogger logger, string baseDir, Uri uri, uint index, string path);
 	}
 }

@@ -13,6 +13,6 @@ namespace JsonUrlSaver
 	{
 		public string GetCacheDirectoryPath(string baseDir, Uri uri);
 
-		public string GetCacheFilePath(string baseDir, Uri uri, ulong index = 0);
+		public string GetCacheFilePath(string baseDir, Uri uri, uint index = 0);
 	}
 }

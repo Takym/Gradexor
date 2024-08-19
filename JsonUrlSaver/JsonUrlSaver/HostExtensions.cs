@@ -119,7 +119,8 @@ namespace JsonUrlSaver
 		{
 			ArgumentNullException.ThrowIfNull(services);
 
-			services.AddSingleton<IProcessStarter, DefaultProcessStarterImpl>();
+			services.AddSingleton<ICacheFileIndexSelector, ConsoleCacheFileIndexSelector>();
+			services.AddSingleton<IProcessStarter,         DefaultProcessStarterImpl    >();
 			return services;
 		}
 
