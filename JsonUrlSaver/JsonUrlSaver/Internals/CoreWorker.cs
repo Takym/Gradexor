@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace JsonUrlSaver
+namespace JsonUrlSaver.Internals
 {
 	internal sealed class CoreWorker : ICoreWorker
 	{

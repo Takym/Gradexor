@@ -10,15 +10,15 @@ using System.IO;
 using JsonUrlSaver.UrlSources;
 using Microsoft.Extensions.Logging;
 
-namespace JsonUrlSaver
+namespace JsonUrlSaver.Internals
 {
-	internal sealed class DefaultProcessStarter : IProcessStarter
+	internal sealed class DefaultProcessStarterImpl : IProcessStarter
 	{
 		private readonly ILogger               _logger;
 		private readonly IUrlFileNameConverter _ufn_conv;
 		private readonly IProcessCreator       _proc_creator;
 
-		public DefaultProcessStarter(ILogger<DefaultProcessStarter> logger, IUrlFileNameConverter ufnConv, IProcessCreator processCreator)
+		public DefaultProcessStarterImpl(ILogger<DefaultProcessStarterImpl> logger, IUrlFileNameConverter ufnConv, IProcessCreator processCreator)
 		{
 			ArgumentNullException.ThrowIfNull(logger        );
 			ArgumentNullException.ThrowIfNull(ufnConv       );

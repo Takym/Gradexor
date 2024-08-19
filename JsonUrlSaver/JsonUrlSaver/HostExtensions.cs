@@ -7,6 +7,7 @@
 
 using System;
 using System.Net.Http;
+using JsonUrlSaver.Internals;
 using JsonUrlSaver.UrlFilters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -84,7 +85,7 @@ namespace JsonUrlSaver
 		{
 			ArgumentNullException.ThrowIfNull(services);
 
-			services.AddSingleton<IDownloader, DefaultDownloader>();
+			services.AddSingleton<IDownloader, DefaultDownloaderImpl>();
 			return services;
 		}
 
@@ -110,7 +111,7 @@ namespace JsonUrlSaver
 		{
 			ArgumentNullException.ThrowIfNull(services);
 
-			services.AddSingleton<IUrlFileNameConverter, DefaultUrlFileNameConverter>();
+			services.AddSingleton<IUrlFileNameConverter, DefaultUrlFileNameConverterImpl>();
 			return services;
 		}
 
@@ -118,7 +119,7 @@ namespace JsonUrlSaver
 		{
 			ArgumentNullException.ThrowIfNull(services);
 
-			services.AddSingleton<IProcessStarter, DefaultProcessStarter>();
+			services.AddSingleton<IProcessStarter, DefaultProcessStarterImpl>();
 			return services;
 		}
 
@@ -126,7 +127,7 @@ namespace JsonUrlSaver
 		{
 			ArgumentNullException.ThrowIfNull(services);
 
-			services.AddSingleton<IProcessCreator, DefaultProcessCreator>();
+			services.AddSingleton<IProcessCreator, DefaultProcessCreatorImpl>();
 			return services;
 		}
 	}

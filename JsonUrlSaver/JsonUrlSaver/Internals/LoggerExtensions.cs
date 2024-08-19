@@ -8,7 +8,7 @@
 using System;
 using Microsoft.Extensions.Logging;
 
-namespace JsonUrlSaver
+namespace JsonUrlSaver.Internals
 {
 	internal static partial class LoggerExtensions
 	{

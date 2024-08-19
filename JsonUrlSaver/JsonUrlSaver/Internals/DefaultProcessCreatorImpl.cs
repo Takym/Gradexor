@@ -9,13 +9,13 @@ using System;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-namespace JsonUrlSaver
+namespace JsonUrlSaver.Internals
 {
-	internal sealed class DefaultProcessCreator : IProcessCreator
+	internal sealed class DefaultProcessCreatorImpl : IProcessCreator
 	{
 		private readonly ILogger _logger;
 
-		public DefaultProcessCreator(ILogger<DefaultProcessCreator> logger)
+		public DefaultProcessCreatorImpl(ILogger<DefaultProcessCreatorImpl> logger)
 		{
 			ArgumentNullException.ThrowIfNull(logger);
 			_logger = logger;

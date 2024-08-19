@@ -11,7 +11,7 @@ using System.IO.Compression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace JsonUrlSaver
+namespace JsonUrlSaver.Internals
 {
 	internal sealed class ZipUnpacker : ICoreWorker
 	{

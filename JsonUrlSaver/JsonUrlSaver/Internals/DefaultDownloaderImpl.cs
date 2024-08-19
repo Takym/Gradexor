@@ -15,9 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace JsonUrlSaver
+namespace JsonUrlSaver.Internals
 {
-	internal sealed class DefaultDownloader : IDownloader
+	internal sealed class DefaultDownloaderImpl : IDownloader
 	{
 		private readonly ILogger               _logger;
 		private readonly IServiceProvider      _services;
@@ -25,7 +25,7 @@ namespace JsonUrlSaver
 		private readonly IUrlFilter?           _url_filter;
 		private readonly string?               _token;
 
-		public DefaultDownloader(ILogger<DefaultDownloader> logger, IServiceProvider services, IConfiguration config, IUrlFileNameConverter ufnConv)
+		public DefaultDownloaderImpl(ILogger<DefaultDownloaderImpl> logger, IServiceProvider services, IConfiguration config, IUrlFileNameConverter ufnConv)
 		{
 			ArgumentNullException.ThrowIfNull(logger  );
 			ArgumentNullException.ThrowIfNull(services);

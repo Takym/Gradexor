@@ -10,13 +10,13 @@ using System.IO;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
-namespace JsonUrlSaver
+namespace JsonUrlSaver.Internals
 {
-	internal sealed class DefaultUrlFileNameConverter : IUrlFileNameConverter
+	internal sealed class DefaultUrlFileNameConverterImpl : IUrlFileNameConverter
 	{
 		private readonly ILogger _logger;
 
-		public DefaultUrlFileNameConverter(ILogger<DefaultUrlFileNameConverter> logger)
+		public DefaultUrlFileNameConverterImpl(ILogger<DefaultUrlFileNameConverterImpl> logger)
 		{
 			ArgumentNullException.ThrowIfNull(logger);
 			_logger = logger;
