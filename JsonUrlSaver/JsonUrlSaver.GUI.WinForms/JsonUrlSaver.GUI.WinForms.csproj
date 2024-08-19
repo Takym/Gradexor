@@ -1,0 +1,22 @@
+﻿<!--
+ - JsonUrlSaver
+ - Copyright (C) 2024 Takym.
+ -
+ - distributed under the MIT License.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>$(TargetFramework)-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<StartupObject>JsonUrlSaver.GUI.WinForms.Program.DebugEnvironment</StartupObject>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<StartupObject>JsonUrlSaver.GUI.WinForms.Program</StartupObject>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../JsonUrlSaver/JsonUrlSaver.csproj" />
+	</ItemGroup>
+</Project>
