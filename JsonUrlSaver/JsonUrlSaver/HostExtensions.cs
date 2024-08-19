@@ -62,10 +62,13 @@ namespace JsonUrlSaver
 
 				var services = host.Services;
 				var logger   = services.GetRequiredService<ILoggerFactory>()
-					.CreateLogger(typeof(HostExtensions).FullName ?? string.Empty);
+					.CreateLogger(typeof(HostExtensions).FullName ?? $"{nameof(JsonUrlSaver)}.{nameof(HostExtensions)}");
 
+				logger.LogCurrentVersion();
 				logger.LogCoreWorkerBegin();
+
 				services.GetRequiredService<ICoreWorker>().Run();
+
 				logger.LogCoreWorkerEnded();
 
 				host.StopAsync().ConfigureAwait(false).GetAwaiter().GetResult();
