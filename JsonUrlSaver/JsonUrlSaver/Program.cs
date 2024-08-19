@@ -51,7 +51,7 @@ namespace JsonUrlSaver
 					break;
 				}
 			}
-			return [.. args];
+			return [ ..args ];
 		}
 
 #if DEBUG
