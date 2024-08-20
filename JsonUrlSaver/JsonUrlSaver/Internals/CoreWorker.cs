@@ -57,12 +57,12 @@ namespace JsonUrlSaver.Internals
 			string? dir = _config[nameof(dir)];
 
 			if (string.IsNullOrEmpty(dir)) {
-				_logger.LogDirectoryNotSpecified();
+				_logger.LogTargetDirectoryNotSpecified();
 				return;
 			}
 
 			if (!Directory.Exists(dir)) {
-				_logger.LogDirectoryNotFound(dir);
+				_logger.LogTargetDirectoryNotFound(dir);
 				return;
 			}
 
@@ -129,10 +129,10 @@ namespace JsonUrlSaver.Internals
 	partial class LoggerExtensions
 	{
 		[LoggerMessage(LogLevel.Error, "The target directory is not specified.")]
-		internal static partial void LogDirectoryNotSpecified(this ILogger logger);
+		internal static partial void LogTargetDirectoryNotSpecified(this ILogger logger);
 
 		[LoggerMessage(LogLevel.Error, "The target directory (\"{path}\") is not found.")]
-		internal static partial void LogDirectoryNotFound(this ILogger logger, string path);
+		internal static partial void LogTargetDirectoryNotFound(this ILogger logger, string path);
 
 		[LoggerMessage(LogLevel.Information, "URLs will be loaded from the file (\"{path}\").")]
 		internal static partial void LogModeIsFile(this ILogger logger, string path);

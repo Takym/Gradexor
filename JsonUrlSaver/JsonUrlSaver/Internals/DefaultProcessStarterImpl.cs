@@ -41,23 +41,28 @@ namespace JsonUrlSaver.Internals
 			_logger.LogOpening();
 
 			foreach (var url in source) {
-				string   dir   = _ufn_conv.GetCacheDirectoryPath(cacheDir, url);
-				string[] files = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly);
+				string dir = _ufn_conv.GetCacheDirectoryPath(cacheDir, url);
 
-				_logger.LogCacheFilesCount(url, files.Length);
+				if (Directory.Exists(dir)) {
+					string[] files = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly);
 
-				if (_logger.IsEnabled(LogLevel.Trace)) {
-					for (int i = 0; i < files.Length; ++i) {
-						_logger.LogCacheFileFullPath(files[i]);
+					_logger.LogCacheFilesCount(url, files.Length);
+
+					if (_logger.IsEnabled(LogLevel.Trace)) {
+						for (int i = 0; i < files.Length; ++i) {
+							_logger.LogCacheFileFullPath(files[i]);
+						}
 					}
-				}
 
-				if (_idx_sel.TrySelectIndex(url, 0, unchecked((uint)(files.Length)), out uint index)) {
-					_proc_creator.CreateProcess(
-						_ufn_conv.GetCacheFilePath(cacheDir, url, index)
-					);
+					if (_idx_sel.TrySelectIndex(url, 0, unchecked((uint)(files.Length)), out uint index)) {
+						_proc_creator.CreateProcess(
+							_ufn_conv.GetCacheFilePath(cacheDir, url, index)
+						);
+					} else {
+						_logger.LogCanceledToOpenCacheFile(url);
+					}
 				} else {
-					_logger.LogCanceledToOpenCacheFile(url);
+					_logger.LogCacheDirectoryNotFound(dir);
 				}
 			}
 
@@ -81,5 +86,8 @@ namespace JsonUrlSaver.Internals
 
 		[LoggerMessage(LogLevel.Warning, "Canceled to open the cache file for \"{url}\".")]
 		internal static partial void LogCanceledToOpenCacheFile(this ILogger logger, Uri url);
+
+		[LoggerMessage(LogLevel.Warning, "The cache directory (\"{path}\") is not found.")]
+		internal static partial void LogCacheDirectoryNotFound(this ILogger logger, string path);
 	}
 }
