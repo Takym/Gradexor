@@ -116,9 +116,13 @@ ZIP ファイルの展開時の上書きエラーを常に抑制する場合、�
 	* 使用許諾：[MITライセンス](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT)
 * **Microsoft.Extensions.Hosting**
 	* 著作権表記：Copyright (c) .NET Foundation and Contributors
-	* 使用許諾：[The MIT License](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT)
+	* 使用許諾：[MITライセンス](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT)
 	* リポジトリ：<https://github.com/dotnet/runtime>
 	* パッケージ：<https://www.nuget.org/packages/Microsoft.Extensions.Hosting/>
+* **Windows Forms**
+	* 著作権表記：Copyright (c) .NET Foundation and Contributors
+	* 使用許諾：[MITライセンス](https://github.com/dotnet/winforms/blob/main/LICENSE.TXT)
+	* リポジトリ：<https://github.com/dotnet/winforms>
 
 ## 利用規約
 このプログラムは[MITライセンス](https://github.com/Takym/Gradexor/blob/master/LICENSE.md)に基づいて配布されています。
