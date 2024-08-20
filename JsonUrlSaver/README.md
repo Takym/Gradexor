@@ -5,6 +5,8 @@ Copyright (C) 2024 Takym.
 JSON ファイル内の URL から資源をダウンロードして保存するツールです。
 最新版及びソースコードは「<https://github.com/Takym/Gradexor/tree/master/JsonUrlSaver/>」からダウンロードできます。
 
+このツールでは、キャッシュファイルを開く前に必ずダウンロードする必要があります。
+
 ## 使用法
 
 ### ダウンロード
@@ -101,6 +103,63 @@ ZIP ファイルの展開時の上書きエラーを常に抑制する場合、�
 ```json
 {
 	"zipOverwrite": true
+}
+```
+
+#### 完全な設定項目の一覧
+```json
+{
+	// ダウンロードを行うかどうかを制御します。
+	"doDownload": true,
+
+	// キャッシュファイルを開くかどうかを制御します。
+	"doOpen": false,
+
+	// `doDownload=true doOpen=false` を設定します。
+	"mode": "downloadOnly",
+	
+	// `doDownload=false doOpen=true` を設定します。
+	"mode": "openOnly",
+
+	// `mode` は `doDownload` と `doOpen` より優先されます。
+
+	// URL を格納した JSON ファイルを含むディレクトリを指定します。
+	// キャッシュディレクトリは、このディレクトリの下に作成されます。
+	"dir": "<JSON ファイルを含むディレクトリへのパス>",
+
+	// ZIP ファイルを自動展開する場合は `dir` の代わりに `zip` を指定します。
+	// `zip` を指定した場合、`dir` の値は ZIP ファイルのディレクトリに上書きされます。
+	"zip": "<JSON ファイルを含む ZIP ファイルへのパス>",
+	
+	// 展開先に既にファイルが存在する場合、上書きできるかどうかを制御します。
+	"zipOverwrite": false,
+
+	// キャッシュディレクトリの名前を指定します。通常は変更する必要はありません。
+	"cache": ".json_url_saver_cache",
+
+	// JSON ファイルを指定します。このファイルから URL が読み込まれます。
+	"file": "/path/to/file.json",
+
+	// URL を格納した JSON 文字列を指定します。
+	// JSON 設定ファイル内に記述する場合でも、文字列として指定する必要があります。
+	"json": "[ \"https://example.com\" ]",
+	
+	// 直接的に URL を一つ指定します。
+	"url": "https://example.com",
+
+	// `file`、`json`、または `url` を指定しない場合のみに限って
+	// `dir` 内の全ての JSON ファイルの URL が読み込まれます。
+
+	// ダウンロード時に URL を絞り込みます。この値はキャッシュファイルを開く時には使われません。
+	// 半角カンマ区切り（,）で複数のフィルタを指定できます。
+	// "all"       - 全ての URL を含みます。
+	// "localhost" - ローカルホストを示す URL を含みます。
+	// "slack"     - Slack にアップロードされたファイルへの URL を含みます。
+	"filters": "all,localhost,slack",
+
+	// User OAuth Token を指定します。
+	// 詳しくは上記の「Slack からデータをダウンロードする」の説明をご参照ください。
+	"token": "xxxxxxxx"
 }
 ```
 
