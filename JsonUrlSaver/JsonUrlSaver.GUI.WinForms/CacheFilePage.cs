@@ -86,9 +86,6 @@ namespace JsonUrlSaver.GUI.WinForms
 						Host.CreateDefaultBuilder(_default_args.ToArray())
 							.InitializeJsonUrlSaver()
 							.ConfigureServices(builder => builder
-								.AddSingleton<IWin32Window>(new Win32WindowWrapper() {
-									Handle = this.Handle
-								})
 								.AddSingleton<ICacheFileIndexSelector, WinFormsCacheFileIndexSelector>()
 							)
 							.ConfigureAppConfiguration(builder => builder
@@ -117,11 +114,6 @@ namespace JsonUrlSaver.GUI.WinForms
 			if (dr == DialogResult.Yes) {
 				FormMain.Open(logFile);
 			}
-		}
-
-		private sealed class Win32WindowWrapper : IWin32Window
-		{
-			public nint Handle { get; init; }
 		}
 	}
 }
