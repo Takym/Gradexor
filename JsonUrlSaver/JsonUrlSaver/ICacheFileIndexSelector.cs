@@ -5,12 +5,13 @@
  * distributed under the MIT License.
 ****/
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace JsonUrlSaver
 {
 	public interface ICacheFileIndexSelector
 	{
-		public bool TrySelectIndex(uint minIndexExclusive, uint maxIndexInclusive, [NotNullWhen(true)][MaybeNullWhen(false)] out uint result);
+		public bool TrySelectIndex(Uri url, uint minIndexExclusive, uint maxIndexInclusive, [NotNullWhen(true)][MaybeNullWhen(false)] out uint result);
 	}
 }

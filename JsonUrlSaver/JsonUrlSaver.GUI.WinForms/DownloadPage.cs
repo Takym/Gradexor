@@ -54,11 +54,19 @@ namespace JsonUrlSaver.GUI.WinForms
 			cmbInputType.SelectedIndex = 0;
 		}
 
+		private void cmbInputType_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			tbInputPath.Select();
+			tbInputPath.Focus();
+		}
+
 		private void btnInputDialog_Click(object sender, EventArgs e)
 		{
 			if (cmbInputType.SelectedItem is InputType inputType) {
 				inputType.OnInputDialogButtonClicked(this);
 			}
+
+			this.cmbInputType_SelectedIndexChanged(sender, e);
 		}
 
 		private void lblSlackToken_Click(object sender, EventArgs e)
@@ -101,10 +109,10 @@ namespace JsonUrlSaver.GUI.WinForms
 
 			var dr = MessageBox.Show(
 				this,
-				$"ダウンロードが完了しました。ログファイルを開きますか？\r\nログファイルのパス：{logFile}",
+				$"ダウンロードが完了しました。ログファイルを閲覧しますか？\r\nログファイルのパス：{logFile}",
 				nameof(JsonUrlSaver),
 				MessageBoxButtons.YesNo,
-				MessageBoxIcon.Information
+				MessageBoxIcon.Question
 			);
 
 			this.Enabled = true;

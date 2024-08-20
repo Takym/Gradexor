@@ -49,6 +49,7 @@
 			cmbInputType.Name = "cmbInputType";
 			cmbInputType.Size = new System.Drawing.Size(121, 23);
 			cmbInputType.TabIndex = 0;
+			cmbInputType.SelectedIndexChanged += this.cmbInputType_SelectedIndexChanged;
 			// 
 			// tbInputPath
 			// 

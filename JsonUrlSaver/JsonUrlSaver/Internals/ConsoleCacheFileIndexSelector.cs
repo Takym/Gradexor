@@ -21,7 +21,7 @@ namespace JsonUrlSaver.Internals
 			_logger = logger;
 		}
 
-		public bool TrySelectIndex(uint minIndexExclusive, uint maxIndexInclusive, [NotNullWhen(true)][MaybeNullWhen(false)] out uint result)
+		public bool TrySelectIndex(Uri url, uint minIndexExclusive, uint maxIndexInclusive, [NotNullWhen(true)][MaybeNullWhen(false)] out uint result)
 		{
 			while (true) {
 				Console.Write(LoggerExtensions.CacheFileIndexPrompt);

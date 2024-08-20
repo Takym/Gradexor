@@ -52,7 +52,7 @@ namespace JsonUrlSaver.Internals
 					}
 				}
 
-				if (_idx_sel.TrySelectIndex(0, unchecked((uint)(files.Length)), out uint index)) {
+				if (_idx_sel.TrySelectIndex(url, 0, unchecked((uint)(files.Length)), out uint index)) {
 					_proc_creator.CreateProcess(
 						_ufn_conv.GetCacheFilePath(cacheDir, url, index)
 					);
