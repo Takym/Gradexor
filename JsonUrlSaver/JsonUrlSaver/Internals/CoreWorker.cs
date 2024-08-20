@@ -143,7 +143,7 @@ namespace JsonUrlSaver.Internals
 		[LoggerMessage(LogLevel.Information, "URLs will be loaded from the JSON text: {textData}")]
 		internal static partial void LogModeIsJson(this ILogger logger, string textData);
 
-		[LoggerMessage(LogLevel.Information, "The specified URL is \".{textData}\".")]
+		[LoggerMessage(LogLevel.Information, "The specified URL is \"{textData}\".")]
 		internal static partial void LogModeIsUrl(this ILogger logger, string textData);
 
 		[LoggerMessage(LogLevel.Information, "URLs will be loaded from the directory (\"{path}\").")]
