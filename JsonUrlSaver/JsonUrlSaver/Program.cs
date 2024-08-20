@@ -58,6 +58,7 @@ namespace JsonUrlSaver
 		private static class DebugEnvironment
 		{
 			[Conditional("DEBUG")]
+			[STAThread()]
 			private static void Main()
 				=> Run(InputArguments());
 		}

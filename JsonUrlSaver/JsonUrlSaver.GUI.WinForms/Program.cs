@@ -42,6 +42,7 @@ namespace JsonUrlSaver.GUI.WinForms
 		private static class DebugEnvironment
 		{
 			[Conditional("DEBUG")]
+			[STAThread()]
 			private static void Main(string[] args)
 				=> Run(args);
 		}
