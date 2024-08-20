@@ -74,7 +74,7 @@ namespace JsonUrlSaver.GUI.WinForms
 		private void licenseToolStripMenuItem_Click(object sender, EventArgs e)
 			=> Open(Path.Combine(AppContext.BaseDirectory, "LICENSE.md"));
 
-		private static void Open(string file)
+		internal static void Open(string file)
 		{
 			using var _ = Process.Start(new ProcessStartInfo() {
 				FileName        = file,

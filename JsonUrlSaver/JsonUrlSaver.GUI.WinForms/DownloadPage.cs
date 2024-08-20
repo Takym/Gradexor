@@ -99,15 +99,19 @@ namespace JsonUrlSaver.GUI.WinForms
 					).ConfigureAwait(false)
 			).ConfigureAwait(true);
 
-			MessageBox.Show(
+			var dr = MessageBox.Show(
 				this,
-				$"ダウンロードが完了しました。\r\nログファイル：{logFile}",
+				$"ダウンロードが完了しました。ログファイルを開きますか？\r\nログファイルのパス：{logFile}",
 				nameof(JsonUrlSaver),
-				MessageBoxButtons.OK,
+				MessageBoxButtons.YesNo,
 				MessageBoxIcon.Information
 			);
 
 			this.Enabled = true;
+
+			if (dr == DialogResult.Yes) {
+				FormMain.Open(logFile);
+			}
 		}
 
 		private sealed record InputType(
