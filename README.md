@@ -37,12 +37,12 @@ Copyright (C) 2020-2024 Takym.
 ## 画面
 ここではグラデーションのスクリーンショットを紹介します。
 
-### TYPES
-**TYPES** を [VcXsrv](https://sourceforge.net/projects/vcxsrv/) 経由で WSL から起動した例です。
+### Types
+**Types** を [VcXsrv](https://sourceforge.net/projects/vcxsrv/) 経由で WSL から起動した例です。
 
 [<img src="./Screenshots/Types.png" width="384" />](./Screenshots/Types.png)
 
-### SANKO 「三湖」
+### Sanko「三湖」（バージョン１）
 三角形の模様が変化していくのが特徴です。
 * [動画をダウンロードする](./Screenshots/Sanko.mp4?raw=true)。
 
@@ -57,8 +57,12 @@ C# で実装した Gradexor を使うと、以下の様な画像が出力され�
 1. このリポジトリをクローンします。
 	* `git clone https://github.com/Takym/Gradexor.git & cd Gradexor/src`
 2. <http://essen.osask.jp/?aclib05> から最新の **aclib** をダウンロードして `Gradexor/lib` ディレクトリにコピーします。
-3. `./gradexor.build.sh` を実行してビルドします。
-4. `./gradexor.run_all.sh` を実行します。
+3. 下記のコマンドを実行し、SDL 2.0 をインストールします。
+	> ```sh
+	> $ sudo apt install libsdl2-dev
+	> ```
+4. `./gradexor.build.sh` を実行してビルドします。
+5. `./gradexor.run_all.sh` を実行します。
 	* このコマンドを実行すると、全種類のグラデーションプログラムが順番に起動します。
 
 ## 主な問題点

@@ -1,5 +1,6 @@
 #!/bin/bash
 ../bin/gradexor.elf sanko
+../bin/gradexor.elf sanko_v2
 ../bin/gradexor.elf hello
 ../bin/gradexor.elf waves
 ../bin/gradexor.elf boxes
