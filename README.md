@@ -26,6 +26,8 @@ Copyright (C) 2020-2024 Takym.
 	* [元のリポジトリ](https://github.com/Takym/HeliocentrismAndGeocentrism)
 * **[JsonUrlSaver](./JsonUrlSaver/)**
 	* JSON ファイル内の URL から資源をダウンロードして保存するツールです。
+* **[CppRepl](./CppRepl/)**
+	* C++ を REPL 実行できる簡易的なプログラムです。
 
 ## ブランチ一覧
 * [master](https://github.com/Takym/Gradexor/tree/master) - 最新のソースを保管しています。
