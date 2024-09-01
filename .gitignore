@@ -2,8 +2,5 @@
 [Bb]in/
 *.elf
 
-# ライブラリを除外
-/[Ll]ib/*.c
-
 # VSCode の設定を除外
 .vscode/settings.json
