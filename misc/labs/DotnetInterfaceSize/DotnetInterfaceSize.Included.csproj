@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<DefineConstants>$(DefineConstants);INCLUDE_IEMPTY;INCLUDE_LARGE</DefineConstants>
+	</PropertyGroup>
+</Project>

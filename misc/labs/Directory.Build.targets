@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Compile Remove="**/*.old.cs" />
+		<None Include="**/*.old.cs" />
+	</ItemGroup>
+</Project>
