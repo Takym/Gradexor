@@ -17,7 +17,7 @@ Copyright (C) 2024 Takym.
 おそらく .NET のアライメントは不必要に大きい。
 
 ## データ
-筆者の環境における [`test.cmd`](./test.cmd) の実行結果です。
+筆者の環境における [`test.cmd`](./test.cmd) の実行結果。
 
 ```log
   復元対象のプロジェクトを決定しています...
@@ -56,5 +56,5 @@ C:\Program Files\dotnet\sdk\9.0.100-rc.1.24452.12\Sdks\Microsoft.NET.Sdk\targets
 2024/09/29  22:22           139,264 DotnetInterfaceSize.Included.exe
 2024/09/29  22:22               340 DotnetInterfaceSize.Included.runtimeconfig.json
                8 個のファイル             291,424 バイト
-               2 個のディレクトリ  4,825,462,784,000 バイトの空き領域\
+               2 個のディレクトリ  4,825,462,784,000 バイトの空き領域
 ```
