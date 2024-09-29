@@ -17,7 +17,7 @@ Copyright (C) 2020-2024 Takym.
 	* [Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck) を参考に開発した難解プログラミング言語です。
 	* [元のリポジトリ](https://github.com/Takym/BinFuck)
 	<!-- 次の文章は追加すべきか？「Brainfuck から ra の文字が消えているので Brainfuck Nora ともいう」 -->
-* **[MBRInfo](./MBRInfo/)**
+* **[MBRInfo](./misc/sfp/MBRInfo.c)**
 	* MBR の情報を表示するプログラムです。
 	* BPB と FAT 12/16/32 のヘッダーとパーティションテーブルの情報を表示します。
 	* 現在のバージョンでは IPL は表示できません。
@@ -26,7 +26,7 @@ Copyright (C) 2020-2024 Takym.
 	* [元のリポジトリ](https://github.com/Takym/HeliocentrismAndGeocentrism)
 * **[JsonUrlSaver](./JsonUrlSaver/)**
 	* JSON ファイル内の URL から資源をダウンロードして保存するツールです。
-* **[CppRepl](./CppRepl/)**
+* **[CppRepl](./misc/sfp/CppRepl.cpp)**
 	* C++ を REPL 実行できる簡易的なプログラムです。
 
 ## ブランチ一覧
