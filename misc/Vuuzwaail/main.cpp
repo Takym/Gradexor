@@ -13,22 +13,30 @@ using namespace vzwl;
 	logging::deinit(VZWL_RET_##code); \
 	return VZWL_RET_##code;
 
-ReturnCode run(EntryPointArguments args)
+ReturnCode main(int argc, char *argv[], char *envp[])
 {
+#ifdef _DEBUG
+	printf("====================================\r\n");
+	printf("==== NOW RUNNING IN DEBUG MODE! ====\r\n");
+	printf("====================================\r\n");
+#endif // _DEBUG
+
 	if (!logging::init()) {
 		printf("Log File Error.\r\n");
 		return VZWL_RET_FAILED_STARTUP_INIT_LOGGING;
 	}
 
-	for (int i = 0; i < args.count; ++i) {
-		logging::lTRACEln("args", "values[%d]: %s", i, args.values[i]);
+	logging::lTRACEln("args", "argc: %d", argc);
+
+	for (int i = 0; i < argc; ++i) {
+		logging::lTRACEln("args", "argv[%d]: %s", i, argv[i]);
 	}
 
-	for (int i = 0; args.environmentVariables[i] != nullptr; ++i) {
-		logging::lTRACEln("args", "environmentVariables[%d]: %s", i, args.environmentVariables[i]);
+	for (int i = 0; envp[i] != nullptr; ++i) {
+		logging::lTRACEln("args", "envp[%d]: %s", i, envp[i]);
 	}
 
-	if (args.count <= 1) {
+	if (argc <= 1) {
 		logging::lPRINTln("", "Usage> ./vuuzwaail.elf");
 		RET(FAILED_STARTUP_MISSING_CMDLINE_ARGS);
 	}
@@ -51,15 +59,4 @@ ReturnCode run(EntryPointArguments args)
 	} else {
 		RET(FAILED_PROCESSOR_INIT);
 	}
-}
-
-int main(int argc, char *argv[], char *envp[])
-{
-#ifdef _DEBUG
-	printf("====================================\r\n");
-	printf("==== NOW RUNNING IN DEBUG MODE! ====\r\n");
-	printf("====================================\r\n");
-#endif // _DEBUG
-
-	return ((int)(run({ argc, argv, envp })));
 }

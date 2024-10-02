@@ -40,12 +40,6 @@ namespace vzwl
 #define VZWL_RET_FAILED_PROCESSOR_RUN					VZWL_RET_FAILED_PROCESSOR(0x0003)
 #define VZWL_RET_FAILED_PROCESSOR_RUN_AND_DEINIT		VZWL_RET_FAILED_PROCESSOR(0x0004)
 
-	typedef struct _ENTRY_POINT_ARGUMENTS_ {
-		int    count;
-		char **values;
-		char **environmentVariables;
-	} EntryPointArguments;
-
 	typedef enum _COMPONENT_TYPE_ {
 		Unknown = -1,
 		Uninitialized,
