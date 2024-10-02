@@ -12,6 +12,6 @@ if [ -z "$GCC_OPT" ]; then
 fi
 
 $GCC_CMD $GCC_OPT \
+	main.cpp      \
 	logging.cpp   \
-	processor.cpp \
-	main.cpp
+	processor.cpp
