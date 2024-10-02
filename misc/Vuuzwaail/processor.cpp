@@ -9,71 +9,32 @@
 
 namespace vzwl::processor
 {
+	using namespace logging;
+	#define LOG_NAME	((LogName)("processor"))
+	#define BEGIN		VZWL_LOG_BEGIN(LOG_NAME);
+	#define ENDED		VZWL_LOG_ENDED(LOG_NAME);
+
 	typedef struct _COMPONENT_DATA_ {
 		size_t      compCount;
 		LpComponent components[];
 	} ComponentData, *LpComponentData;
 
-	void _send(LpComponent lpThisComp, int32_t key, int32_t data)
+	static void _send(LpComponent lpThisComp, int32_t key, int32_t data)
 	{
-		// do nothing
+		BEGIN;
+		ENDED;
 	}
 
-	int32_t _receive(LpComponent lpThisComp, int32_t key)
+	static int32_t _receive(LpComponent lpThisComp, int32_t key)
 	{
-		// do nothing
+		BEGIN;
+		ENDED;
 		return 0;
 	}
 
-	bool _deinit(LpComponent lpThisComp)
+	static bool _run(LpComponent lpComp)
 	{
-		if (lpThisComp->type != Processor) {
-			return false;
-		}
-
-		auto data = ((LpComponentData)(lpThisComp->data));
-		for (size_t i = 0; i < data->compCount; ++i) {
-			if (i != lpThisComp->id) {
-				auto childComp = data->components[i];
-				childComp->deinit(childComp);
-			}
-		}
-		free(data);
-
-		lpThisComp->type    = Unknown;
-		lpThisComp->send    = nullptr;
-		lpThisComp->receive = nullptr;
-		lpThisComp->deinit  = nullptr;
-		lpThisComp->data    = nullptr;
-
-		return true;
-	}
-
-	bool init(LpComponent lpComp, size_t compCount)
-	{
-		if (lpComp->type != Unknown || compCount < 1) {
-			return false;
-		}
-
-		auto data = ((LpComponentData)(malloc(sizeof(ComponentData) + (sizeof(LpComponent) * compCount))));
-		if (data == nullptr) {
-			return false;
-		}
-		data->compCount     = compCount;
-		data->components[0] = lpComp;
-
-		lpComp->type    = Processor;
-		lpComp->id      = 0;
-		lpComp->send    = _send;
-		lpComp->receive = _receive;
-		lpComp->deinit  = _deinit;
-		lpComp->data    = data;
-
-		return true;
-	}
-
-	bool run(LpComponent lpComp)
-	{
+		BEGIN;
 		// TODO: 処理装置
 
 		// 順次
@@ -89,5 +50,75 @@ namespace vzwl::processor
 		// 分岐・繰返
 		//  条件分岐 値一致多分岐(SWITCH) 関数呼び出し 返却 JMP/GOTO/BREAK/CONTINUE 指定回数繰返 列挙
 		//  API呼び出し
+
+		ENDED;
+		return true;
+	}
+
+	static bool _deinit(LpComponent lpThisComp)
+	{
+		BEGIN;
+
+		if (lpThisComp->type != Processor) {
+			lWARNln(LOG_NAME, "The specified component is not a processor. Type ID: %d", lpThisComp->type);
+			ENDED;
+			return false;
+		}
+
+		auto data = ((LpComponentData)(lpThisComp->data));
+		for (size_t i = 0; i < data->compCount; ++i) {
+			if (i != lpThisComp->id) {
+				auto childComp = data->components[i];
+				childComp->deinit(childComp);
+			}
+		}
+		free(data);
+
+		lpThisComp->type    = Uninitialized;
+		lpThisComp->send    = nullptr;
+		lpThisComp->receive = nullptr;
+		lpThisComp->run     = nullptr;
+		lpThisComp->deinit  = nullptr;
+		lpThisComp->data    = nullptr;
+
+		ENDED;
+		return true;
+	}
+
+	bool init(LpComponent lpComp, size_t compCount)
+	{
+		BEGIN;
+
+		if (lpComp->type != Uninitialized) {
+			lWARNln(LOG_NAME, "The specified component is initialized already. Type ID: %d", lpComp->type);
+			ENDED;
+			return false;
+		}
+
+		if (compCount < 1) {
+			lWARNln(LOG_NAME, "The component count should be greater than or equal to 1. Actual value: %d", compCount);
+			ENDED;
+			return false;
+		}
+
+		auto data = ((LpComponentData)(malloc(sizeof(ComponentData) + (sizeof(LpComponent) * compCount))));
+		if (data == nullptr) {
+			lWARNln(LOG_NAME, "Could not allocate memory buffer.");
+			ENDED;
+			return false;
+		}
+		data->compCount     = compCount;
+		data->components[0] = lpComp;
+
+		lpComp->type    = Processor;
+		lpComp->id      = 0;
+		lpComp->send    = _send;
+		lpComp->receive = _receive;
+		lpComp->run     = _run;
+		lpComp->deinit  = _deinit;
+		lpComp->data    = data;
+
+		ENDED;
+		return true;
 	}
 }
