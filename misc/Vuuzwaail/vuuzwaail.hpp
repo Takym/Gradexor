@@ -15,12 +15,6 @@
 #define VZWL_VERSION_PATCH		0
 #define VZWL_VERSION_BUILD		0
 
-#if __GNUC__
-#define NO_ALIGN	__attribute__((packed))
-#else
-#define NO_ALIGN
-#endif // __GNUC__
-
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -47,11 +41,10 @@ namespace vzwl
 #define VZWL_RET_FAILED_PROCESSOR_RUN_AND_DEINIT		VZWL_RET_FAILED_PROCESSOR(0x0004)
 
 	typedef struct _ENTRY_POINT_ARGUMENTS_ {
+		int    count;
 		char **values;
 		char **environmentVariables;
-		int    padding;
-		int    count;
-	} NO_ALIGN EntryPointArguments;
+	} EntryPointArguments;
 
 	typedef enum _COMPONENT_TYPE_ {
 		Unknown = -1,

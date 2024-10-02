@@ -59,13 +59,9 @@ int main(int argc, char *argv[], char *envp[])
 	printf("====================================\r\n");
 	printf("==== NOW RUNNING IN DEBUG MODE! ====\r\n");
 	printf("====================================\r\n");
-	return ((int)(run({ envp, argv, 0, argc })));
-#else
-	//printf("argc %p, %016llX\r\n", &argc, ((char *)(&argc)) - ((char *)(&envp)));
-	//printf("argv %p, %016llX\r\n", &argv, ((char *)(&argv)) - ((char *)(&envp)));
-	//printf("envp %p, %016llX\r\n", &envp, ((char *)(&envp)) - ((char *)(&envp)));
-	asm("JMP _Z3runN4vzwl23_ENTRY_POINT_ARGUMENTS_E");
 #endif // _DEBUG
+
+	return ((int)(run({ argc, argv, envp })));
 }
 
 #if LOGGER_TESTER
