@@ -24,10 +24,6 @@ namespace vzwl::logging
 	{
 		auto dt = getDtNow();
 
-		if (dt == nullptr) {
-			dt = &dtInvalid;
-		}
-
 		fprintf(
 			fpLogFile, "%04d/%02d/%02d %02d:%02d:%02d [%-5s] %-24s\t",
 			dt->tm_year + 1900, dt->tm_mon + 1, dt->tm_mday,
@@ -158,9 +154,15 @@ namespace vzwl::logging
 	LpDateTime getDtNow()
 	{
 		time_t t;
-
 		time(&t);
-		return localtime(&t);
+
+		auto result = localtime(&t);
+
+		if (result == nullptr) {
+			return &dtInvalid;
+		} else {
+			return result;
+		}
 	}
 
 #define LPRINT_DEF(funcName) \
