@@ -17,10 +17,14 @@ using namespace vzwl;
 #define BEGIN	VZWL_LOG_BEGIN("");
 #define ENDED	VZWL_LOG_ENDED("");
 
-#define RET(code)                     \
-	ENDED;                            \
-	logging::deinit(VZWL_RET_##code); \
-	return VZWL_RET_##code;
+#define RET(code)                                                    \
+	auto ret = VZWL_RET_##code;                                      \
+	if (ret != VZWL_RET_SUCCEEDED) {                                 \
+		logging::lERRORln("", "Failed to run. (code: 0x%08X)", ret); \
+	}                                                                \
+	ENDED;                                                           \
+	logging::deinit(ret);                                            \
+	return ret;
 
 #define STREQU(left, right) \
 	if (strcmp((left), (right)) == 0)
