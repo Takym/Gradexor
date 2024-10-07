@@ -14,4 +14,6 @@ fi
 $GCC_CMD $GCC_OPT \
 	main.cpp      \
 	logging.cpp   \
-	processor.cpp
+	processor.cpp \
+	memory.cpp    \
+	storage.cpp

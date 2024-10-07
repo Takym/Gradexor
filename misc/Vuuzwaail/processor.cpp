@@ -59,11 +59,7 @@ namespace vzwl::processor
 	{
 		BEGIN;
 
-		if (lpThisComp->type != Processor) {
-			lWARNln(LOG_NAME, "The specified component is not a processor. Type ID: %d", lpThisComp->type);
-			ENDED;
-			return false;
-		}
+		VZWL_DEINIT_CHECK_TYPE(Processor, processor);
 
 		auto data = ((LpComponentData)(lpThisComp->data));
 		for (size_t i = 0; i < data->compCount; ++i) {
@@ -74,12 +70,7 @@ namespace vzwl::processor
 		}
 		free(data);
 
-		lpThisComp->type    = Uninitialized;
-		lpThisComp->send    = nullptr;
-		lpThisComp->receive = nullptr;
-		lpThisComp->run     = nullptr;
-		lpThisComp->deinit  = nullptr;
-		lpThisComp->data    = nullptr;
+		VZWL_DEINIT_COMMON;
 
 		ENDED;
 		return true;
@@ -89,11 +80,7 @@ namespace vzwl::processor
 	{
 		BEGIN;
 
-		if (lpComp->type != Uninitialized) {
-			lWARNln(LOG_NAME, "The specified component is initialized already. Type ID: %d", lpComp->type);
-			ENDED;
-			return false;
-		}
+		VZWL_INIT_CHECK_TYPE;
 
 		if (compCount < 1) {
 			lWARNln(LOG_NAME, "The component count should be greater than or equal to 1. Actual value: %d", compCount);
@@ -110,13 +97,7 @@ namespace vzwl::processor
 		data->compCount     = compCount;
 		data->components[0] = lpComp;
 
-		lpComp->type    = Processor;
-		lpComp->id      = 0;
-		lpComp->send    = _send;
-		lpComp->receive = _receive;
-		lpComp->run     = _run;
-		lpComp->deinit  = _deinit;
-		lpComp->data    = data;
+		VZWL_INIT_COMMON(Processor, 0);
 
 		ENDED;
 		return true;

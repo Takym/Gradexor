@@ -78,6 +78,37 @@ namespace vzwl
 		void           *data;
 	};
 
+#define VZWL_INIT_CHECK_TYPE                                                                            \
+	if (lpComp->type != Uninitialized) {                                                                \
+		lWARNln(LOG_NAME, "The specified component is initialized already. Type ID: %d", lpComp->type); \
+		ENDED;                                                                                          \
+		return false;                                                                                   \
+	}
+
+#define VZWL_INIT_COMMON(typeValue, idValue) \
+	lpComp->type    = (typeValue);           \
+	lpComp->id      = (idValue);             \
+	lpComp->send    = _send;                 \
+	lpComp->receive = _receive;              \
+	lpComp->run     = _run;                  \
+	lpComp->deinit  = _deinit;               \
+	lpComp->data    = data;
+
+#define VZWL_DEINIT_CHECK_TYPE(typeValue, displayName)                                                         \
+	if (lpThisComp->type != (typeValue)) {                                                                     \
+		lWARNln(LOG_NAME, "The specified component is not a " #displayName ". Type ID: %d", lpThisComp->type); \
+		ENDED;                                                                                                 \
+		return false;                                                                                          \
+	}
+
+#define VZWL_DEINIT_COMMON               \
+	lpThisComp->type    = Uninitialized; \
+	lpThisComp->send    = nullptr;       \
+	lpThisComp->receive = nullptr;       \
+	lpThisComp->run     = nullptr;       \
+	lpThisComp->deinit  = nullptr;       \
+	lpThisComp->data    = nullptr;
+
 	namespace logging
 	{
 		typedef struct ::tm *LpDateTime;
@@ -125,6 +156,16 @@ namespace vzwl
 	namespace processor
 	{
 		bool init(LpComponent lpComp, size_t compCount);
+	}
+
+	namespace memory
+	{
+		bool init(LpComponent lpComp, ComponentId id, size_t size);
+	}
+
+	namespace storage
+	{
+		bool init(LpComponent lpComp, ComponentId id, size_t size, void *buf);
 	}
 }
 
