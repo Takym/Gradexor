@@ -36,6 +36,63 @@ Vuuzwaail は部品単位で管理されます。
 
 ### 記憶装置
 
+### Vuuzwaail Custom Device File (仮案)
+* 拡張子：`*.vzwldev;*.vcd`
+
+#### `CustomDeviceFile`
+
+|位置|名前                    |型                  |値                |
+|---:|:-----------------------|:-------------------|:-----------------|
+| +00|`header`                |`CustomDeviceHeader`|ファイルのメタ情報|
+| +40|`payload`               |`uint8_t[]`         |ファイルの内容    |
+
+#### `CustomDeviceHeader`
+
+|位置|名前                    |型             |値                                                            |
+|---:|:-----------------------|:--------------|:-------------------------------------------------------------|
+| +00|`signature`             |`uint32_t`     |常に `0x4C575A56` (VZWL)                                      |
+| +04|`formatVersion`         |`uint32_t`     |常に `0`                                                      |
+| +08|`systemVersion`         |`SystemVersion`|Vuuzwaail のバージョン                                        |
+| +10|`commandAddress`        |`uint32_t`     |ファイル内における起動コマンドの位置から `0x40` を差し引いた値|
+| +14|`commandLength`         |`uint32_t`     |ファイル内における起動コマンドの長さ                          |
+| +18|`sendingBufferAddress`  |`uint32_t`     |ファイル内における送信バッファの位置から `0x40` を差し引いた値|
+| +1C|`sendingBufferSize`     |`uint32_t`     |ファイル内における送信バッファの容量                          |
+| +20|`receivingBufferAddress`|`uint32_t`     |ファイル内における受信バッファの位置から `0x40` を差し引いた値|
+| +24|`receivingBufferSize`   |`uint32_t`     |ファイル内における受信バッファの容量                          |
+| +28|`reserved`              |`uint8_t[24]`  |予約済み（全て `0xFF` で埋める）                              |
+
+#### `SystemVersion`
+
+|位置|名前   |型        |値                    |
+|---:|:------|:---------|:---------------------|
+| +00|`major`|`uint16_t`|Vuuzwaail のバージョン|
+| +02|`minor`|`uint16_t`|Vuuzwaail のバージョン|
+| +04|`patch`|`uint16_t`|Vuuzwaail のバージョン|
+| +06|`build`|`uint16_t`|Vuuzwaail のバージョン|
+
+#### `BufferData`
+
+|位置|名前           |型          |値                              |
+|---:|:--------------|:-----------|:-------------------------------|
+| +00|`type`         |`BufferType`|バッファの種類                  |
+| +01|`reserved`     |`uint8_t[7]`|予約済み（全て `0xFF` で埋める）|
+| +08|`readPosition` |`int32_t`   |読み取り位置                    |
+| +0C|`writePosition`|`int32_t`   |書き込み位置                    |
+| +10|`data`         |`int32_t[]` |データ                          |
+
+#### `BufferType`
+
+```cpp
+typedef uint8_t BufferType;
+```
+
+|名前                            |値    |
+|:-------------------------------|-----:|
+|`VZWL_BUFFER_TYPE_NOT_SUPPORTED`|`0x00`|
+|`VZWL_BUFFER_TYPE_QUEUE`        |`0x01`|
+|`VZWL_BUFFER_TYPE_STACK`        |`0x02`|
+|`VZWL_BUFFER_TYPE_RANDOM`       |`0x03`|
+
 ## 想定環境
 * `wsl -v`
 	> ```
