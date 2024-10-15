@@ -20,7 +20,7 @@ namespace vzwl::logging
 	static LogLevel   lastLogLevel;
 	static LogName    lastLogName;
 
-	static void _writeHeader(const char *const lvl, const char *const name)
+	static void _writeHeader(cstr_t lvl, cstr_t name)
 	{
 		auto dt = getDtNow();
 
@@ -32,7 +32,7 @@ namespace vzwl::logging
 		);
 	}
 
-	static void _vlprintf(LogLevel logLevel, LogName logName, const char *const messageFormat, va_list ap)
+	static void _vlprintf(LogLevel logLevel, LogName logName, cstr_t messageFormat, va_list ap)
 	{
 		if (logLevel.empty()) {
 			logLevel = VZWL_LOG_LEVEL_NULL;
@@ -42,8 +42,8 @@ namespace vzwl::logging
 			logName = "system";
 		}
 
-		const char *const lvl  = logLevel.c_str();
-		const char *const name = logName .c_str();
+		cstr_t lvl  = logLevel.c_str();
+		cstr_t name = logName .c_str();
 		bool writeHeader = false, printLineBreak = false;
 
 		if (logLevel != lastLogLevel || logName != lastLogName) {
@@ -166,7 +166,7 @@ namespace vzwl::logging
 	}
 
 #define LPRINT_DEF(funcName) \
-	void l##funcName(LogName logName, const char *const messageFormat, ...)
+	void l##funcName(LogName logName, cstr_t messageFormat, ...)
 
 #define LPRINTF_CORE(lvl)                           \
 	{                                               \
@@ -191,10 +191,10 @@ namespace vzwl::logging
 #define LPRINT(lvl) \
 	LPRINTF(lvl) LPRINTLN(lvl)
 
-	void lprintf(LogLevel logLevel, LogName logName, const char *const messageFormat, ...)
+	void lprintf(LogLevel logLevel, LogName logName, cstr_t messageFormat, ...)
 		LPRINTF_CORE(logLevel)
 
-	void lprintln(LogLevel logLevel, LogName logName, const char *const messageFormat, ...)
+	void lprintln(LogLevel logLevel, LogName logName, cstr_t messageFormat, ...)
 		LPRINTLN_CORE(logLevel)
 
 	LPRINT(PRINT);

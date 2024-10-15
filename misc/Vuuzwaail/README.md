@@ -36,6 +36,11 @@ Vuuzwaail は部品単位で管理されます。
 
 ### 記憶装置
 
+### I/O 命令
+* `DEVACT` - Device Action (`Component.run`)
+* `IN`     - Input         (`Component.receive`)
+* `OUT`    - Output        (`Component.send`)
+
 ### Vuuzwaail Custom Device File (仮案)
 * 拡張子：`*.vzwldev;*.vcd`
 

@@ -51,7 +51,7 @@ namespace vzwl::memory
 		return true;
 	}
 
-	bool init(LpComponent lpComp, ComponentId id, size_t size)
+	bool init(LpComponent lpComp, ComponentId id, size_t size, void *buf)
 	{
 		BEGIN;
 

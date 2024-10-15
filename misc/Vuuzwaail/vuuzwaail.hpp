@@ -43,6 +43,8 @@ namespace vzwl
 #define VZWL_RET_FAILED_PROCESSOR_RUN					VZWL_RET_FAILED_PROCESSOR(0x0003)
 #define VZWL_RET_FAILED_PROCESSOR_RUN_AND_DEINIT		VZWL_RET_FAILED_PROCESSOR(0x0004)
 
+	typedef const char *const cstr_t;
+
 	typedef struct _CMDLINE_OPTIONS_ {
 		int    argc;
 		char **argv;
@@ -133,24 +135,24 @@ namespace vzwl
 		bool       init    (void                                                                    );
 		void       deinit  (ReturnCode ret                                                          );
 		LpDateTime getDtNow(void                                                                    );
-		void       lprintf (LogLevel logLevel, LogName logName, const char *const messageFormat, ...);
-		void       lprintln(LogLevel logLevel, LogName logName, const char *const messageFormat, ...);
-		void       lPRINTf (                   LogName logName, const char *const messageFormat, ...);
-		void       lPRINTln(                   LogName logName, const char *const messageFormat, ...);
-		void       lTRACEf (                   LogName logName, const char *const messageFormat, ...);
-		void       lTRACEln(                   LogName logName, const char *const messageFormat, ...);
-		void       lDEBUGf (                   LogName logName, const char *const messageFormat, ...);
-		void       lDEBUGln(                   LogName logName, const char *const messageFormat, ...);
-		void       lINFOf  (                   LogName logName, const char *const messageFormat, ...);
-		void       lINFOln (                   LogName logName, const char *const messageFormat, ...);
-		void       lWARNf  (                   LogName logName, const char *const messageFormat, ...);
-		void       lWARNln (                   LogName logName, const char *const messageFormat, ...);
-		void       lBUGf   (                   LogName logName, const char *const messageFormat, ...);
-		void       lBUGln  (                   LogName logName, const char *const messageFormat, ...);
-		void       lERRORf (                   LogName logName, const char *const messageFormat, ...);
-		void       lERRORln(                   LogName logName, const char *const messageFormat, ...);
-		void       lFATALf (                   LogName logName, const char *const messageFormat, ...);
-		void       lFATALln(                   LogName logName, const char *const messageFormat, ...);
+		void       lprintf (LogLevel logLevel, LogName logName, cstr_t messageFormat, ...);
+		void       lprintln(LogLevel logLevel, LogName logName, cstr_t messageFormat, ...);
+		void       lPRINTf (                   LogName logName, cstr_t messageFormat, ...);
+		void       lPRINTln(                   LogName logName, cstr_t messageFormat, ...);
+		void       lTRACEf (                   LogName logName, cstr_t messageFormat, ...);
+		void       lTRACEln(                   LogName logName, cstr_t messageFormat, ...);
+		void       lDEBUGf (                   LogName logName, cstr_t messageFormat, ...);
+		void       lDEBUGln(                   LogName logName, cstr_t messageFormat, ...);
+		void       lINFOf  (                   LogName logName, cstr_t messageFormat, ...);
+		void       lINFOln (                   LogName logName, cstr_t messageFormat, ...);
+		void       lWARNf  (                   LogName logName, cstr_t messageFormat, ...);
+		void       lWARNln (                   LogName logName, cstr_t messageFormat, ...);
+		void       lBUGf   (                   LogName logName, cstr_t messageFormat, ...);
+		void       lBUGln  (                   LogName logName, cstr_t messageFormat, ...);
+		void       lERRORf (                   LogName logName, cstr_t messageFormat, ...);
+		void       lERRORln(                   LogName logName, cstr_t messageFormat, ...);
+		void       lFATALf (                   LogName logName, cstr_t messageFormat, ...);
+		void       lFATALln(                   LogName logName, cstr_t messageFormat, ...);
 	}
 
 	namespace processor
@@ -160,12 +162,12 @@ namespace vzwl
 
 	namespace memory
 	{
-		bool init(LpComponent lpComp, ComponentId id, size_t size);
+		bool init(LpComponent lpComp, ComponentId id, size_t size, void *buf);
 	}
 
 	namespace storage
 	{
-		bool init(LpComponent lpComp, ComponentId id, size_t size, void *buf);
+		bool init(LpComponent lpComp, ComponentId id, size_t size, cstr_t fname);
 	}
 }
 

@@ -51,7 +51,7 @@ namespace vzwl::storage
 		return true;
 	}
 
-	bool init(LpComponent lpComp, ComponentId id, size_t size, void *buf)
+	bool init(LpComponent lpComp, ComponentId id, size_t size, cstr_t fname)
 	{
 		BEGIN;
 
