@@ -28,6 +28,8 @@ Copyright (C) 2020-2024 Takym.
 	* JSON ファイル内の URL から資源をダウンロードして保存するツールです。
 * **[CppRepl](./misc/sfp/CppRepl.cpp)**
 	* C++ を REPL 実行できる簡易的なプログラムです。
+* **[Vuuzwaail](./misc/Vuuzwaail/)**
+	* 独自設計の仮想機械です。
 * **[実験](./misc/labs/)**
 	* プログラミングの実験用ディレクトリです。
 
