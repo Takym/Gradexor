@@ -151,10 +151,18 @@ namespace vzwl::logging
 		return true;
 	}
 
+#ifdef _DEBUG
+#define CHECK_INIT                                                \
+	if (!initialized) {                                           \
+		printf("The logging system is not initialized yet!\r\n"); \
+		return;                                                   \
+	}
+#else
 #define CHECK_INIT      \
 	if (!initialized) { \
 		return;         \
 	}
+#endif // _DEBUG
 
 	void deinit(ReturnCode ret)
 	{
