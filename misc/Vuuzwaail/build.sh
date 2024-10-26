@@ -1,4 +1,10 @@
 #!/bin/bash
+#================================================================
+# Vuuzwaail
+# Copyright (C) 2024 Takym.
+#
+# distributed under the MIT License.
+#================================================================
 
 # GDB を使う時は -O2 を -O0 -g -D_DEBUG に書き換える。
 # アセンブリを出力する時は -o vuuzwaail.elf を -S -masm=intel に書き換える。

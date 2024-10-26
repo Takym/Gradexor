@@ -1,0 +1,46 @@
+{
+	"configurations": [
+		{
+			"name": "WSL (Release)",
+			"includePath": [
+				"${workspaceFolder}/**"
+			],
+			"compilerPath": "/usr/bin/g++",
+			"cStandard": "c17",
+			"cppStandard": "c++17",
+			"intelliSenseMode": "linux-gcc-x64",
+			"compilerArgs": [
+				"-Wall",
+				"-m64",
+				"-std=gnu++17",
+				"-O2",
+				"-o",
+				"vuuzwaail.elf"
+			]
+		},
+		{
+			"name": "WSL (Debug)",
+			"includePath": [
+				"${workspaceFolder}/**"
+			],
+			"compilerPath": "/usr/bin/g++",
+			"cStandard": "c17",
+			"cppStandard": "c++17",
+			"intelliSenseMode": "linux-gcc-x64",
+			"compilerArgs": [
+				"-Wall",
+				"-m64",
+				"-std=gnu++17",
+				"-O0",
+				"-g",
+				"-D_DEBUG",
+				"-o",
+				"vuuzwaail_debug.elf"
+			],
+			"defines": [
+				"_DEBUG"
+			]
+		}
+	],
+	"version": 4
+}

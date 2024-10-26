@@ -1,4 +1,10 @@
 #!/bin/bash
+#================================================================
+# Vuuzwaail
+# Copyright (C) 2024 Takym.
+#
+# distributed under the MIT License.
+#================================================================
 
 if [ -z "$GCC_OPT_COMMON" ]; then
 	GCC_OPT_COMMON="-O0 -g -D_DEBUG"

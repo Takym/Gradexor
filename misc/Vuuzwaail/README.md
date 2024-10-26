@@ -101,26 +101,26 @@ typedef uint8_t BufferType;
 ## 想定環境
 * `wsl -v`
 	> ```
-	> WSL バージョン: 2.2.4.0
+	> WSL バージョン: 2.3.24.0
 	> カーネル バージョン: 5.15.153.1-2
-	> WSLg バージョン: 1.0.61
-	> MSRDC バージョン: 1.2.5326
+	> WSLg バージョン: 1.0.65
+	> MSRDC バージョン: 1.2.5620
 	> Direct3D バージョン: 1.611.1-81528511
-	> DXCore バージョン: 10.0.26091.1-240325-1447.ge-release
-	> Windows バージョン: 10.0.19045.4894
+	> DXCore バージョン: 10.0.26100.1-240331-1435.ge-release
+	> Windows バージョン: 10.0.19045.5011
 	> ```
 * `lsb_release -a`
 	> ```
 	> No LSB modules are available.
 	> Distributor ID: Ubuntu
-	> Description:    Ubuntu 18.04.6 LTS
-	> Release:        18.04
-	> Codename:       bionic
+	> Description:    Ubuntu 24.04.1 LTS
+	> Release:        24.04
+	> Codename:       noble
 	> ```
 * `bash --version`
 	> ```
-	> GNU bash, バージョン 4.4.20(1)-release (x86_64-pc-linux-gnu)
-	> Copyright (C) 2016 Free Software Foundation, Inc.
+	> GNU bash, バージョン 5.2.21(1)-release (x86_64-pc-linux-gnu)
+	> Copyright (C) 2022 Free Software Foundation, Inc.
 	> ライセンス GPLv3+: GNU GPL バージョン 3 またはそれ以降 <http://gnu.org/licenses/gpl.html>
 	>
 	> This is free software; you are free to change and redistribute it.
@@ -130,34 +130,26 @@ typedef uint8_t BufferType;
 	> ```
 	> Using built-in specs.
 	> COLLECT_GCC=g++
-	> COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
-	> OFFLOAD_TARGET_NAMES=nvptx-none
+	> COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-linux-gnu/13/lto-wrapper
+	> OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
 	> OFFLOAD_TARGET_DEFAULT=1
 	> Target: x86_64-linux-gnu
-	> Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+	> Configured with: ../src/configure -v --with-pkgversion='Ubuntu 13.2.0-23ubuntu4' --with-bugurl=file:///usr/share/doc/gcc-13/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-13 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-13-uJ7kn6/gcc-13-13.2.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/gcc-13-uJ7kn6/gcc-13-13.2.0/debian/tmp-gcn/usr --enable-offload-defaulted --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
 	> Thread model: posix
-	> gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)
+	> Supported LTO compression algorithms: zlib zstd
+	> gcc version 13.2.0 (Ubuntu 13.2.0-23ubuntu4)
 	> ```
 * `gdb -v`
 	> ```
-	> GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1
-	> Copyright (C) 2018 Free Software Foundation, Inc.
+	> GNU gdb (Ubuntu 15.0.50.20240403-0ubuntu1) 15.0.50.20240403-git
+	> Copyright (C) 2024 Free Software Foundation, Inc.
 	> License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 	> This is free software: you are free to change and redistribute it.
-	> There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
-	> and "show warranty" for details.
-	> This GDB was configured as "x86_64-linux-gnu".
-	> Type "show configuration" for configuration details.
-	> For bug reporting instructions, please see:
-	> <http://www.gnu.org/software/gdb/bugs/>.
-	> Find the GDB manual and other documentation resources online at:
-	> <http://www.gnu.org/software/gdb/documentation/>.
-	> For help, type "help".
-	> Type "apropos word" to search for commands related to "word".
+	> There is NO WARRANTY, to the extent permitted by law.
 	> ```
 * `ld -v`
 	> ```
-	> GNU ld (GNU Binutils for Ubuntu) 2.30
+	> GNU ld (GNU Binutils for Ubuntu) 2.42
 	> ```
 
 ## 利用規約
