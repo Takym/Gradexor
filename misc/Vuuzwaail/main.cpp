@@ -169,7 +169,7 @@ ReturnCode main(int argc, char *argv[], char *envp[])
 	debugModeEnabled = true;
 #endif // _DEBUG
 
-	if (!logging::init()) {
+	if (!logging::init("main")) {
 		printf("Log File Error.\r\n");
 		return VZWL_RET_FAILED_STARTUP_INIT_LOGGING;
 	}

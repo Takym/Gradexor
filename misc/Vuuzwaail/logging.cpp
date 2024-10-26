@@ -8,21 +8,23 @@
 #include "vuuzwaail.hpp"
 
 #ifdef _DEBUG
-#define LOG_FILENAME	"vuuzwaail_debug.log"
+#define LOG_FILENAME	"vuuzwaail_debug.%s.log"
 #else
-#define LOG_FILENAME	"vuuzwaail.log"
+#define LOG_FILENAME	"vuuzwaail.%s.log"
 #endif // _DEBUG
 
 namespace vzwl::logging
 {
-	static FILE      *fpLogFile;
-	static struct tm  dtInvalid;
-	static LogLevel   lastLogLevel;
-	static LogName    lastLogName;
+	static thread_local FILE      *fpLogFile;
+	static thread_local struct tm  dtInvalid;
+	static thread_local LogLevel   lastLogLevel;
+	static thread_local LogName    lastLogName;
+	static thread_local bool       initialized;
 
 	static void _writeHeader(cstr_t lvl, cstr_t name)
 	{
-		auto dt = getDtNow();
+		struct tm buf;
+		auto dt = getDtNow(&buf);
 
 		fprintf(
 			fpLogFile, "%04d/%02d/%02d %02d:%02d:%02d [%-5s] %-24s\t",
@@ -118,9 +120,16 @@ namespace vzwl::logging
 #endif // _DEBUG
 	}
 
-	bool init()
+	bool init(cstr_t tag)
 	{
-		fpLogFile = fopen(LOG_FILENAME, "a+");
+		if (initialized) {
+			lWARNln("", "The logging system for the tag \"%s\" has already been initialized.", tag);
+			return false;
+		}
+
+		char fname[64];
+		sprintf(fname, LOG_FILENAME, tag);
+		fpLogFile = fopen(fname, "a+");
 
 		dtInvalid.tm_year = -1900;
 		dtInvalid.tm_mon  = -1;
@@ -136,12 +145,21 @@ namespace vzwl::logging
 			return false;
 		}
 
+		initialized = true;
 		lINFOln("", VZWL_TITLE " has been started");
+
 		return true;
+	}
+
+#define CHECK_INIT      \
+	if (!initialized) { \
+		return;         \
 	}
 
 	void deinit(ReturnCode ret)
 	{
+		CHECK_INIT;
+
 		if (ret == VZWL_RET_SUCCEEDED) {
 			lINFOln("", VZWL_TITLE " is closing normally...");
 		} else {
@@ -151,14 +169,12 @@ namespace vzwl::logging
 		fclose(fpLogFile);
 	}
 
-	LpDateTime getDtNow()
+	LpDateTime getDtNow(LpDateTime result)
 	{
 		time_t t;
 		time(&t);
 
-		auto result = localtime(&t);
-
-		if (result == nullptr) {
+		if (localtime_r(&t, result) == nullptr) {
 			return &dtInvalid;
 		} else {
 			return result;
@@ -170,6 +186,7 @@ namespace vzwl::logging
 
 #define LPRINTF_CORE(lvl)                           \
 	{                                               \
+		CHECK_INIT;                                 \
 		va_list ap;                                 \
 		va_start(ap, messageFormat);                \
 		_vlprintf(lvl, logName, messageFormat, ap); \

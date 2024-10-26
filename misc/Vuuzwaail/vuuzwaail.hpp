@@ -132,9 +132,9 @@ namespace vzwl
 #define VZWL_LOG_BEGIN(name)		VZWL_LOG_NS::lTRACEln(name, "Executing `%s`...", __PRETTY_FUNCTION__);
 #define VZWL_LOG_ENDED(name)		VZWL_LOG_NS::lTRACEln(name, "Completed `%s`!",   __PRETTY_FUNCTION__);
 
-		bool       init    (void                                                                    );
-		void       deinit  (ReturnCode ret                                                          );
-		LpDateTime getDtNow(void                                                                    );
+		bool       init    (cstr_t tag                                                   );
+		void       deinit  (ReturnCode ret                                               );
+		LpDateTime getDtNow(LpDateTime result                                            );
 		void       lprintf (LogLevel logLevel, LogName logName, cstr_t messageFormat, ...);
 		void       lprintln(LogLevel logLevel, LogName logName, cstr_t messageFormat, ...);
 		void       lPRINTf (                   LogName logName, cstr_t messageFormat, ...);
