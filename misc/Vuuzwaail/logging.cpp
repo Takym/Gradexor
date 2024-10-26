@@ -123,7 +123,8 @@ namespace vzwl::logging
 	bool init(cstr_t tag)
 	{
 		if (initialized) {
-			lWARNln("", "The logging system for the tag \"%s\" has already been initialized.", tag);
+			lBUGln  ("", "The logging system for this thread has already been initialized.");
+			lDEBUGln("", "The specified logging system tag is: \"%s\"", tag);
 			return false;
 		}
 
@@ -146,7 +147,7 @@ namespace vzwl::logging
 		}
 
 		initialized = true;
-		lINFOln("", VZWL_TITLE " has been started");
+		lINFOln("", VZWL_TITLE " has been started. The specified logging system tag is: \"%s\"", tag);
 
 		return true;
 	}
