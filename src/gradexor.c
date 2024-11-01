@@ -24,6 +24,8 @@ typedef const char *GradexorString;
 #define HELLO			((GradexorString)("hello"   ))
 #define WAVES			((GradexorString)("waves"   ))
 #define BOXES			((GradexorString)("boxes"   ))
+#define BOXES_V2		((GradexorString)("boxes_v2"))
+#define BOXES_V3		((GradexorString)("boxes_v3"))
 #define LINES			((GradexorString)("lines"   ))
 #define SCALE			((GradexorString)("scale"   ))
 #define TYPES			((GradexorString)("types"   ))
@@ -87,11 +89,40 @@ void drawGradexor_boxes(AWindow *w, AInt16 width, AInt16 height, AInt16 ticks)
 	}
 }
 
+void drawGradexor_boxes_v2(AWindow *w, AInt16 width, AInt16 height, AInt16 ticks)
+{
+	AInt16 x, y;
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
+			aSetPix0(w, x, y, aRgb8(
+				( x      & ticks) & 0xFF,
+				((x ^ y) & ticks) & 0xFF,
+				(     y  & ticks) & 0xFF
+			));
+		}
+	}
+}
+
+void drawGradexor_boxes_v3(AWindow *w, AInt16 width, AInt16 height, AInt16 ticks)
+{
+	AInt16 x, y;
+	for (x = 0; x < width; ++x) {
+		for (y = 0; y < height; ++y) {
+			aSetPix0(w, x, y, aRgb8(
+				( x      | ticks) & 0xFF,
+				((x ^ y) | ticks) & 0xFF,
+				(     y  | ticks) & 0xFF
+			));
+		}
+	}
+}
+
 void drawGradexor_lines(AWindow *w, AInt16 width, AInt16 height, AInt16 ticks)
 {
 	AInt16 x, y;
 	for (x = 0; x < width; ++x) {
 		for (y = 0; y < height; ++y) {
+			// 符号を変えても線が動く向きが変わるだけなのであまり面白くない。
 			aSetPix0(w, x, y, aRgb8(
 				( x      + ticks) & 0xFF,
 				((x ^ y) + ticks) & 0xFF,
@@ -106,6 +137,8 @@ void drawGradexor_scale(AWindow *w, AInt16 width, AInt16 height, AInt16 ticks)
 	AInt16 x, y;
 	for (x = 0; x < width; ++x) {
 		for (y = 0; y < height; ++y) {
+			// 除算にすると真っ黒になり、剰余にすると通常画面が延々と表示されるので、
+			// 全く以って面白く無くなってしまう。乗算のままにすべし。
 			aSetPix0(w, x, y, aRgb8(
 				( x      * ticks) & 0xFF,
 				((x ^ y) * ticks) & 0xFF,
@@ -212,6 +245,12 @@ void drawGradexor(AWindow *w, AInt16 width, AInt16 height, GradexorString const 
 		} else if (IsEqual(BOXES, mode)) {
 			drawGradexor_boxes(w, width, height, i); // 推奨待機時間は1ミリ秒
 			aWait(1);
+		} else if (IsEqual(BOXES_V2, mode)) {
+			drawGradexor_boxes_v2(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
+		} else if (IsEqual(BOXES_V3, mode)) {
+			drawGradexor_boxes_v3(w, width, height, i); // 推奨待機時間は1ミリ秒
+			aWait(1);
 		} else if (IsEqual(LINES, mode)) {
 			drawGradexor_lines(w, width, height, i); // 推奨待機時間は1ミリ秒
 			aWait(1);
@@ -240,12 +279,14 @@ static GradexorString const WorkNameTable[] = {
 	"Sanko「三湖」（バージョン２）",
 	"Hello「こんにちは」",
 	"Waves「波々」",
-	"Boxes「箱々」",
+	"Boxes「箱々」（バージョン１）",
+	"Boxes「箱々」（バージョン２）",
+	"Boxes「箱々」（バージョン３）",
 	"Lines「線々」",
 	"Scale「スケール」",
-	"Types/排他的論理和色彩変化画像",
-	"Typed/排他的論理和色彩変化画像",
-	"Typer/排他的論理和色彩変化画像"
+	"TypeS/排他的論理和色彩変化画像",
+	"TypeD/排他的論理和色彩変化画像",
+	"TypeR/排他的論理和色彩変化画像"
 };
 
 const char *const GetWorkName(GradexorString const mode)
@@ -255,11 +296,13 @@ const char *const GetWorkName(GradexorString const mode)
 	else if IsEqual(HELLO,    mode) then_wname[ 3];
 	else if IsEqual(WAVES,    mode) then_wname[ 4];
 	else if IsEqual(BOXES,    mode) then_wname[ 5];
-	else if IsEqual(LINES,    mode) then_wname[ 6];
-	else if IsEqual(SCALE,    mode) then_wname[ 7];
-	else if IsEqual(TYPES,    mode) then_wname[ 8];
-	else if IsEqual(TYPED,    mode) then_wname[ 9];
-	else if IsEqual(TYPER,    mode) then_wname[10];
+	else if IsEqual(BOXES_V2, mode) then_wname[ 6];
+	else if IsEqual(BOXES_V3, mode) then_wname[ 7];
+	else if IsEqual(LINES,    mode) then_wname[ 8];
+	else if IsEqual(SCALE,    mode) then_wname[ 9];
+	else if IsEqual(TYPES,    mode) then_wname[10];
+	else if IsEqual(TYPED,    mode) then_wname[11];
+	else if IsEqual(TYPER,    mode) then_wname[12];
 	else                            then_wname[ 0];
 }
 

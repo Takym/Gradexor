@@ -4,6 +4,8 @@
 ../bin/gradexor.elf hello
 ../bin/gradexor.elf waves
 ../bin/gradexor.elf boxes
+../bin/gradexor.elf boxes_v2
+../bin/gradexor.elf boxes_v3
 ../bin/gradexor.elf lines
 ../bin/gradexor.elf scale
 ../bin/gradexor.elf types

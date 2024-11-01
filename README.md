@@ -43,10 +43,10 @@ Copyright (C) 2020-2024 Takym.
 ## 画面
 ここではグラデーションのスクリーンショットを紹介します。
 
-### Types
-**Types** を [VcXsrv](https://sourceforge.net/projects/vcxsrv/) 経由で WSL から起動した例です。
+### TypeS
+**TypeS** を [VcXsrv](https://sourceforge.net/projects/vcxsrv/) 経由で WSL から起動した例です。
 
-[<img src="./Screenshots/Types.png" width="384" />](./Screenshots/Types.png)
+[<img src="./Screenshots/TypeS.png" width="384" />](./Screenshots/TypeS.png)
 
 ### Sanko「三湖」（バージョン１）
 三角形の模様が変化していくのが特徴です。
