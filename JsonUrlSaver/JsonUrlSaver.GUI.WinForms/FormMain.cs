@@ -32,15 +32,15 @@ namespace JsonUrlSaver.GUI.WinForms
 			string? name      = asm.GetCustomAttribute<AssemblyProductAttribute  >()?.Product;
 			string? copyright = asm.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright;
 
-			if (ver is not null &&
-				!string.IsNullOrEmpty(name) &&
+			if (ver is not null                  &&
+				!string.IsNullOrEmpty(name     ) &&
 				!string.IsNullOrEmpty(copyright)) {
 				this.Text = $"{name} v{ver} ({copyright})";
 
 				_version_string = ver.ToString(4);
 			}
 
-			downloadPage.SetDefaultArgs(_default_args);
+			downloadPage .SetDefaultArgs(_default_args);
 			cacheFilePage.SetDefaultArgs(_default_args);
 
 			var sb   = new StringBuilder();
