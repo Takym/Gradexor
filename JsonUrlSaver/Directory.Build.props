@@ -2,7 +2,7 @@
 <!DOCTYPE Project>
 <!--
  - JsonUrlSaver
- - Copyright (C) 2024 Takym.
+ - Copyright (C) 2025 Takym.
  -
  - distributed under the MIT License.
 -->
@@ -20,7 +20,7 @@
 		<Description>The tool preserves web resources from URLs inside JSON files.</Description>
 		<Authors>Takym</Authors>
 		<Version>0.2.0.0</Version>
-		<Copyright>Copyright (C) 2024 Takym. distributed under the MIT License.</Copyright>
+		<Copyright>Copyright (C) 2025 Takym. distributed under the MIT License.</Copyright>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
 		<Optimize>false</Optimize>

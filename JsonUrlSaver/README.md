@@ -1,5 +1,5 @@
 # JsonUrlSaver
-Copyright (C) 2024 Takym.
+Copyright (C) 2025 Takym.
 
 ## 概要
 JSON ファイル内の URL から資源をダウンロードして保存するツールです。
@@ -117,7 +117,7 @@ ZIP ファイルの展開時の上書きエラーを常に抑制する場合、�
 
 	// `doDownload=true doOpen=false` を設定します。
 	"mode": "downloadOnly",
-	
+
 	// `doDownload=false doOpen=true` を設定します。
 	"mode": "openOnly",
 
@@ -130,7 +130,7 @@ ZIP ファイルの展開時の上書きエラーを常に抑制する場合、�
 	// ZIP ファイルを自動展開する場合は `dir` の代わりに `zip` を指定します。
 	// `zip` を指定した場合、`dir` の値は ZIP ファイルのディレクトリに上書きされます。
 	"zip": "<JSON ファイルを含む ZIP ファイルへのパス>",
-	
+
 	// 展開先に既にファイルが存在する場合、上書きできるかどうかを制御します。
 	"zipOverwrite": false,
 
@@ -143,7 +143,7 @@ ZIP ファイルの展開時の上書きエラーを常に抑制する場合、�
 	// URL を格納した JSON 文字列を指定します。
 	// JSON 設定ファイル内に記述する場合でも、文字列として指定する必要があります。
 	"json": "[ \"https://example.com\" ]",
-	
+
 	// 直接的に URL を一つ指定します。
 	"url": "https://example.com",
 
