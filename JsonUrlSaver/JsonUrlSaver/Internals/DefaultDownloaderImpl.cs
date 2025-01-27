@@ -24,6 +24,7 @@ namespace JsonUrlSaver.Internals
 		private readonly IUrlFileNameConverter _ufn_conv;
 		private readonly IUrlFilter?           _url_filter;
 		private readonly string?               _token;
+		private readonly uint                  _cache_index;
 
 		public DefaultDownloaderImpl(ILogger<DefaultDownloaderImpl> logger, IServiceProvider services, IConfiguration config, IUrlFileNameConverter ufnConv)
 		{
@@ -41,7 +42,12 @@ namespace JsonUrlSaver.Internals
 				_url_filter = services.GetUrlFilter(filters);
 			}
 
-			_token = config["token"];
+			_token       = config["token"];
+			_cache_index = config.GetValue("cacheIndex", 0U);
+
+			if (_cache_index >= 2) {
+				logger.LogUnsafeCacheIndex(_cache_index);
+			}
 		}
 
 		public void Download(string cacheDir, IUrlSource source)
@@ -80,7 +86,7 @@ namespace JsonUrlSaver.Internals
 							Directory.CreateDirectory(_ufn_conv.GetCacheDirectoryPath(cacheDir, url));
 
 							var dst = new FileStream(
-								_ufn_conv.GetCacheFilePath(cacheDir, url),
+								_ufn_conv.GetCacheFilePath(cacheDir, url, _cache_index),
 								FileMode.Create, FileAccess.Write, FileShare.None
 							);
 
@@ -100,6 +106,9 @@ namespace JsonUrlSaver.Internals
 
 	partial class LoggerExtensions
 	{
+		[LoggerMessage(LogLevel.Warning, "The specified cache index ({cacheIndex}) is unsafe.")]
+		internal static partial void LogUnsafeCacheIndex(this ILogger logger, uint cacheIndex);
+
 		[LoggerMessage(LogLevel.Information, "Downloading...")]
 		internal static partial void LogDownloading(this ILogger logger);
 
