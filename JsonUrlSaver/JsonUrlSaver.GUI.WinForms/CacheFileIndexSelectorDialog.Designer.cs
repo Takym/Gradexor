@@ -81,7 +81,7 @@
 			btnOK.Name = "btnOK";
 			btnOK.Size = new System.Drawing.Size(75, 23);
 			btnOK.TabIndex = 4;
-			btnOK.Text = "決定(&O)";
+			btnOK.Text = "開く(&O)";
 			btnOK.UseVisualStyleBackColor = true;
 			btnOK.Click += this.btnOK_Click;
 			// 
@@ -117,7 +117,7 @@
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "キャッシュファイルの番号を選んでください。";
+			this.Text = "キャッシュファイルを開きます。";
 			this.Load += this.CacheFileIndexSelectorDialog_Load;
 			((System.ComponentModel.ISupportInitialize)nudIndex).EndInit();
 			this.ResumeLayout(false);

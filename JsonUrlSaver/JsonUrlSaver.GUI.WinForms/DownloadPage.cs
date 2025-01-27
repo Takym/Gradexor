@@ -85,6 +85,10 @@ namespace JsonUrlSaver.GUI.WinForms
 				inputType.OnInitConfig(this, config);
 			}
 
+			if (cbPreserveOnlyOne.Checked) {
+				config["cacheIndex"] = "1";
+			}
+
 			if (cbSlackFilter.Checked) {
 				config["filters"] = "slack";
 			}

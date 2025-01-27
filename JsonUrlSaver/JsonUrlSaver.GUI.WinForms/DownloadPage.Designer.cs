@@ -38,6 +38,7 @@
 			cbSlackFilter = new System.Windows.Forms.CheckBox();
 			lblSlackDesc = new System.Windows.Forms.Label();
 			btnDownload = new System.Windows.Forms.Button();
+			cbPreserveOnlyOne = new System.Windows.Forms.CheckBox();
 			slackCfg.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -83,10 +84,10 @@
 			slackCfg.Controls.Add(lblSlackToken);
 			slackCfg.Controls.Add(cbSlackFilter);
 			slackCfg.Controls.Add(lblSlackDesc);
-			slackCfg.Location = new System.Drawing.Point(8, 40);
+			slackCfg.Location = new System.Drawing.Point(8, 72);
 			slackCfg.Name = "slackCfg";
 			slackCfg.Size = new System.Drawing.Size(768, 104);
-			slackCfg.TabIndex = 3;
+			slackCfg.TabIndex = 4;
 			slackCfg.TabStop = false;
 			slackCfg.Text = "Slack 設定";
 			// 
@@ -134,15 +135,26 @@
 			btnDownload.Location = new System.Drawing.Point(688, 344);
 			btnDownload.Name = "btnDownload";
 			btnDownload.Size = new System.Drawing.Size(91, 23);
-			btnDownload.TabIndex = 4;
+			btnDownload.TabIndex = 5;
 			btnDownload.Text = "ダウンロード開始";
 			btnDownload.UseVisualStyleBackColor = true;
 			btnDownload.Click += this.btnDownload_Click;
+			// 
+			// cbPreserveOnlyOne
+			// 
+			cbPreserveOnlyOne.AutoSize = true;
+			cbPreserveOnlyOne.Location = new System.Drawing.Point(8, 40);
+			cbPreserveOnlyOne.Name = "cbPreserveOnlyOne";
+			cbPreserveOnlyOne.Size = new System.Drawing.Size(448, 19);
+			cbPreserveOnlyOne.TabIndex = 3;
+			cbPreserveOnlyOne.Text = "同じ URL のファイルは一つのみ保持する（既にキャッシュファイルがある場合、上書きする）";
+			cbPreserveOnlyOne.UseVisualStyleBackColor = true;
 			// 
 			// DownloadPage
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(cbPreserveOnlyOne);
 			this.Controls.Add(btnDownload);
 			this.Controls.Add(slackCfg);
 			this.Controls.Add(btnInputDialog);
@@ -170,5 +182,6 @@
 		private System.Windows.Forms.Label lblSlackToken;
 		private System.Windows.Forms.TextBox tbSlackToken;
 		private System.Windows.Forms.Button btnDownload;
+		private System.Windows.Forms.CheckBox cbPreserveOnlyOne;
 	}
 }
