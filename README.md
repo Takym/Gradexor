@@ -17,19 +17,16 @@ Copyright (C) 2020-2024 Takym.
 	* [Brainfuck](https://ja.wikipedia.org/wiki/Brainfuck) を参考に開発した難解プログラミング言語です。
 	* [元のリポジトリ](https://github.com/Takym/BinFuck)
 	<!-- 次の文章は追加すべきか？「Brainfuck から ra の文字が消えているので Brainfuck Nora ともいう」 -->
-* **[MBRInfo](./misc/sfp/MBRInfo.c)**
-	* MBR の情報を表示するプログラムです。
-	* BPB と FAT 12/16/32 のヘッダーとパーティションテーブルの情報を表示します。
-	* 現在のバージョンでは IPL は表示できません。
 * **[HeliocentrismAndGeocentrism](./HeliocentrismAndGeocentrism/)** (@)
 	* 地動説で見た時の星々の動きと天動説で見た時の星々の動きをシミュレーションします。
 	* [元のリポジトリ](https://github.com/Takym/HeliocentrismAndGeocentrism)
 * **[JsonUrlSaver](./JsonUrlSaver/)**
 	* JSON ファイル内の URL から資源をダウンロードして保存するツールです。
-* **[CppRepl](./misc/sfp/CppRepl.cpp)**
-	* C++ を REPL 実行できる簡易的なプログラムです。
 * **[Vuuzwaail](./misc/Vuuzwaail/)**
 	* 独自設計の仮想機械です。
+	* 現在は開発は続いていません。
+* **[単一ファイルプログラム](./misc/sfp/)**
+	* 一つのファイルのみで実行できるプログラムを格納しているディレクトリです。
 * **[実験](./misc/labs/)**
 	* プログラミングの実験用ディレクトリです。
 
