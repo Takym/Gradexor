@@ -6,3 +6,4 @@ Copyright (C) 2024 Takym.
 * [DotnetInterfaceSize](./DotnetInterfaceSize/)
 * [DotnetInterfaceSizeWithPublish](./DotnetInterfaceSizeWithPublish/)
 * [DotnetInterfaceSizeFileAlignment](./DotnetInterfaceSizeFileAlignment/)
+* [WinUI3](./WinUI3/)

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Window
+	x:Class="WinUI3.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:WinUI3"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	Title="メインウィンドウ">
+	<Window.SystemBackdrop>
+		<MicaBackdrop Kind="BaseAlt" />
+	</Window.SystemBackdrop>
+	<StackPanel x:Name="panel" Margin="16">
+		<ComboBox x:Name="backdrop" SelectionChanged="backdrop_SelectionChanged">
+			<ComboBoxItem x:Name="none"           Content="背景：（無し）"        />
+			<ComboBoxItem x:Name="mica"           Content="背景：Mica"            />
+			<ComboBoxItem x:Name="micaa"          Content="背景：Mica, alt"       />
+			<ComboBoxItem x:Name="desktopAcrylic" Content="背景：Desktop Acrylic" />
+			<ComboBoxItem x:Name="custom"         Content="背景：Custom"          />
+		</ComboBox>
+		<Button
+			Content="クリック練習用のボタン"
+			Click="Button_Click" />
+		<CheckBox
+			x:Name="displayMastery"
+			Content="ボタンクリックの達人度を表示する"
+			IsChecked="True"
+			Checked="displayMastery_CheckedUnchecked"
+			Unchecked="displayMastery_CheckedUnchecked" />
+	</StackPanel>
+</Window>
