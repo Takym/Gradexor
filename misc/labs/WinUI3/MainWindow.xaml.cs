@@ -1,7 +1,9 @@
+using System;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Windows.System;
 
 namespace WinUI3
 {
@@ -55,6 +57,17 @@ namespace WinUI3
 				backdrop.SelectedItem = none;
 				break;
 			}
+		}
+
+		private async void OpenGradexorRepo(object sender, RoutedEventArgs e)
+		{
+			await Launcher
+				.LaunchUriAsync(new("https://github.com/Takym/Gradexor/tree/master/misc/labs/WinUI3"))
+				.AsTask()
+				.ConfigureAwait(true);
+
+			Button_Click(sender, e);
+			_msg?.Text += "ブラウザを開きました。";
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)

@@ -20,6 +20,9 @@
 			<ComboBoxItem x:Name="custom"         Content="背景：Custom"          />
 		</ComboBox>
 		<Button
+			Content="Gradexor リポジトリを開く"
+			Click="OpenGradexorRepo" />
+		<Button
 			Content="クリック練習用のボタン"
 			Click="Button_Click" />
 		<CheckBox
