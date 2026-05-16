@@ -6,6 +6,7 @@
 ****/
 
 using System;
+using System.IO;
 
 namespace PortableGranuleAssembler
 {
@@ -49,6 +50,21 @@ namespace PortableGranuleAssembler
 				Console.WriteLine(token);
 				Console.WriteLine();
 				Console.ReadKey(true);
+			}
+
+			using (var ms = new MemoryStream())
+			using (var bw = new BinaryWriter(ms)) {
+				"""
+				Hello, World!!
+				$ZZZ DQ $ZZZ;
+				"Hello, World!!";
+				UTF16 "Hello, World!!";
+				AA
+				SET AA DW 1234;
+				GET AA AA
+				SET SET UTF8 "abcd";
+				GET SET SET
+				""".Tokenize().ParseAndEmit(bw, Console.Out);
 			}
 		}
 

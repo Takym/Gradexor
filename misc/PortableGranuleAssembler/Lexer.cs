@@ -11,7 +11,7 @@ namespace PortableGranuleAssembler
 {
 	public static class Lexer
 	{
-		public static IEnumerable<Token> Tokenize(string src, string? fname = null)
+		public static IEnumerable<Token> Tokenize(this string src, string? fname = null)
 		{
 			int row = 1;
 			int col = 1;
