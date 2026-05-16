@@ -51,11 +51,12 @@ namespace PortableGranuleAssembler
 
 		public static void ParseAndEmit(this IEnumerable<Token> tokens, BinaryWriter bw, TextWriter tw, Dictionary<string, ReadOnlyMemory<Token>>? vars = null)
 		{
-			int      size = 1;
-			Encoding enc  = _utf8;
-			var      mode = Mode.Out;
-			string?  name = null;
-			var      list = new List<Token>();
+			int      size   = 1;
+			Encoding enc    = _utf8;
+			var      mode   = Mode.Out;
+			bool     escape = false;
+			string?  name   = null;
+			var      list   = new List<Token>();
 
 			vars ??= [];
 
@@ -65,6 +66,9 @@ namespace PortableGranuleAssembler
 					switch (token) {
 					case SeparatorToken st:
 						Dump(tw, st, $"Info: A separator appeared.");
+						break;
+					case EscapeToken et:
+						Dump(tw, et, $"Warn: An excess escape appeared.");
 						break;
 					case NameToken nt:
 						string inst  = nt.Name;
@@ -107,8 +111,9 @@ namespace PortableGranuleAssembler
 							Dump(tw, nt, $"Info: Encoding mode is set to UTF-32BE.");
 							break;
 						case "set":
-							mode = Mode.Set;
-							name = null;
+							mode   = Mode.Set;
+							escape = false;
+							name   = null;
 							list.Clear();
 							Dump(tw, nt, $"Info: Setting a variable...");
 							break;
@@ -203,10 +208,17 @@ namespace PortableGranuleAssembler
 						} else {
 							Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A name is expected.");
 						}
+					} else if (escape) {
+						escape = false;
+						Dump(tw, token, $"Info: [{list.Count}] = {token.DisplayText}; The next token will be unescaped.");
+						list.Add(token);
 					} else if (token is SeparatorToken) {
-						vars[name.ToLowerInvariant()] = new([ ..list ]);
+						vars[name.ToLowerInvariant()] = new([.. list]);
 						mode = Mode.Out;
 						Dump(tw, token, $"Info: The variable \'{name}\' is updated.");
+					} else if (token is EscapeToken) {
+						escape = true;
+						Dump(tw, token, $"Info: The next token will be escaped.");
 					} else {
 						Dump(tw, token, $"Info: [{list.Count}] = {token.DisplayText}");
 						list.Add(token);

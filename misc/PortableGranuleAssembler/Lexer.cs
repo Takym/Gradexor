@@ -56,6 +56,11 @@ namespace PortableGranuleAssembler
 						Row = row, Column = col++, FileName = fname
 					};
 					break;
+				case '\\':
+					yield return new EscapeToken() {
+						Row = row, Column = col++, FileName = fname
+					};
+					break;
 				case (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') or '_' or '@':
 					int col2 = col;
 

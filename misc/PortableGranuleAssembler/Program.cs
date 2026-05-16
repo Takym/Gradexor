@@ -49,7 +49,7 @@ namespace PortableGranuleAssembler
 			)) {
 				Console.WriteLine(token);
 				Console.WriteLine();
-				Console.ReadKey(true);
+				//Console.ReadKey(true);
 			}
 
 			using (var ms = new MemoryStream())
@@ -66,6 +66,10 @@ namespace PortableGranuleAssembler
 				GET SET SET _;
 				INCL "StandardEnvironment.poga"
 				STDENV
+				QWERTY
+				QWERTY
+				QWERTY
+				QWERTY
 				""".Tokenize().ParseAndEmit(bw, Console.Out);
 			}
 		}

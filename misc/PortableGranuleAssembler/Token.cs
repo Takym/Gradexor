@@ -20,6 +20,11 @@ namespace PortableGranuleAssembler
 		public override string DisplayText => "separator";
 	}
 
+	public sealed record class EscapeToken : Token
+	{
+		public override string DisplayText => "escape";
+	}
+
 	public sealed record class NameToken : Token
 	{
 		public required string Name { get; init; }
