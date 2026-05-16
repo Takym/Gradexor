@@ -1,0 +1,63 @@
+﻿
+DQ
+
+1111 ""
+
+$b1111 ""
+$q1111 ""
+$o1111 ""
+$d1111 ""
+$x1111 ""
+
+$01111 ""
+$?1111 ""
+
+$$01111 ""
+$$11111 ""
+$$91111 ""
+$$F1111 ""
+$$Z1111 ""
+
+$$$Z1111 ""
+
+SET ADD DB $xAD; # 仮に ADD 命令の機械語が 0xAD だとする。
+
+SET ABC DW 123;
+SET DEF DW 456;
+
+ADD [GET ABC], [GET DEF]; # こんな風に書ける。
+PUT ADD PUT ABC PUT DEF # 可読性の低い別表記。
+
+REP 3 [REP 3 "(^_^)/ < Hello, World!!" \;];
+
+I08 REPEAT 4 15;
+DB REP 4 15;
+
+
+# 古いコード
+Hello, World!!
+$ZZZ DQ $ZZZ;
+"Hello, World!!";
+UTF16 "Hello, World!!";
+AA
+SET AA DW 1234;
+GET AA AA
+SET SET UTF8 "abcd";
+GET SET SET _;
+INCL "StandardEnvironment.poga"
+GET STDENV
+STDENV
+QWERTY
+QWERTY
+QWERTY
+QWERTY
+
+	,  ,;
+	,  ,; # comment
+# comment 123, 456
+hoge fuga piyo _a @123 @hello W_O_R_L_D @@
+123$_$$0_$$0_11$$111 $$$ $# !? @$ # 123
+0a 01a 0a1 $$999 $$F_80 $$fFF $$ZZ $xFF $b1010
+"abcd efgh" '"' "''
+"!? !? あいうえお"'かきくけこ''()()'"!!!!""????"
+!? @

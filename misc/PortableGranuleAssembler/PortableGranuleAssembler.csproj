@@ -35,7 +35,7 @@
 	<ItemGroup>
 		<Compile Remove="**/*.old.cs" />
 		<None Include="**/*.old.cs" />
-		<Content Include="StandardEnvironment.poga">
+		<Content Include="**/*.poga">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 		</Content>

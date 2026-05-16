@@ -7,6 +7,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 
 namespace PortableGranuleAssembler
 {
@@ -18,38 +19,38 @@ namespace PortableGranuleAssembler
 
 			using (var ms = new MemoryStream())
 			using (var bw = new BinaryWriter(ms)) {
-				"""
-				DQ
+				"INCL\"TempTestCode.poga\"INCL\"RoughSample.poga\"DB$x0A$x0B$x0C$x0D".Tokenize().ParseAndEmit(bw, Console.Out);
 
-				1111 ""
+				Console.WriteLine();
 
-				$b1111 ""
-				$q1111 ""
-				$o1111 ""
-				$d1111 ""
-				$x1111 ""
+				ms.Position = 0;
 
-				$01111 ""
-				$?1111 ""
+				Span<byte> buf = stackalloc byte[16];
 
-				$$01111 ""
-				$$11111 ""
-				$$91111 ""
-				$$F1111 ""
-				$$Z1111 ""
+				int len;
+				while ((len = ms.Read(buf)) == buf.Length) {
+					Dump(buf, buf.Length);
+				}
 
-				$$$Z1111 ""
+				Dump(buf, len);
 
-				SET ADD DB $xAD; # 仮に ADD 命令の機械語が 0xAD だとする。
+				static void Dump(Span<byte> buf, int len)
+				{
+					for (int i = 0; i < len; ++i) {
+						Console.Write("{0:X2} ", buf[i]);
+					}
 
-				SET ABC DW 123;
-				SET DEF DW 456;
+					for (int i = 0; i < (16 - len); ++i) {
+						Console.Write("   ");
+					}
 
-				ADD [GET ABC], [GET DEF]; # こんな風に書ける。
-				PUT ADD PUT ABC PUT DEF # 可読性の低い別表記。
-
-				REP 3 [REP 3 "(^_^)/ < Hello, World!!" \;];
-				""".Tokenize().ParseAndEmit(bw, Console.Out);
+					Console.WriteLine(
+						Encoding.UTF8
+							.GetString(buf[..len])
+							.Replace('\r', '␍')
+							.Replace('\n', '␊')
+					);
+				}
 			}
 		}
 
