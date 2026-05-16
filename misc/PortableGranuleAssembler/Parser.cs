@@ -151,7 +151,7 @@ namespace PortableGranuleAssembler
 							byte v1 = unchecked((byte)(value));
 
 							bw.Write(v1);
-							Dump(tw, it, $"Out: {v1:X4} = {v1}");
+							Dump(tw, it, $"Out: {v1:X2} = {v1}");
 
 							if (value > byte.MaxValue) {
 								Dump(tw, it, $"Warn: The original value \'{value:X16} = {value}\' is too large for 1 byte.");
