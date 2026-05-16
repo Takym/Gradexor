@@ -14,12 +14,14 @@ namespace PortableGranuleAssembler
 		public          string? FileName { get; init; }
 	}
 
+	public sealed record class SeparatorToken : Token;
+
 	public sealed record class NameToken : Token
 	{
 		public required string Name { get; init; }
 	}
 
-	public abstract class LiteralToken<T> : Token
+	public abstract record class LiteralToken<T> : Token
 	{
 		public required T Value { get; init; }
 	}

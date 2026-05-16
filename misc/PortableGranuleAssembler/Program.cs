@@ -14,6 +14,42 @@ namespace PortableGranuleAssembler
 		private static void Run(string[] args)
 		{
 			// TODO: start from here
+
+			foreach (var token in Lexer.Tokenize(
+				"""
+					,  ,;
+					,  ,; # comment
+				# comment 123, 456
+				hoge fuga piyo _a @123 @hello W_O_R_L_D @@
+				123$_$0_$0_11$111 $$ $# !? @$ # 123
+				0a 01a 0a1 $999 $F_80 $fFF $ZZ
+				"abcd efgh" '"' "''
+				"!? !? ‚ ‚¢‚¤‚¦‚¨"'‚©‚«‚­‚¯‚±''()()'"!!!!""????"
+				!? @
+				"""//*/
+				// "XYZ"
+				// "$"
+				// "$8"
+				// "$0123"
+				// "12345"
+				// "\"hello\""
+				// "\"hello\'\""
+				// "\"hello\"\'"
+				// "\"hello\'"
+				// "\"hello"
+				// "\'world\'"
+				// "\'world\"\'"
+				// "\'world\'\""
+				// "\'world\""
+				// "\'world"
+				// "*"
+				// "#aaa"
+				// "a\r\nb\n\rc\rd\ne"
+			)) {
+				Console.WriteLine(token);
+				Console.WriteLine();
+				Console.ReadKey(true);
+			}
 		}
 
 		[STAThread()]
