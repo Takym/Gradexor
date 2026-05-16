@@ -127,7 +127,7 @@ namespace PortableGranuleAssembler
 							break;
 						case "stdenv":
 							Dump(tw, nt, $"Info: Loading the standard environment...");
-							"INCL \"StandardEnvironment.poga\"".Tokenize("POGA").ParseAndEmit(bw, tw, vars);
+							"INCL\"StandardEnvironment.poga\"".Tokenize("POGA").ParseAndEmit(bw, tw, vars);
 							Dump(tw, nt, $"Info: The standard environment is loaded.");
 							break;
 						default:
@@ -259,7 +259,7 @@ namespace PortableGranuleAssembler
 
 						mode = Mode.Out;
 					} else {
-						Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A string is expected.");
+						Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A string file name is expected.");
 					}
 					break;
 				default:
