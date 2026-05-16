@@ -63,7 +63,9 @@ namespace PortableGranuleAssembler
 				SET AA DW 1234;
 				GET AA AA
 				SET SET UTF8 "abcd";
-				GET SET SET
+				GET SET SET _;
+				INCL "StandardEnvironment.poga"
+				STDENV
 				""".Tokenize().ParseAndEmit(bw, Console.Out);
 			}
 		}

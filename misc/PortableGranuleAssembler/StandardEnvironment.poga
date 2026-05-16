@@ -1,0 +1,4 @@
+﻿INCL X "!ERROR!.txt"
+
+SET STDENV "標準環境";
+STDENV

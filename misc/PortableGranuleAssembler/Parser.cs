@@ -20,55 +20,48 @@ namespace PortableGranuleAssembler
 		private static readonly UTF32Encoding   _utf32le = new(false, false);
 		private static readonly UTF32Encoding   _utf32be = new(true,  false);
 
+		public static bool TryParseAndEmitFromFile(string fname, BinaryWriter bw, TextWriter tw, Dictionary<string, ReadOnlyMemory<Token>>? vars = null)
+		{
+			string src;
+
+			try {
+				if (!File.Exists(fname)) {
+					fname = Path.Combine(AppContext.BaseDirectory, fname);
+
+					if (!File.Exists(fname)) {
+						return false;
+					}
+				}
+
+				using (var fs = new FileStream(fname, FileMode.Open, FileAccess.Read, FileShare.Read))
+				using (var sr = new StreamReader(fs, true)) {
+					src = sr.ReadToEnd();
+				}
+			} catch (Exception e) {
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.Error.WriteLine();
+				Console.Error.WriteLine(e.ToString());
+				Console.ResetColor();
+				return false;
+			}
+
+			src.Tokenize(fname).ParseAndEmit(bw, tw, vars);
+			return true;
+		}
+
 		public static void ParseAndEmit(this IEnumerable<Token> tokens, BinaryWriter bw, TextWriter tw, Dictionary<string, ReadOnlyMemory<Token>>? vars = null)
 		{
 			int      size = 1;
 			Encoding enc  = _utf8;
-			bool     set  = false;
-			bool     get  = false;
+			var      mode = Mode.Out;
 			string?  name = null;
 			var      list = new List<Token>();
 
 			vars ??= [];
 
 			foreach (var token in tokens) {
-				if (set && get) {
-					set = false;
-					get = false;
-					Dump(tw, token, $"Internal Error: The get mode and the set mode are exclusive.");
-				} if (set) {
-					if (name is null) {
-						if (token is NameToken nt) {
-							name = nt.Name;
-							Dump(tw, token, $"Info: The name is \'{name}\'.");
-						} else {
-							Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A name is expected.");
-						}
-					} else if (token is SeparatorToken) {
-						vars[name.ToLowerInvariant()] = new([ ..list ]);
-						set = false;
-						Dump(tw, token, $"Info: The variable \'{name}\' is updated.");
-					} else {
-						Dump(tw, token, $"Info: [{list.Count}] = {token.DisplayText}");
-						list.Add(token);
-					}
-				} else if (get) {
-					if (token is NameToken nt) {
-						name = nt.Name;
-						Dump(tw, token, $"Info: The name is \'{name}\'.");
-
-						if (vars.TryGetValue(name.ToLowerInvariant(), out var rom)) {
-							rom.ToArray().ParseAndEmit(bw, tw, vars);
-							Dump(tw, token, $"Info: The variable \'{name}\' is expanded.");
-						} else {
-							Dump(tw, token, $"Error: The specified variable does not exist.");
-						}
-
-						get = false;
-					} else {
-						Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A name is expected.");
-					}
-				} else {
+				switch (mode) {
+				case Mode.Out:
 					switch (token) {
 					case SeparatorToken st:
 						Dump(tw, st, $"Info: A separator appeared.");
@@ -114,19 +107,25 @@ namespace PortableGranuleAssembler
 							Dump(tw, nt, $"Info: Encoding mode is set to UTF-32BE.");
 							break;
 						case "set":
-							set = true;
+							mode = Mode.Set;
 							name = null;
 							list.Clear();
 							Dump(tw, nt, $"Info: Setting a variable...");
 							break;
 						case "get":
-							get = true;
+							mode = Mode.Get;
 							Dump(tw, nt, $"Info: Getting a variable...");
+							break;
+						case "incl" or "include":
+							mode = Mode.Include;
+							Dump(tw, nt, $"Info: Including another file...");
 							break;
 						default:
 							if (vars.TryGetValue(instl, out var rom)) {
 								Dump(tw, nt, $"Info: Expanding the custom instruction \'{inst}\'...");
+
 								rom.ToArray().ParseAndEmit(bw, tw, vars);
+
 								Dump(tw, nt, $"Info: The custom instruction \'{inst}\' is expanded.");
 							} else {
 								Dump(tw, nt, $"Error: An unsupported instruction \'{inst}\' appeared.");
@@ -179,7 +178,6 @@ namespace PortableGranuleAssembler
 						break;
 					case StringToken st:
 						if (enc is null) {
-							//Dump(tw, st, $"Internal Error: The specified UTF character size \'{size}\' is invalid.");
 							Dump(tw, st, $"Internal Error: No text encoding format is specified.");
 						} else {
 							string text = st.Value;
@@ -196,6 +194,60 @@ namespace PortableGranuleAssembler
 						Dump(tw, token, $"Internal Error: An unexpected token ({token.DisplayText}) appeared.");
 						break;
 					}
+					break;
+				case Mode.Set:
+					if (name is null) {
+						if (token is NameToken nt1) {
+							name = nt1.Name;
+							Dump(tw, token, $"Info: The name is \'{name}\'.");
+						} else {
+							Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A name is expected.");
+						}
+					} else if (token is SeparatorToken) {
+						vars[name.ToLowerInvariant()] = new([ ..list ]);
+						mode = Mode.Out;
+						Dump(tw, token, $"Info: The variable \'{name}\' is updated.");
+					} else {
+						Dump(tw, token, $"Info: [{list.Count}] = {token.DisplayText}");
+						list.Add(token);
+					}
+					break;
+				case Mode.Get:
+					if (token is NameToken nt2) {
+						name = nt2.Name;
+						Dump(tw, token, $"Info: The name is \'{name}\'.");
+
+						if (vars.TryGetValue(name.ToLowerInvariant(), out var rom)) {
+							rom.ToArray().ParseAndEmit(bw, tw, vars);
+							Dump(tw, token, $"Info: The variable \'{name}\' is expanded.");
+						} else {
+							Dump(tw, token, $"Error: The specified variable does not exist.");
+						}
+
+						mode = Mode.Out;
+					} else {
+						Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A name is expected.");
+					}
+					break;
+				case Mode.Include:
+					if (token is StringToken st1) {
+						name = st1.Value;
+						Dump(tw, token, $"Info: The file name is \'{name}\'.");
+
+						if (TryParseAndEmitFromFile(name, bw, tw, vars)) {
+							Dump(tw, token, $"Info: The file is included and expanded.");
+						} else {
+							Dump(tw, token, $"System Error: The file cannot be loaded.");
+						}
+
+						mode = Mode.Out;
+					} else {
+						Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A string is expected.");
+					}
+					break;
+				default:
+					Dump(tw, token, $"Internal Error: The invalid parsing-and-emitting mode ({mode}) is specified.");
+					break;
 				}
 			}
 
@@ -212,6 +264,14 @@ namespace PortableGranuleAssembler
 
 				return sb.ToString();
 			}
+		}
+
+		private enum Mode
+		{
+			Out,
+			Set,
+			Get,
+			Include
 		}
 	}
 }
