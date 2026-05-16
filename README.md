@@ -25,6 +25,8 @@ Copyright (C) 2020-2024 Takym.
 * **[Vuuzwaail](./misc/Vuuzwaail/)**
 	* 独自設計の仮想機械です。
 	* 現在は開発は続いていません。
+* **[PortableGranuleAssembler/POGA](./misc/PortableGranuleAssembler/)**
+	* 独自設計のアセンブリ言語です。
 * **[単一ファイルプログラム](./misc/sfp/)**
 	* 一つのファイルのみで実行できるプログラムを格納しているディレクトリです。
 * **[実験](./misc/labs/)**

@@ -1,0 +1,39 @@
+<!--
+ - PortableGranuleAssembler
+ - Copyright (C) 2026 Takym.
+ -
+ - distributed under the MIT License.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<NoWarn>$(NoWarn);IDE0290</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Label="Version">
+		<Product>POGA!</Product>
+		<Description>The portable granule assembler.</Description>
+		<Authors>Takym</Authors>
+		<Version>0.0.0.0</Version>
+		<Copyright>Copyright (C) 2026 Takym. distributed under the MIT License.</Copyright>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<Optimize>false</Optimize>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<StartupObject>$(RootNamespace).Program.DebugEnvironment</StartupObject>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<Optimize>true</Optimize>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="**/*.old.cs" />
+		<None Include="**/*.old.cs" />
+	</ItemGroup>
+</Project>
