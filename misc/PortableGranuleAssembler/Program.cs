@@ -47,6 +47,8 @@ namespace PortableGranuleAssembler
 
 				ADD [GET ABC], [GET DEF]; # こんな風に書ける。
 				PUT ADD PUT ABC PUT DEF # 可読性の低い別表記。
+
+				REP 3 [REP 3 "(^_^)/ < Hello, World!!" \;];
 				""".Tokenize().ParseAndEmit(bw, Console.Out);
 			}
 		}

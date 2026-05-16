@@ -56,6 +56,7 @@ namespace PortableGranuleAssembler
 			var      mode   = Mode.Out;
 			bool     escape = false;
 			string?  name   = null;
+			ulong?   repcnt = null;
 			var      list   = new List<Token>();
 
 			vars ??= [];
@@ -124,6 +125,13 @@ namespace PortableGranuleAssembler
 						case "incl" or "include":
 							mode = Mode.Include;
 							Dump(tw, nt, $"Info: Including another file...");
+							break;
+						case "rep" or "repeat":
+							mode   = Mode.Repeat;
+							escape = false;
+							repcnt = null;
+							list.Clear();
+							Dump(tw, nt, $"Info: Repeating...");
 							break;
 						case "stdenv":
 							Dump(tw, nt, $"Info: Loading the standard environment...");
@@ -259,7 +267,37 @@ namespace PortableGranuleAssembler
 
 						mode = Mode.Out;
 					} else {
-						Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A string file name is expected.");
+						Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A file name string is expected.");
+					}
+					break;
+				case Mode.Repeat:
+					if (!repcnt.HasValue) {
+						if (token is IntegerToken it1) {
+							repcnt = it1.Value;
+							Dump(tw, token, $"Info: Info: The repeat count is \'{repcnt.Value}\'.");
+						} else {
+							Dump(tw, token, $"Error: An unexpected token ({token.DisplayText}) appeared. A repeat count integer is expected.");
+						}
+					} else if (escape) {
+						escape = false;
+						Dump(tw, token, $"Info: [{list.Count}] = {token.DisplayText}; The next token will be unescaped.");
+						list.Add(token);
+					} else if (token is SeparatorToken) {
+						var ary = list.ToArray();
+
+						for (ulong i = 0; i < repcnt.Value; ++i) {
+							Dump(tw, token, $"Note: The current progress: {i + 1}/{repcnt.Value}");
+							ary.ParseAndEmit(bw, tw, vars);
+						}
+
+						mode = Mode.Out;
+						Dump(tw, token, $"Info: The repetition is finished.");
+					} else if (token is EscapeToken) {
+						escape = true;
+						Dump(tw, token, $"Info: The next token will be escaped.");
+					} else {
+						Dump(tw, token, $"Info: [{list.Count}] = {token.DisplayText}");
+						list.Add(token);
 					}
 					break;
 				default:
@@ -288,7 +326,8 @@ namespace PortableGranuleAssembler
 			Out,
 			Set,
 			Get,
-			Include
+			Include,
+			Repeat
 		}
 	}
 }
