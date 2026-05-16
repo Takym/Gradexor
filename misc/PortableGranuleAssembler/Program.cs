@@ -65,6 +65,7 @@ namespace PortableGranuleAssembler
 				SET SET UTF8 "abcd";
 				GET SET SET _;
 				INCL "StandardEnvironment.poga"
+				GET STDENV
 				STDENV
 				QWERTY
 				QWERTY

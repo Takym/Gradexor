@@ -125,6 +125,11 @@ namespace PortableGranuleAssembler
 							mode = Mode.Include;
 							Dump(tw, nt, $"Info: Including another file...");
 							break;
+						case "stdenv":
+							Dump(tw, nt, $"Info: Loading the standard environment...");
+							"INCL \"StandardEnvironment.poga\"".Tokenize("POGA").ParseAndEmit(bw, tw, vars);
+							Dump(tw, nt, $"Info: The standard environment is loaded.");
+							break;
 						default:
 							if (vars.TryGetValue(instl, out var rom)) {
 								Dump(tw, nt, $"Info: Expanding the custom instruction \'{inst}\'...");

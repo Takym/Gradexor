@@ -1,6 +1,8 @@
 ﻿INCL X "!ERROR!.txt"
 
 SET STDENV "標準環境";
-STDENV
+GET STDENV;
+
+#STDENV #←自分自身を読み込むと無限ループになる。
 
 SET QWERTY SET QWERTY SET QWERTY "qwerty" \\\;\;;
