@@ -16,61 +16,29 @@ namespace PortableGranuleAssembler
 		{
 			// TODO: start from here
 
-			foreach (var token in Lexer.Tokenize(
-				"""
-					,  ,;
-					,  ,; # comment
-				# comment 123, 456
-				hoge fuga piyo _a @123 @hello W_O_R_L_D @@
-				123$_$0_$0_11$111 $$ $# !? @$ # 123
-				0a 01a 0a1 $999 $F_80 $fFF $ZZ
-				"abcd efgh" '"' "''
-				"!? !? ‚ ‚¢‚¤‚¦‚¨"'‚©‚«‚­‚¯‚±''()()'"!!!!""????"
-				!? @
-				"""//*/
-				// "XYZ"
-				// "$"
-				// "$8"
-				// "$0123"
-				// "12345"
-				// "\"hello\""
-				// "\"hello\'\""
-				// "\"hello\"\'"
-				// "\"hello\'"
-				// "\"hello"
-				// "\'world\'"
-				// "\'world\"\'"
-				// "\'world\'\""
-				// "\'world\""
-				// "\'world"
-				// "*"
-				// "#aaa"
-				// "a\r\nb\n\rc\rd\ne"
-			)) {
-				Console.WriteLine(token);
-				Console.WriteLine();
-				//Console.ReadKey(true);
-			}
-
 			using (var ms = new MemoryStream())
 			using (var bw = new BinaryWriter(ms)) {
 				"""
-				Hello, World!!
-				$ZZZ DQ $ZZZ;
-				"Hello, World!!";
-				UTF16 "Hello, World!!";
-				AA
-				SET AA DW 1234;
-				GET AA AA
-				SET SET UTF8 "abcd";
-				GET SET SET _;
-				INCL "StandardEnvironment.poga"
-				GET STDENV
-				STDENV
-				QWERTY
-				QWERTY
-				QWERTY
-				QWERTY
+				DQ
+
+				1111 ""
+
+				$b1111 ""
+				$q1111 ""
+				$o1111 ""
+				$d1111 ""
+				$x1111 ""
+
+				$01111 ""
+				$?1111 ""
+
+				$$01111 ""
+				$$11111 ""
+				$$91111 ""
+				$$F1111 ""
+				$$Z1111 ""
+
+				$$$Z1111 ""
 				""".Tokenize().ParseAndEmit(bw, Console.Out);
 			}
 		}

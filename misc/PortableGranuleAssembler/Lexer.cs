@@ -119,14 +119,42 @@ namespace PortableGranuleAssembler
 							yield break;
 						}
 
+						int colplus;
 						ch = src[ii];
-						radix = ch switch {
-							>= 'A' and <= 'Z' => ((ulong)(ch - 'A')) + 11,
-							>= 'a' and <= 'z' => ((ulong)(ch - 'a')) + 11,
-							>= '0' and <= '9' => ((ulong)(ch - '0')) +  1,
+						if (ch == '$') {
+							++ii;
+							
+							if (ii >= src.Length) {
+								yield return new UnexpectedToken() {
+									Row = row, Column = col, FileName = fname, Actual = ch
+								};
+								yield break;
+							}
 
-							_ => 0
-						};
+							ch = src[ii];
+							radix = ch switch {
+								>= 'A' and <= 'Z' => ((ulong)(ch - 'A')) + 11,
+								>= 'a' and <= 'z' => ((ulong)(ch - 'a')) + 11,
+								>= '0' and <= '9' => ((ulong)(ch - '0')) +  1,
+
+								_ => 0
+							};
+
+							colplus = 3;
+						} else {
+							radix = ch switch {
+								'B' or 'b'               =>  2,
+								'Q' or 'q'               =>  4,
+								'O' or 'o'               =>  8,
+								'D' or 'd'               => 10,
+								'H' or 'h' or 'X' or 'x' => 16,
+
+								_ => 0
+							};
+
+							colplus = 2;
+						}
+
 
 						if (radix == 0) {
 							yield return new UnexpectedToken() {
@@ -150,7 +178,7 @@ namespace PortableGranuleAssembler
 							}
 
 							i = ii;
-							col += 2;
+							col += colplus;
 						}
 					}
 
