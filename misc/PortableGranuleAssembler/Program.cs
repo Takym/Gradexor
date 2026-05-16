@@ -39,6 +39,14 @@ namespace PortableGranuleAssembler
 				$$Z1111 ""
 
 				$$$Z1111 ""
+
+				SET ADD DB $xAD; # 仮に ADD 命令の機械語が 0xAD だとする。
+
+				SET ABC DW 123;
+				SET DEF DW 456;
+
+				ADD [GET ABC], [GET DEF]; # こんな風に書ける。
+				PUT ADD PUT ABC PUT DEF # 可読性の低い別表記。
 				""".Tokenize().ParseAndEmit(bw, Console.Out);
 			}
 		}

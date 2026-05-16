@@ -117,7 +117,7 @@ namespace PortableGranuleAssembler
 							list.Clear();
 							Dump(tw, nt, $"Info: Setting a variable...");
 							break;
-						case "get":
+						case "get" or "put":
 							mode = Mode.Get;
 							Dump(tw, nt, $"Info: Getting a variable...");
 							break;

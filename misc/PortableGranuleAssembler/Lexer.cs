@@ -22,7 +22,7 @@ namespace PortableGranuleAssembler
 				switch (ch) {
 				case '\0':
 					yield break;
-				case ' ' or '\t' or ',':
+				case ' ' or '\t' or ',' or '[' or ']':
 					++col;
 					break;
 				case '\n' or '\r':
