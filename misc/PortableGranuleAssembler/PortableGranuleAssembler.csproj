@@ -1,4 +1,4 @@
-<!--
+﻿<!--
  - PortableGranuleAssembler
  - Copyright (C) 2026 Takym.
  -
@@ -35,7 +35,7 @@
 	<ItemGroup>
 		<Compile Remove="**/*.old.cs" />
 		<None Include="**/*.old.cs" />
-		<Content Include="**/*.poga">
+		<Content Include="**/*.poga" Exclude="bin/**/*;obj/**/*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 		</Content>
