@@ -32,6 +32,13 @@ namespace PortableGranuleAssembler
 		public override string DisplayText => $"name: {this.Name}";
 	}
 
+	public sealed record class UnexpectedToken : Token
+	{
+		public required char Actual { get; init; }
+
+		public override string DisplayText => $"unexpected: {this.Actual}";
+	}
+
 	public abstract record class LiteralToken<T> : Token
 	{
 		public required T Value { get; init; }
@@ -45,12 +52,5 @@ namespace PortableGranuleAssembler
 	public sealed record class StringToken : LiteralToken<string>
 	{
 		public override string DisplayText => $"str: {this.Value}";
-	}
-
-	public sealed record class UnexpectedToken : Token
-	{
-		public required char Actual { get; init; }
-
-		public override string DisplayText => $"unexpected: {this.Actual}";
 	}
 }

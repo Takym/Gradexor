@@ -18,8 +18,8 @@ namespace PortableGranuleAssembler
 			// TODO: start from here
 
 			using (var ms = new MemoryStream())
-			using (var bw = new BinaryWriter(ms)) {
-				"INCL\"TempTestCode.poga\"INCL\"RoughSample.poga\"DB$x0A$x0B$x0C$x0D".Tokenize().ParseAndEmit(bw, Console.Out);
+			using (var em = new Emitter(ms)) {
+				"INCL\"TempTestCode.poga\"INCL\"RoughSample.poga\"DB$x0A$x0B$x0C$x0D".Tokenize().ParseAndEmit(em);
 
 				Console.WriteLine();
 
