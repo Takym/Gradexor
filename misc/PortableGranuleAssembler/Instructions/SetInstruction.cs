@@ -16,13 +16,19 @@ namespace PortableGranuleAssembler.Instructions
 		public override IEnumerable<string> EnumerateNames()
 		{
 			yield return "set";
+			yield return "def";
+			yield return "define";
 		}
 
 		protected override void InitializeCore(NameToken nt, Emitter em, string name)
 		{
 			_name = null;
 
-			em.LogInfo(nt, $"Setting a variable...");
+			if (name == "set") {
+				em.LogInfo(nt, $"Setting a variable...");
+			} else {
+				em.LogInfo(nt, $"Defining a variable...");
+			}
 		}
 
 		protected override bool NeedArgument()
