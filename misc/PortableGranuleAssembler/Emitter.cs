@@ -1,7 +1,16 @@
-﻿using System;
+﻿/****
+ * PortableGranuleAssembler
+ * Copyright (C) 2026 Takym.
+ *
+ * distributed under the MIT License.
+****/
+
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using PortableGranuleAssembler.Instructions;
 
 namespace PortableGranuleAssembler
 {
@@ -13,17 +22,25 @@ namespace PortableGranuleAssembler
 		private static readonly UTF32Encoding   _utf32le = new(false, false);
 		private static readonly UTF32Encoding   _utf32be = new(true,  false);
 
-		private          bool          _disposed;
-		private readonly Stream        _stream;
-		private readonly BinaryWriter  _writer;
-		private readonly TextWriter    _logger;
-		private readonly StringBuilder _sb;
-		private          int           _size;
-		private          Encoding      _enc;
+		private          bool                                      _disposed;
+		private readonly Stream                                    _stream;
+		private readonly BinaryWriter                              _writer;
+		private readonly TextWriter                                _logger;
+		private readonly Dictionary<string, PseudoInstruction    > _insts;
+		private readonly Dictionary<string, ReadOnlyMemory<Token>> _vars;
+		private readonly StringBuilder                             _sb;
+		private          int                                       _size;
+		private          Encoding                                  _enc;
 
-		public bool IsDisposed => _disposed;
+		public bool                                      IsDisposed   => _disposed;
+		public Dictionary<string, PseudoInstruction    > Instructions => _insts;
+		public Dictionary<string, ReadOnlyMemory<Token>> Variables    => _vars;
 
-		public Emitter(Stream stream, TextWriter? logger = null)
+		public Emitter(
+			Stream                                     stream,
+			TextWriter?                                logger = null,
+			Dictionary<string, PseudoInstruction    >? insts  = null,
+			Dictionary<string, ReadOnlyMemory<Token>>? vars   = null)
 		{
 			ArgumentNullException.ThrowIfNull(stream);
 
@@ -31,14 +48,30 @@ namespace PortableGranuleAssembler
 			_stream   = stream;
 			_writer   = new(stream);
 			_logger   = logger ?? Console.Out;
+			_insts    = insts  ?? [];
+			_vars     = vars   ?? [];
 			_sb       = new();
 			_size     = 1;
 			_enc      = _utf8;
+
+			this.AddInstruction(new SetInstruction    ());
+			this.AddInstruction(new GetInstruction    ());
+			this.AddInstruction(new IncludeInstruction());
+			this.AddInstruction(new RepeatInstruction ());
 		}
 
 		~Emitter()
 		{
 			this.Dispose(false);
+		}
+
+		public void AddInstruction(PseudoInstruction inst)
+		{
+			ObjectDisposedException.ThrowIf(_disposed, this);
+
+			foreach (string name in inst.EnumerateNames()) {
+				_insts[name] = inst;
+			}
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -109,6 +142,8 @@ namespace PortableGranuleAssembler
 
 		public virtual void Emit(Token token)
 		{
+			ObjectDisposedException.ThrowIf(_disposed, this);
+
 			switch (token) {
 			case IntegerToken it:
 				ulong value = it.Value;
@@ -168,7 +203,7 @@ namespace PortableGranuleAssembler
 				}
 				break;
 			default:
-				this.LogInternalError(token, $"An unexpected token ({token.DisplayText}) appeared.");
+				this.LogUnexpectedToken(token);
 				break;
 			}
 		}
@@ -210,10 +245,20 @@ namespace PortableGranuleAssembler
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void LogInternalError(Token token, FormattableString msg)
 			=> this.Log(token, "Internal Error", msg);
-		
+
+		public void LogUnexpectedToken(Token token, FormattableString? msg = null)
+		{
+			if (msg is null) {
+				this.LogInternalError(token, $"An unexpected token ({token.DisplayText}) appeared.");
+			} else {
+				this.LogError(token, $"An unexpected token ({token.DisplayText}) appeared. {msg}");
+			}
+		}
+
 		public virtual string FromBinaryToString(byte[] buf)
 		{
-			ArgumentNullException.ThrowIfNull(buf);
+			ObjectDisposedException.ThrowIf    (_disposed, this);
+			ArgumentNullException  .ThrowIfNull(buf            );
 
 			_sb.Clear();
 			for (int i = 0; i < buf.Length; ++i) {
@@ -243,7 +288,10 @@ namespace PortableGranuleAssembler
 				_logger.Dispose();
 			}
 
-			_sb.Clear();
+			_insts.Clear();
+			_vars .Clear();
+			_sb   .Clear();
+
 			_enc = null!;
 
 			_disposed = true;
