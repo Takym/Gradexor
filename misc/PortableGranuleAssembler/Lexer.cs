@@ -186,12 +186,14 @@ namespace PortableGranuleAssembler
 						++col;
 
 						if (ch != '_') {
-							value *= radix;
-							value += ch switch {
-								   >= 'A' and <= 'Z'      => ((ulong)(ch - 'A')) + 10,
-								   >= 'a' and <= 'z'      => ((ulong)(ch - 'a')) + 10,
-								/* >= '0' and <= '9' */ _ => ((ulong)(ch - '0'))
-							};
+							unchecked {
+								value *= radix;
+								value += ch switch {
+									   >= 'A' and <= 'Z'      => ((ulong)(ch - 'A')) + 10,
+									   >= 'a' and <= 'z'      => ((ulong)(ch - 'a')) + 10,
+									/* >= '0' and <= '9' */ _ => ((ulong)(ch - '0'))
+								};
+							}
 						}
 
 						if (++i >= src.Length) {

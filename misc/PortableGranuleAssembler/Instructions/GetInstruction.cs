@@ -19,7 +19,7 @@ namespace PortableGranuleAssembler.Instructions
 
 		protected override bool VisitNameTokenCore(NameToken nt, Emitter em, string name)
 		{
-			if (nt.Name == "put") {
+			if (name == "put") {
 				em.LogInfo(nt, $"Printing a variable...");
 			} else {
 				em.LogInfo(nt, $"Getting a variable...");
