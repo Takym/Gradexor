@@ -5,16 +5,20 @@
  * distributed under the MIT License.
 ****/
 
+using System;
 using System.Collections.Generic;
 
 namespace PortableGranuleAssembler.Instructions
 {
 	public sealed class IncludeInstruction : PseudoInstruction
 	{
+		private bool _is_src;
+
 		public override IEnumerable<string> EnumerateNames()
 		{
 			yield return "incl";
 			yield return "include";
+			yield return "inclb";
 			yield return "stdenv";
 		}
 
@@ -26,8 +30,15 @@ namespace PortableGranuleAssembler.Instructions
 				em.LogInfo(nt, $"The standard environment is loaded.");
 
 				return false;
+			} else if (name == "inclb") {
+				_is_src = false;
+				em.LogInfo(nt, $"Including another binary file...");
+
+				return true;
 			} else {
-				em.LogInfo(nt, $"Including another file...");
+				_is_src = true;
+				em.LogInfo(nt, $"Including another source code file...");
+
 				return true;
 			}
 		}
@@ -38,10 +49,23 @@ namespace PortableGranuleAssembler.Instructions
 				string name = st1.Value;
 				em.LogInfo(token, $"The file name is \'{name}\'.");
 
-				if (Parser.TryParseAndEmitFromFile(name, em)) {
-					em.LogInfo(token, $"The file is included and expanded.");
+				if (_is_src) {
+					if (Parser.TryParseAndEmitFromFile(name, em)) {
+						em.LogInfo(token, $"The source code file is included and expanded.");
+					} else {
+						em.LogSystemError(token, $"The source code file cannot be loaded.");
+					}
 				} else {
-					em.LogSystemError(token, $"The file cannot be loaded.");
+					if (Parser.TryUseFile(name, static fs => {
+						byte[] buf = new byte[fs.Length];
+						fs.ReadExactly(buf.AsSpan());
+						return buf;
+					}, out byte[]? buf)) {
+						em.Emit(token, buf);
+						em.LogInfo(token, $"The binary file is included and expanded.");
+					} else {
+						em.LogSystemError(token, $"The binary file cannot be loaded.");
+					}
 				}
 
 				return false;

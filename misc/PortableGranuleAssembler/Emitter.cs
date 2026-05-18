@@ -208,6 +208,12 @@ namespace PortableGranuleAssembler
 			}
 		}
 
+		public virtual void Emit(Token token, byte[] buf)
+		{
+			_writer.Write(buf);
+			this.LogOut(token, $"The buffer data: {this.FromBinaryToString(buf)}");
+		}
+
 		public virtual void Log(Token token, string level, FormattableString msg)
 		{
 			ObjectDisposedException.ThrowIf           (_disposed, this);

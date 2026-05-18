@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using PortableGranuleAssembler.Instructions;
 
@@ -16,37 +17,49 @@ namespace PortableGranuleAssembler
 	{
 		internal const string FNAME_POGA = "<POGA>";
 
-		public static bool TryParseAndEmitFromFile(string fname, Emitter em)
+		public static bool TryUseFile<T>(string fname, Func<FileStream, T> func, [NotNullWhen(true)][MaybeNullWhen(false)] out T? result)
+			where T: notnull
 		{
-			if (em is null) {
-				return false;
-			}
-
-			string src;
-
 			try {
 				if (!File.Exists(fname)) {
 					fname = Path.Combine(AppContext.BaseDirectory, fname);
 
 					if (!File.Exists(fname)) {
+						result = default;
 						return false;
 					}
 				}
 
-				using (var fs = new FileStream(fname, FileMode.Open, FileAccess.Read, FileShare.Read))
-				using (var sr = new StreamReader(fs, true)) {
-					src = sr.ReadToEnd();
+				using (var fs = new FileStream(fname, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+					return (result = func(fs)) is not null;
 				}
 			} catch (Exception e) {
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.Error.WriteLine();
 				Console.Error.WriteLine(e.ToString());
 				Console.ResetColor();
+
+				result = default;
+				return false;
+			}
+		}
+
+		public static bool TryParseAndEmitFromFile(string fname, Emitter em)
+		{
+			if (em is null) {
 				return false;
 			}
 
-			src.Tokenize(fname).ParseAndEmit(em);
-			return true;
+			if (TryUseFile(fname, static fs => {
+				using (var sr = new StreamReader(fs, true)) {
+					return sr.ReadToEnd();
+				}
+			}, out string? src)) {
+				src.Tokenize(fname).ParseAndEmit(em);
+				return true;
+			}
+
+			return false;
 		}
 
 		public static void ParseAndEmit(this IEnumerable<Token> tokens, Emitter em)

@@ -33,6 +33,8 @@ REP 3 [REP 3 "(^_^)/ < Hello, World!!" \;];
 I08 REPEAT 4 15;
 DB REP 4 15;
 
+INCLB "StandardEnvironment.poga"
+
 
 # 古いコード
 Hello, World!!
