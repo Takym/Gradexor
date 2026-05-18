@@ -35,6 +35,9 @@ DB REP 4 15;
 
 INCLB "StandardEnvironment.poga"
 
+BE DQ $x0123456789ABCDEF
+LE DQ $x0123456789ABCDEF
+
 
 # 古いコード
 Hello, World!!

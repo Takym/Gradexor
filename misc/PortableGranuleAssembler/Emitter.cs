@@ -30,6 +30,7 @@ namespace PortableGranuleAssembler
 		private readonly Dictionary<string, ReadOnlyMemory<Token>> _vars;
 		private readonly StringBuilder                             _sb;
 		private          int                                       _size;
+		private          bool                                      _is_be;
 		private          Encoding                                  _enc;
 
 		public bool                                      IsDisposed   => _disposed;
@@ -52,6 +53,7 @@ namespace PortableGranuleAssembler
 			_vars     = vars   ?? [];
 			_sb       = new();
 			_size     = 1;
+			_is_be    = false;
 			_enc      = _utf8;
 
 			this.AddInstruction(new SetInstruction    ());
@@ -108,6 +110,27 @@ namespace PortableGranuleAssembler
 			=> this.SetDataSize(8, token);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public virtual bool IsBigEndian() => _is_be;
+
+		public virtual void SetToLittleEndian(Token token)
+		{
+			ObjectDisposedException.ThrowIf    (_disposed, this);
+			ArgumentNullException  .ThrowIfNull(token          );
+
+			_is_be = false;
+			this.LogInfo(token, $"The data order is set to little-endian.");
+		}
+
+		public virtual void SetToBigEndian(Token token)
+		{
+			ObjectDisposedException.ThrowIf    (_disposed, this);
+			ArgumentNullException  .ThrowIfNull(token          );
+
+			_is_be = true;
+			this.LogInfo(token, $"The data order is set to big-endian.");
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public virtual Encoding GetTextEncoding() => _enc;
 
 		protected virtual void SetTextEncoding(Encoding enc, Token token, string? encName = null)
@@ -148,6 +171,7 @@ namespace PortableGranuleAssembler
 			case IntegerToken it:
 				ulong value = it.Value;
 				int   size  = this.GetDataSize();
+				bool  isbe  = this.IsBigEndian();
 
 				switch (size) {
 				case 1:
@@ -163,8 +187,19 @@ namespace PortableGranuleAssembler
 				case 2:
 					ushort v2 = unchecked((ushort)(value));
 
-					_writer.Write(v2);
-					this.LogOut(it, $"{v2:X4} = {v2}");
+					if (isbe) {
+						byte[] buf = BitConverter.GetBytes(v2);
+
+						if (BitConverter.IsLittleEndian) {
+							buf.Reverse();
+						}
+
+						_writer.Write(buf);
+						this.LogOut(it, $"{v2:X4} = {v2} (BE)");
+					} else {
+						_writer.Write(v2);
+						this.LogOut(it, $"{v2:X4} = {v2} (LE)");
+					}
 
 					if (value > ushort.MaxValue) {
 						this.LogWarn(it, $"The original value \'{value:X16} = {value}\' is too large for 2 bytes.");
@@ -172,17 +207,39 @@ namespace PortableGranuleAssembler
 					break;
 				case 4:
 					uint v4 = unchecked((uint)(value));
+					
+					if (isbe) {
+						byte[] buf = BitConverter.GetBytes(v4);
 
-					_writer.Write(v4);
-					this.LogOut(it, $"{v4:X8} = {v4}");
+						if (BitConverter.IsLittleEndian) {
+							buf.Reverse();
+						}
+
+						_writer.Write(buf);
+						this.LogOut(it, $"{v4:X8} = {v4} (BE)");
+					} else {
+						_writer.Write(v4);
+						this.LogOut(it, $"{v4:X8} = {v4} (LE)");
+					}
 
 					if (value > uint.MaxValue) {
 						this.LogWarn(it, $"The original value \'{value:X16} = {value}\' is too large for 4 bytes.");
 					}
 					break;
 				case 8:
-					_writer.Write(value);
-					this.LogOut(it, $"{value:X16} = {value}");
+					if (isbe) {
+						byte[] buf = BitConverter.GetBytes(value);
+
+						if (BitConverter.IsLittleEndian) {
+							buf.Reverse();
+						}
+
+						_writer.Write(buf);
+						this.LogOut(it, $"{value:X16} = {value} (BE)");
+					} else {
+						_writer.Write(value);
+						this.LogOut(it, $"{value:X16} = {value} (LE)");
+					}
 					break;
 				default:
 					this.LogInternalError(it, $"The specified byte size \'{size}\' is invalid.");

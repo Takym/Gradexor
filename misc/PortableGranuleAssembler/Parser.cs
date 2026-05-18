@@ -97,6 +97,12 @@ namespace PortableGranuleAssembler
 						case "dq" or "qword" or "long" or "b8" or "i64":
 							em.SetDataSizeToQWord(nt);
 							break;
+						case "le":
+							em.SetToLittleEndian(nt);
+							break;
+						case "be":
+							em.SetToBigEndian(nt);
+							break;
 						case "utf8":
 							em.SetTextEncodingToUTF8(nt);
 							break;
