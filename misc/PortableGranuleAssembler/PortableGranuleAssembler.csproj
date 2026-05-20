@@ -35,6 +35,10 @@
 	<ItemGroup>
 		<Compile Remove="**/*.old.cs" />
 		<None Include="**/*.old.cs" />
+		<Content Include="poga.cmd">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
 		<Content Include="**/*.poga" Exclude="bin/**/*;obj/**/*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

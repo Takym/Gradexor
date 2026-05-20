@@ -271,6 +271,13 @@ namespace PortableGranuleAssembler
 			this.LogOut(token, $"The buffer data: {this.FromBinaryToString(buf)}");
 		}
 
+		public virtual void LogStarted()
+		{
+			ObjectDisposedException.ThrowIf(_disposed, this);
+
+			_logger.WriteLine("==== The portable granule assembler (POGA) is started. ({0:yyyy/MM/dd HH:mm:ss.fffffffK}) ====", DateTime.Now);
+		}
+
 		public virtual void Log(Token token, string level, FormattableString msg)
 		{
 			ObjectDisposedException.ThrowIf           (_disposed, this);

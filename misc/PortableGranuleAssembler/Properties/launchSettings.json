@@ -1,0 +1,12 @@
+{
+	"profiles": {
+		"Test Mode": {
+			"commandName": "Project",
+			"commandLineArgs": "test"
+		},
+		"REPL Mode": {
+			"commandName": "Project",
+			"commandLineArgs": "repl"
+		}
+	}
+}

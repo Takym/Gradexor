@@ -57,9 +57,9 @@ namespace PortableGranuleAssembler
 			}, out string? src)) {
 				src.Tokenize(fname).ParseAndEmit(em);
 				return true;
+			} else {
+				return false;
 			}
-
-			return false;
 		}
 
 		public static void ParseAndEmit(this IEnumerable<Token> tokens, Emitter em)
