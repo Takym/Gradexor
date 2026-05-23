@@ -78,5 +78,11 @@ STDENV # 標準環境を読み込みます。これは「INCL"StandardEnvironmen
 SET NAME1 [SET NAME2 [SET NAME3 [SET NAME4 DW 123, 456\\\\\\\;]\\\;]\;]; # SET 命令には、エスケープ機能が備わっており、入れ子にできます。
 NAME1 NAME2 NAME3 NAME4
 
+SET NAME5 {SET NAME6 {SET NAME7 {SET NAME8 DW 123, 456;};};}; # 波括弧で書くと入れ子を簡潔にできます。
+NAME5 NAME6 NAME7 NAME8
+
+SET NAME9 \{; # 波括弧をエスケープすると、入れ子として機能しません。
+NAME9
+
 DB REP 4 15;            # 繰り返し命令です。SET 命令と同様に、末尾には必ずセミコロン（;）が必要です。
 REP 4 [REP 4 15 30 \;]; # こちらも入れ子にできます。

@@ -80,6 +80,9 @@ namespace PortableGranuleAssembler
 					case EscapeToken et:
 						em.LogWarn(et, $"An excess escape appeared.");
 						break;
+					case BlockIndicatorToken bit:
+						em.LogWarn(bit, $"An excess block indicator \'{(bit.IsBegin ? '{' : '}')}\' appeared.");
+						break;
 					case NameToken nt:
 						string instn = nt.Name;
 						string instl = instn.ToLowerInvariant();

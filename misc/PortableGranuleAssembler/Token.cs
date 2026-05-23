@@ -25,6 +25,14 @@ namespace PortableGranuleAssembler
 		public override string DisplayText => "escape";
 	}
 
+	public sealed record class BlockIndicatorToken : Token
+	{
+		public required bool IsBegin { get; init; }
+		public          bool IsEnd   => !this.IsBegin;
+
+		public override string DisplayText => $"block_indicator: \'{(this.IsBegin ? '{' : '}')}\'";
+	}
+
 	public sealed record class NameToken : Token
 	{
 		public required string Name { get; init; }

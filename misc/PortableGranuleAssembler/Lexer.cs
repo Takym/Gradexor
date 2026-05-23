@@ -61,6 +61,16 @@ namespace PortableGranuleAssembler
 						Row = row, Column = col++, FileName = fname
 					};
 					break;
+				case '{':
+					yield return new BlockIndicatorToken() {
+						Row = row, Column = col++, FileName = fname, IsBegin = true
+					};
+					break;
+				case '}':
+					yield return new BlockIndicatorToken() {
+						Row = row, Column = col++, FileName = fname, IsBegin = false
+					};
+					break;
 				case (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') or '_' or '@':
 					int col2 = col;
 

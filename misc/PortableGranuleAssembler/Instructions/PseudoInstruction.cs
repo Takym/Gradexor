@@ -40,6 +40,7 @@ namespace PortableGranuleAssembler.Instructions
 	{
 		protected List<Token> TokenList           { get;      }
 		protected bool        DoesEscapeNextToken { get; set; }
+		protected int         BlockDepth          { get; set; }
 
 		protected CompoundInstruction()
 		{
@@ -50,6 +51,7 @@ namespace PortableGranuleAssembler.Instructions
 		{
 			this.TokenList.Clear();
 			this.DoesEscapeNextToken = false;
+			this.BlockDepth          = 0;
 
 			this.InitializeCore(nt, em, name);
 
@@ -68,7 +70,7 @@ namespace PortableGranuleAssembler.Instructions
 				em.LogInfo(token, $"* [{this.TokenList.Count}] = {token.DisplayText}; The next token will be unescaped.");
 
 				this.TokenList.Add(token);
-			} else if (token is SeparatorToken) {
+			} else if (token is SeparatorToken && this.BlockDepth <= 0) {
 				this.Invoke(token, em);
 
 				return false;
@@ -76,6 +78,32 @@ namespace PortableGranuleAssembler.Instructions
 				this.DoesEscapeNextToken = true;
 
 				em.LogInfo(token, $"The next token will be escaped.");
+			} else if (token is BlockIndicatorToken bit) {
+				if (bit.IsBegin) {
+					++this.BlockDepth;
+
+					em.LogInfo(bit, $"The block began. The current depth: {this.BlockDepth}");
+
+					if (this.BlockDepth >= 2) {
+						em.LogInfo(token, $"* [{this.TokenList.Count}] = {token.DisplayText}; This block indicator is added for the child block.");
+
+						this.TokenList.Add(token);
+					}
+				} else {
+					--this.BlockDepth;
+
+					em.LogInfo(bit, $"The block ended. The current depth: {this.BlockDepth}");
+
+					if (this.BlockDepth < 0) {
+						this.BlockDepth = 0;
+
+						em.LogError(bit, $"The block depth should not be negative. It has been fixed to zero.");
+					} else if (this.BlockDepth >= 1) {
+						em.LogInfo(token, $"* [{this.TokenList.Count}] = {token.DisplayText}; This block indicator is added for the child block.");
+
+						this.TokenList.Add(token);
+					}
+				}
 			} else {
 				em.LogInfo(token, $"* [{this.TokenList.Count}] = {token.DisplayText}");
 
