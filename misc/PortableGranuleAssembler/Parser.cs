@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using PortableGranuleAssembler.Instructions;
+using PortableGranuleAssembler.Labels;
 
 namespace PortableGranuleAssembler
 {
@@ -105,6 +106,15 @@ namespace PortableGranuleAssembler
 							break;
 						case "be":
 							em.SetToBigEndian(nt);
+							break;
+						case "abs" or "absolute":
+							em.SetLabelDereferenceMode(LabelDereferenceModes.Absolute, nt);
+							break;
+						case "rel" or "relative" or "relc2l" or "relative_from_cursor_to_label":
+							em.SetLabelDereferenceMode(LabelDereferenceModes.RelativeFromCursorToLabel, nt);
+							break;
+						case "rell2c" or "relative_from_label_to_cursor":
+							em.SetLabelDereferenceMode(LabelDereferenceModes.RelativeFromLabelToCursor, nt);
 							break;
 						case "utf8":
 							em.SetTextEncodingToUTF8(nt);

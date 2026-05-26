@@ -34,6 +34,7 @@ namespace PortableGranuleAssembler
 		private readonly StringBuilder                             _sb;
 		private          int                                       _size;
 		private          bool                                      _is_be;
+		private          ILabelDereferenceMode                     _ldm;
 		private          Encoding                                  _enc;
 
 		public bool                                      IsDisposed   => _disposed;
@@ -61,6 +62,7 @@ namespace PortableGranuleAssembler
 			_sb       = new();
 			_size     = 1;
 			_is_be    = false;
+			_ldm      = LabelDereferenceModes.Absolute;
 			_enc      = _utf8;
 
 			this.AddInstruction(new SetInstruction    ());
@@ -89,21 +91,23 @@ namespace PortableGranuleAssembler
 			ObjectDisposedException.ThrowIf    (_disposed, this);
 			ArgumentNullException  .ThrowIfNull(label          );
 
-			_lbls[label.Name] = label;
+			_lbls[label.Name.ToLowerInvariant()] = label;
 
 			var resolveds = new List<UnresolvedLabelDereference>();
 
 			int count = _ulds.Count;
 			for (int i = 0; i < count; ++i) {
 				var uld = _ulds[i];
-				if (uld.Name == label.Name) {
+				if (uld.Name.Equals(label.Name, StringComparison.OrdinalIgnoreCase)) {
 					long posBack  = _stream.Position;
+					var  ldmBack  = this.GetLabelDereferenceMode();
 					int  sizeBack = this.GetDataSize();
 					bool isbeBack = this.IsBigEndian();
 
 					_stream.Position = uld.Position;
 
-					this.SetDataSize(uld.DataSize, uld.Token);
+					this.SetLabelDereferenceMode(uld.LabelDereferenceMode, uld.Token);
+					this.SetDataSize            (uld.DataSize,             uld.Token);
 
 					if (uld.IsBigEndian) {
 						this.SetToBigEndian(uld.Token);
@@ -114,8 +118,9 @@ namespace PortableGranuleAssembler
 					label.Emit(_writer, this, uld.Token);
 
 					_stream.Position = posBack;
-
-					this.SetDataSize(sizeBack, uld.Token);
+					
+					this.SetLabelDereferenceMode(ldmBack,  uld.Token);
+					this.SetDataSize            (sizeBack, uld.Token);
 
 					if (isbeBack) {
 						this.SetToBigEndian(uld.Token);
@@ -188,6 +193,19 @@ namespace PortableGranuleAssembler
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public virtual ILabelDereferenceMode GetLabelDereferenceMode() => _ldm;
+
+		public virtual void SetLabelDereferenceMode(ILabelDereferenceMode ldm, Token token)
+		{
+			ObjectDisposedException.ThrowIf    (_disposed, this);
+			ArgumentNullException  .ThrowIfNull(ldm            );
+			ArgumentNullException  .ThrowIfNull(token          );
+
+			_ldm = ldm;
+			this.LogInfo(token, $"The label dereference mode is set to {ldm.DisplayName}.");
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public virtual Encoding GetTextEncoding() => _enc;
 
 		protected virtual void SetTextEncoding(Encoding enc, Token token, string? encName = null)
@@ -237,15 +255,16 @@ namespace PortableGranuleAssembler
 				this.LogInfo(ldt, $"A new label (\'{ldt.Name}\') address: 0x{pos:X16} = {pos}");
 				break;
 			case LabelDereferenceToken ldt:
-				if (_lbls.TryGetValue(ldt.Name, out var lbl)) {
+				if (_lbls.TryGetValue(ldt.Name.ToLowerInvariant(), out var lbl)) {
 					lbl.Emit(_writer, this, ldt);
 				} else {
 					var uld = new UnresolvedLabelDereference() {
-						Name        = ldt.Name,
-						Position    = _stream.Position,
-						Token       = ldt,
-						DataSize    = this.GetDataSize(),
-						IsBigEndian = this.IsBigEndian()
+						Name                 = ldt.Name,
+						Position             = _stream.Position,
+						Token                = ldt,
+						LabelDereferenceMode = this.GetLabelDereferenceMode(),
+						DataSize             = this.GetDataSize(),
+						IsBigEndian          = this.IsBigEndian()
 					};
 
 					Span<byte> buf = stackalloc byte[uld.DataSize];
@@ -459,11 +478,12 @@ namespace PortableGranuleAssembler
 
 		private sealed record class UnresolvedLabelDereference
 		{
-			public required string                Name        { get; init; }
-			public required long                  Position    { get; init; }
-			public required LabelDereferenceToken Token       { get; init; }
-			public required int                   DataSize    { get; init; }
-			public required bool                  IsBigEndian { get; init; }
+			public required string                Name                 { get; init; }
+			public required long                  Position             { get; init; }
+			public required LabelDereferenceToken Token                { get; init; }
+			public required ILabelDereferenceMode LabelDereferenceMode { get; init; }
+			public required int                   DataSize             { get; init; }
+			public required bool                  IsBigEndian          { get; init; }
 		}
 	}
 }

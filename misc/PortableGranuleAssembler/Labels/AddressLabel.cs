@@ -31,6 +31,8 @@ namespace PortableGranuleAssembler.Labels
 			int  size = em.GetDataSize();
 			bool isbe = em.IsBigEndian();
 
+			em.GetLabelDereferenceMode().Calculate(ref addr, pos);
+
 			switch (size) {
 			case 1:
 				sbyte v1 = unchecked((sbyte)(addr));
