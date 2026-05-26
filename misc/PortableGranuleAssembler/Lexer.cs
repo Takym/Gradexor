@@ -71,21 +71,24 @@ namespace PortableGranuleAssembler
 						Row = row, Column = col++, FileName = fname, IsBegin = false
 					};
 					break;
-				case (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') or '_' or '@':
+				case (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') or '_' or '@' or '!' or '?':
 					int col2 = col;
 
-					if (ch == '@') {
+					char chType = '@';
+					if (ch is '@' or '!' or '?') {
+						chType = ch;
+
 						ii = i + 1;
 						if (ii >= src.Length) {
 							yield return new UnexpectedToken() {
-								Row = row, Column = col, FileName = fname, Actual = ch
+								Row = row, Column = col, FileName = fname, Actual = chType
 							};
 							yield break;
 						}
 
 						if (src[ii] is not ((>= '0' and <= '9') or (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') or '_')) {
 							yield return new UnexpectedToken() {
-								Row = row, Column = col++, FileName = fname, Actual = '@'
+								Row = row, Column = col++, FileName = fname, Actual = chType
 							};
 							continue;
 						}
@@ -100,16 +103,29 @@ namespace PortableGranuleAssembler
 						++col;
 
 						if (++i >= src.Length) {
-							yield return new NameToken() {
-								Row = row, Column = col2, FileName = fname, Name = src[i0..i]
-							};
+							yield return Create();
 							yield break;
 						}
 					} while (src[i] is (>= '0' and <= '9') or (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') or '_');
 
-					yield return new NameToken() {
-						Row = row, Column = col2, FileName = fname, Name = src[i0..i]
-					};
+					yield return Create();
+
+					NameLikeToken Create()
+					{
+						string name = src[i0..i];
+
+						return chType switch {
+							'!' => new LabelDeclarationToken() {
+								Row = row, Column = col2, FileName = fname, Name = name
+							},
+							'?' => new LabelDereferenceToken() {
+								Row = row, Column = col2, FileName = fname, Name = name
+							},
+							_ => new NameToken() {
+								Row = row, Column = col2, FileName = fname, Name = name
+							}
+						};
+					}
 
 					--i;
 					break;

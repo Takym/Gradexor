@@ -11,6 +11,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using PortableGranuleAssembler.Instructions;
+using PortableGranuleAssembler.Labels;
 
 namespace PortableGranuleAssembler
 {
@@ -28,6 +29,8 @@ namespace PortableGranuleAssembler
 		private readonly TextWriter                                _logger;
 		private readonly Dictionary<string, PseudoInstruction    > _insts;
 		private readonly Dictionary<string, ReadOnlyMemory<Token>> _vars;
+		private readonly Dictionary<string, AddressLabel         > _lbls;
+		private readonly List<UnresolvedLabelDereference>          _ulds;
 		private readonly StringBuilder                             _sb;
 		private          int                                       _size;
 		private          bool                                      _is_be;
@@ -36,12 +39,14 @@ namespace PortableGranuleAssembler
 		public bool                                      IsDisposed   => _disposed;
 		public Dictionary<string, PseudoInstruction    > Instructions => _insts;
 		public Dictionary<string, ReadOnlyMemory<Token>> Variables    => _vars;
+		public Dictionary<string, AddressLabel         > Labels       => _lbls;
 
 		public Emitter(
 			Stream                                     stream,
 			TextWriter?                                logger = null,
 			Dictionary<string, PseudoInstruction    >? insts  = null,
-			Dictionary<string, ReadOnlyMemory<Token>>? vars   = null)
+			Dictionary<string, ReadOnlyMemory<Token>>? vars   = null,
+			Dictionary<string, AddressLabel         >? lbls   = null)
 		{
 			ArgumentNullException.ThrowIfNull(stream);
 
@@ -51,6 +56,8 @@ namespace PortableGranuleAssembler
 			_logger   = logger ?? Console.Out;
 			_insts    = insts  ?? [];
 			_vars     = vars   ?? [];
+			_lbls     = lbls   ?? [];
+			_ulds     =           [];
 			_sb       = new();
 			_size     = 1;
 			_is_be    = false;
@@ -69,10 +76,60 @@ namespace PortableGranuleAssembler
 
 		public void AddInstruction(PseudoInstruction inst)
 		{
-			ObjectDisposedException.ThrowIf(_disposed, this);
+			ObjectDisposedException.ThrowIf    (_disposed, this);
+			ArgumentNullException  .ThrowIfNull(inst           );
 
 			foreach (string name in inst.EnumerateNames()) {
 				_insts[name] = inst;
+			}
+		}
+
+		public void AddLabel(AddressLabel label)
+		{
+			ObjectDisposedException.ThrowIf    (_disposed, this);
+			ArgumentNullException  .ThrowIfNull(label          );
+
+			_lbls[label.Name] = label;
+
+			var resolveds = new List<UnresolvedLabelDereference>();
+
+			int count = _ulds.Count;
+			for (int i = 0; i < count; ++i) {
+				var uld = _ulds[i];
+				if (uld.Name == label.Name) {
+					long posBack  = _stream.Position;
+					int  sizeBack = this.GetDataSize();
+					bool isbeBack = this.IsBigEndian();
+
+					_stream.Position = uld.Position;
+
+					this.SetDataSize(uld.DataSize, uld.Token);
+
+					if (uld.IsBigEndian) {
+						this.SetToBigEndian(uld.Token);
+					} else {
+						this.SetToLittleEndian(uld.Token);
+					}
+
+					label.Emit(_writer, this, uld.Token);
+
+					_stream.Position = posBack;
+
+					this.SetDataSize(sizeBack, uld.Token);
+
+					if (isbeBack) {
+						this.SetToBigEndian(uld.Token);
+					} else {
+						this.SetToLittleEndian(uld.Token);
+					}
+
+					resolveds.Add(uld);
+				}
+			}
+
+			count = resolveds.Count;
+			for (int i = 0; i < count; ++i) {
+				_ulds.Remove(resolveds[i]);
 			}
 		}
 
@@ -168,6 +225,39 @@ namespace PortableGranuleAssembler
 			ObjectDisposedException.ThrowIf(_disposed, this);
 
 			switch (token) {
+			case LabelDeclarationToken ldt:
+				var clbl = new CustomLabel() {
+					Name    = ldt.Name,
+					Address = _stream.Position
+				};
+
+				this.AddLabel(clbl);
+
+				long pos = clbl.Address;
+				this.LogInfo(ldt, $"A new label (\'{ldt.Name}\') address: 0x{pos:X16} = {pos}");
+				break;
+			case LabelDereferenceToken ldt:
+				if (_lbls.TryGetValue(ldt.Name, out var lbl)) {
+					lbl.Emit(_writer, this, ldt);
+				} else {
+					var uld = new UnresolvedLabelDereference() {
+						Name        = ldt.Name,
+						Position    = _stream.Position,
+						Token       = ldt,
+						DataSize    = this.GetDataSize(),
+						IsBigEndian = this.IsBigEndian()
+					};
+
+					Span<byte> buf = stackalloc byte[uld.DataSize];
+					buf.Clear();
+
+					_writer.Write(buf);
+					_ulds.Add(uld);
+
+					pos = uld.Position;
+					this.LogInfo(ldt, $"The specified label \'{ldt.Name}\' has not been set. The output area has been zero cleared. The position: 0x{pos:X16} = {pos}");
+				}
+				break;
 			case IntegerToken it:
 				ulong value = it.Value;
 				int   size  = this.GetDataSize();
@@ -178,10 +268,10 @@ namespace PortableGranuleAssembler
 					byte v1 = unchecked((byte)(value));
 
 					_writer.Write(v1);
-					this.LogOut(it, $"{v1:X2} = {v1}");
+					this.LogOut(it, $"0x{v1:X2} = {v1}");
 
 					if (value > byte.MaxValue) {
-						this.LogWarn(it, $"The original value \'{value:X16} = {value}\' is too large for 1 byte.");
+						this.LogWarn(it, $"The original value \'0x{value:X16} = {value}\' is too large for 1 byte.");
 					}
 					break;
 				case 2:
@@ -195,14 +285,14 @@ namespace PortableGranuleAssembler
 						}
 
 						_writer.Write(buf);
-						this.LogOut(it, $"{v2:X4} = {v2} (BE)");
+						this.LogOut(it, $"0x{v2:X4} = {v2} (BE)");
 					} else {
 						_writer.Write(v2);
-						this.LogOut(it, $"{v2:X4} = {v2} (LE)");
+						this.LogOut(it, $"0x{v2:X4} = {v2} (LE)");
 					}
 
 					if (value > ushort.MaxValue) {
-						this.LogWarn(it, $"The original value \'{value:X16} = {value}\' is too large for 2 bytes.");
+						this.LogWarn(it, $"The original value \'0x{value:X16} = {value}\' is too large for 2 bytes.");
 					}
 					break;
 				case 4:
@@ -216,14 +306,14 @@ namespace PortableGranuleAssembler
 						}
 
 						_writer.Write(buf);
-						this.LogOut(it, $"{v4:X8} = {v4} (BE)");
+						this.LogOut(it, $"0x{v4:X8} = {v4} (BE)");
 					} else {
 						_writer.Write(v4);
-						this.LogOut(it, $"{v4:X8} = {v4} (LE)");
+						this.LogOut(it, $"0x{v4:X8} = {v4} (LE)");
 					}
 
 					if (value > uint.MaxValue) {
-						this.LogWarn(it, $"The original value \'{value:X16} = {value}\' is too large for 4 bytes.");
+						this.LogWarn(it, $"The original value \'0x{value:X16} = {value}\' is too large for 4 bytes.");
 					}
 					break;
 				case 8:
@@ -235,10 +325,10 @@ namespace PortableGranuleAssembler
 						}
 
 						_writer.Write(buf);
-						this.LogOut(it, $"{value:X16} = {value} (BE)");
+						this.LogOut(it, $"0x{value:X16} = {value} (BE)");
 					} else {
 						_writer.Write(value);
-						this.LogOut(it, $"{value:X16} = {value} (LE)");
+						this.LogOut(it, $"0x{value:X16} = {value} (LE)");
 					}
 					break;
 				default:
@@ -365,6 +455,15 @@ namespace PortableGranuleAssembler
 			_enc = null!;
 
 			_disposed = true;
+		}
+
+		private sealed record class UnresolvedLabelDereference
+		{
+			public required string                Name        { get; init; }
+			public required long                  Position    { get; init; }
+			public required LabelDereferenceToken Token       { get; init; }
+			public required int                   DataSize    { get; init; }
+			public required bool                  IsBigEndian { get; init; }
 		}
 	}
 }
